@@ -1,4 +1,4 @@
-.Pbar{
+.bar{
   height: 10px;
   width: 100%;
 
@@ -10,7 +10,7 @@
   z-index: 1000;
 }
 
-.Prond{
+.rond{
   height: 50px;
   width: 50px;
 
@@ -24,9 +24,9 @@
   margin: 0px;
 }
 
-.Plogo{
+.logo{
   width: 50px;
-  height: 50px;
+  height: auto;
   position: fixed;
   top: 25px;
   left: 30px;
