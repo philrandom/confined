@@ -1,18 +1,30 @@
-#head-title {
-	border-bottom-style: ridge;
+@font-face {
+    font-family: 'Georgia'; 
+    src: url('/assets/fonts/Georgia.ttf');
+}
 
+body {
+	font-family: 'Georgia';
+	margin-left: 20%;
+	width:50%;
+	min-width: 700px;
+	font-size: 21px; 
+	text-rendering: optimizeLegibility;
+}
+
+
+#head-title {
+	text-align : center;
+	border-bottom-style: ridge;
+	margin-bottom: 30px;
 }
 
 h1,h2 {
 	font-family: helvetica;
 }
 
-body {
-	font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
-	margin-left: 20%;
-	width:50%;
-	min-width: 700px;
-}
+
+
 
 .codeblock {
 	background-color: #1c1c1c;
