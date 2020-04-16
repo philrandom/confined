@@ -1,0 +1,15 @@
+#head-title {
+	border-bottom-style: ridge;
+
+}
+
+h1,h2 {
+	font-family: helvetica;
+}
+
+body {
+	font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
+	margin-left: 20%;
+	width:50%;
+	width-min: 600px;
+}
