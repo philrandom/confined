@@ -8,6 +8,7 @@
 ## lecture
 - add themes
 - extend/compact view (as Wikipedia mobile)
+- ` scroll-behavior: smooth;`
 
 # Features
 
