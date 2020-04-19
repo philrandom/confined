@@ -1,32 +1,6 @@
 <?php
-$myfile = fopen("test/newfile.txt", "w") or die("Unable to open file!");
-$txt = "John Doe\n";
-fwrite($myfile, $txt);
-$txt = "Jane Doe\n";
-fwrite($myfile, $txt);
-fclose($myfile);
-?>
+echo $_SERVER['PHP_SELF'];
 
-
-<?php
-$p = new Phar('test/my.phar', 0, 'my.phar');
-$p['myfile.txt'] = 'hi';
-$p['myfile2.txt'] = 'hi';
-foreach ($p as $file) {
-    var_dump($file->getFileName());
-    var_dump($file->isCompressed());
-    var_dump($file->isCompressed(Phar::BZ2));
-    var_dump($file->isCompressed(Phar::GZ));
-}
-$p->compressFiles(Phar::GZ);
-foreach ($p as $file) {
-    var_dump($file->getFileName());
-    var_dump($file->isCompressed());
-    var_dump($file->isCompressed(Phar::BZ2));
-    var_dump($file->isCompressed(Phar::GZ));
-}
-?>
-<?php
 try
 {
     $a = new PharData('test/archive.tar');

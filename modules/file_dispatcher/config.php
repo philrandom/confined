@@ -1,17 +1,19 @@
 <?php
 
+/*---		SQL 	---*/
+require_once '/db.php';
+
 /*---		$tree_structure		---
 example :
 /data/section/cours/chapter/file.md
-array( 'origine' => 'data' , 'section' => '?', 'cours' => '?', 'chapter' => '?', 'end' => '?'  );
+	array( 'data' , 'section', 'cours', 'chapter' );
 
-where '?' will represent the hash name of file.
 
 you can modify all the organization and change the names of indexing (as for example 'section').
-But you must always specify 'origine' at the beginning and 'end' for the file that you want reach.
-*/
-$tree_structure = 				array( 'origine' => 'data' , 'section' => '?', 'cours' => '?', 'chapter' => '?', 'end' => '?'  );
 
+*/
+$tree_structure = 				array( 'data' , 'section', 'cours', 'chapter' );
+$hard_base =							'/'; 			//hard location of $tree_structure['origine']
 $hash =										'md5';		//please use hash function with one argument for security avoiding CSRF exec. pleas use old hash algorithm
 /*---		versionning section 	---*/
 $max_version = 						5;				//max of last version awaylable immediatly
