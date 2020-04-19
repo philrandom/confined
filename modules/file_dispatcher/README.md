@@ -9,3 +9,30 @@ hierarchize of files by indexing them in db.
 ```
 
 DB will precise all the structure path
+
+```
+/section/cours/chapter/file
+------------------------------------
+/OS/linux/security/af98300	SELINUX
+/OS/linux/security/be36544	firewall
+/OS/linux/desktop/dea55321	gnome
+/OS/linux/desktop/2323cce		kde
+/OS/win_serv/web/95959614		IIS
+/OS/win_serv/web/634aaaff		fast_cgi
+```
+
+
+section	|	cours	| chapter		| key	|	end |
+--------|-------|-----------|-------|	---- |
+OS			|	linux	|	security	|	af98300 |	SELINUX |
+OS			|	linux	|	security	|	be36544 |	firewall |
+OS|linux|security|be36544|firewall
+OS|linux|desktop|dea55321|gnome
+OS|linux|desktop|2323cce|kde
+OS|win_serv|web|95959614|IIS
+OS|win_serv|web|634aaaff|fast_cgi
+
+
+key | id_author | actual_version | date_creation | id_last_contributor |
+----|---------|----------------|------|----|
+af98300 | 951 | 11 | 19/04/2020 | 456|
