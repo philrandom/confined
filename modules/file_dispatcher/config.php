@@ -1,19 +1,19 @@
 <?php
 
 /*---		SQL 	---*/
-require_once '/db.php';
+require('../../db.php');
 
 /*---		$tree_structure		---
 example :
 /data/section/cours/chapter/file.md
-	array( 'data' , 'section', 'cours', 'chapter' , end );
+	array( 'data' , 'section', 'cours', 'chapter'  );
 
 
 you can modify all the organization and change the names of indexing (as for example 'section').
 NOTE 'end' is prohibited but always must be at the end of this array.
 'key' id prohibited
 */
-$tree_structure = 				array( 'data' , 'section', 'cours', 'chapter', 'end');
+$tree_structure = 				array( 'data' , 'section', 'cours', 'chapter');
 $hard_base =							'/'; 			//hard location of $tree_structure['origine']
 $hash =										'md5';		//please use hash function with one argument for security avoiding CSRF exec. pleas use old hash algorithm
 /*---		versionning section 	---*/

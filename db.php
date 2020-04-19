@@ -6,42 +6,34 @@ class connection
 
     function __construct()
     {
-        $this->cnnx  = new PDO('mysql:dbname=confined;host=localhost', 'confined', 'confined0');
+      	$this->cnnx  = new PDO('mysql:dbname=confined;host=localhost', 'confined', 'confined0');
     }
 
-    function kill()
+   function kill()
     {
         $this->cnnx = null;
     }
 
-		function search_by_hash($h_code)
+		function search_by_hash($h_code,$tree_structure)
 		{
-			$sql = $this->cnnx->prepare("SELECT type , username FROM `USERS` WHERE email = :email AND password = :password ");
-			$sql->execute([':email' => $email, ':password' => md5($password)]);
+			//TODO verify type $h_code
+			$sql_text = "SELECT ";
+			for ($i=1; $i < sizeof($tree_structure) ; $i++) {
+				$sql_text = $sql_text." ".$tree_structure[$i];
+				if ( $i != sizeof($tree_structure) )
+				{
+					$sql_text = $sql_text.",";
+				}
+			}
+
+			$sql_text = " FROM $tree_structure[0] WHERE  key = :key";
+			echo $sql_text;
+			$sql = $this->cnnx->prepare($sql_text);
+			$sql->execute([':key'=>$h_code]);
 			$type = $sql->fetchAll();
-
-
 
 		}
 
-
-
-    function login($email, $password)
-    {
-        $sql = $this->cnnx->prepare("SELECT type , username FROM `USERS` WHERE email = :email AND password = :password ");
-        $sql->execute([':email' => $email, ':password' => md5($password)]);
-        $type = $sql->fetchAll();
-        echo "TYPES : " . $types;
-        if ($types == "") header('location: ../index.php?login_status=wrong');
-        foreach ($type as $types) {
-            //if($types['type']=="" && $types['username']=="")   header('location: ../index.php');
-            $_SESSION['type'] = $types['type'];
-            $_SESSION['username'] = $types['username'];
-        }
-        if (isset($_SESSION['type']) && isset($_SESSION['username'])) {
-            header('location: ../index.php');
-        }
-    }
 
 
 }

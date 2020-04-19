@@ -1,33 +1,29 @@
 <?php
-error_reporting(E_ALL);
-include './config.php';
+require('config.php');
 
-class Dispatcher
+class dispatcher
 {
 
 		protected $tree;
-		protected $h_code
+		protected $h_code;
 
-    function __construct($link, $type)
+    function __construct()
     {
-				if($type == 'path'){
-					$h_code = search_by_path($link);
+				echo "ok";
+			/*	if($type == 'path'){
+					$h_code = search_by_path($link,$tree_structure);
 				}
 				if($type == 'hashcode'){
-					$tree = search_by_hash($link);
-				}
-				if( $type != 'path' & $type != 'hashcode') return "[ERROR] in \$type parameter"
+					$this->$tree = search_by_hash($link,$tree_structure);
+				}*/
+				//if( $type != 'path' & $type != 'hashcode') return "[ERROR] in \$type parameter";
     }
 
+		function hello()
+		{
+				echo "hloo";
 
-
-
-
+		}
 
 }
 ?>
-
-<?php
-	$a = new Dispatcher('098f6bcd4621d373cade4e832627b4f6','hashcode');
-
- ?>
