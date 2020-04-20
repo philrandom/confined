@@ -26,10 +26,11 @@ class connection
 				}
 			}
 
-			$sql_text = " FROM $tree_structure[0] WHERE  key = :key";
-			echo $sql_text;
+			$sql_text = " FROM $tree_structure[0] WHERE  key =".$h_code;
+
 			$sql = $this->cnnx->prepare($sql_text);
-			$sql->execute([':key'=>$h_code]);
+			$sql->execute();
+			echo $sql_text;
 			$type = $sql->fetchAll();
 
 		}
