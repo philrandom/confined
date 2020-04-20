@@ -2,8 +2,13 @@
 class const_dispatcher
 {
 	/*---		SQL 	---*/
+	const type_sql =								'mysql';
+	const server =									'localhost';
+	const user_sql =								'confined';
+	const pass_sql =								'confined0';
+	const dbname =									'confined';
 	const tag_table = 							'tag';
-	const file_ref_table = 				'file_ref';
+	const file_ref_table = 					'file_ref';
 
 	/*---		BACKUP		---*/
 	const backup =									'/data'; 	//place to backup
