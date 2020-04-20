@@ -22,7 +22,7 @@ class db_dispatcher
 			foreach ($tab as $elem) {
 				$final[] = $elem['tag'];
 			}
-			echo "[ok] search_by_hash";
+			//echo "[ok] search_by_hash";
 			return $final;
 		}
 
@@ -62,44 +62,43 @@ class db_dispatcher
 		}
 		
 		function update_current_version($h_code,$v,$last_colab=1){
-			echo "sql update_current_version<br>";
+			//echo "sql update_current_version<br>";
 			$sql = $this->cnnx->prepare("UPDATE `" . const_dispatcher::file_ref_table . "` SET active=0 where h_code=:h_code");
 			$sql->execute([':h_code'=>$h_code]);
 			
 			
 			$sql = $this->cnnx->prepare("SELECT * from `" . const_dispatcher::file_ref_table . "` where v=:v and h_code=:h_code");
 			$sql->execute([':h_code'=>$h_code,':v'=>$v]);
-			print_r($sql->errorInfo());
-			print_r('for v='.$v.':'.$sql->fetchAll());
+			//print_r($sql->errorInfo());
+			//print_r('for v='.$v.':'.$sql->fetchAll());
 			if( sizeof($sql->fetchAll())==1 ){
 				$sql = $this->cnnx->prepare("UPDATE `" . const_dispatcher::file_ref_table . "` SET active=1 where v=:v and h_code=:h_code");
 				$sql->execute([':h_code'=>$h_code,':v'=>$v]);
-				print_r($sql->errorInfo());
+				//print_r($sql->errorInfo());
 			}
 			else {
 				//echo 'author#'.$this->get_author($h_code).'#';
 				$author = $this->get_author($h_code);
 				$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::file_ref_table . "` (`h_code`, `author`, `last_colab`,`v`,`date`,`active`) VALUES (:h_code, :author, :last_colab, :v , :date , 1)"); // where v = :v and h_code = :h_code");
 				$sql->execute([':h_code'=>$h_code, ':author' => $author, ':last_colab'=>$last_colab, ':v' => $v ,':date'=>time()]);
-				print_r($sql->errorInfo());
+				//print_r($sql->errorInfo());
 				//print_r($sql);
-				echo 'do an insert manualy plz';
 			}
 		}
 
 		function create_file($h_code,$author){
-			echo 'create_file';
+			//echo 'create_file';
 			$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::file_ref_table . "` (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (:h_code, :author, :author, 0, :time, 1)");
 			$sql->execute([':h_code' => $h_code , ':author' => $author, ':time' => time()  ]);
 			//print_r($sql->errorInfo());
 		}
 
 		function create_path($h_code, $tree){
-			echo 'create_path';
+			//echo 'create_path';
 			for ($i=0; $i < sizeof($tree) ; $i++) {
 				$sql = $this->cnnx->prepare("INSERT INTO  `tag` (`h_code`, `tag`, `weight`) VALUES (:h_code, :tag, :w)");
 				$sql->execute([':h_code' => $h_code , ':tag' => $tree[$i], ':w' => $i  ]);
-				print_r($sql->errorInfo());
+				//print_r($sql->errorInfo());
 			}
 		}
 

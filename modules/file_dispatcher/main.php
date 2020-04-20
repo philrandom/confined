@@ -43,7 +43,7 @@ class dispatcher
 					//echo "this is a path";
 					$this->tree = explode("/",$link);
 					unset($this->tree[sizeof($this->tree)-1]);
-					print_r($this->tree);
+					//print_r($this->tree);
 					$cnnx = new db_dispatcher();
 					$this->h_code = $cnnx->search_by_path($this->tree);
 					if( $this->h_code == 'NOT_FOUND' )
