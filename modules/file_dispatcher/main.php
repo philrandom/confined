@@ -43,6 +43,8 @@ class dispatcher
 					print_r($this->tree);
 					$cnnx = new db_dispatcher();
 					$this->h_code = $cnnx->search_by_path($this->tree);
+					if( $this->h_code == 'NOT_FOUND' )
+						$this->error[] = "[file_dispatcher:__construct():is_path()] $link NOT_FOUND";
 					echo $this->h_code;
 					$cnnx->kill();
 

@@ -43,8 +43,10 @@ class db_dispatcher
 			$sql = $this->cnnx->prepare($str);
 			$sql->execute();
 			$r = $sql->fetchAll();
-			if(sizeof($r) != 1) 	return 'NOT_FOUND';
-			else 					return($r[0]['h_code']);
+			if(sizeof($r) != 1)
+				return 'NOT_FOUND';
+			else 
+				return($r[0]['h_code']);
 		}
 
 		function create_file($h_code,$link,$author){
