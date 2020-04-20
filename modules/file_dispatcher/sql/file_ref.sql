@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 20, 2020 at 10:16 AM
+-- Generation Time: Apr 20, 2020 at 10:07 AM
 -- Server version: 10.4.12-MariaDB
 -- PHP Version: 7.4.5
 
@@ -27,14 +27,20 @@ SET time_zone = "+00:00";
 -- Table structure for table `tag`
 --
 
-CREATE TABLE `tag` (
+CREATE TABLE `file_ref` (
   `h_code` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tag` char(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `weight` int(11) NOT NULL,
+  `author` int(11) NOT NULL,
+  `last_colab` int(11) NOT NULL,
+  `v` int(11) DEFAULT NULL,
+  `date` int(11) NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(1) NOT NULL,
 
-  FOREIGN KEY (`h_code`) REFERENCES file_ref(`h_code`)
+  PRIMARY KEY (`h_code`),
+  FOREIGN KEY (`author`) REFERENCES user(`id`),
+  FOREIGN KEY (`last_colab`) REFERENCES user(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-COMMIT;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

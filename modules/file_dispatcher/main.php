@@ -1,42 +1,45 @@
 <?php
-require('config.php');
-
+require("config.php");
+require("sql/db_dispatcher.php");
 class dispatcher
 {
 
-		public $tree;
-		public $h_code;
+		protected $tree;
+		protected $h_code;
 
-    function __construct($link, $type)
+
+
+    function __construct($link)
     {
-				echo "ok";
-				/*if($type == 'path'){
-					$h_code = search_by_path($link,$tree_structure);
-				}*/
-				if($type == 'hashcode'){
-					if(!$this->is_hash($link))		return "[ERROR] not a hash";
-					$cnnx = new connection();
-					$this->$tree = $cnnx->search_by_hash($link,$tree_structure);
+				echo "[ok]construct<br>";
+
+				if($this->is_hash($link)){	//is a HASH
+					$this->h_code = $link;
+					echo $this->h_code." is hash";
+					echo "<br>connexion is init<br>";
+					$cnnx = new db_dispatcher();
+					$this->tree = $cnnx->search_by_hash($this->h_code);
+					print_r($this->tree);
 					$cnnx->kill();
+
 				}
-				if( $type != 'path' & $type != 'hashcode') return "[ERROR] in \$type parameter";
+				/*if($this->is_path($link)){
+					/*$cnnx = new db_dispatcher();
+					$this->$h_code = $cnnx->search_by_path($link,$tree_structure);
+					$cnnx->kill();*/
+				//}
+
+
+				//if( $type != 'path' & $type != 'hashcode') return "[ERROR] in \$type parameter";
     }
 
-		function hello()
-		{
-				echo "hloo";
 
-		}
 
 		function is_hash($possible_hash){
-			if(sizeof($hash("test"))!=sizeof($possible_hash))		return false;
-
-
+			$hash = const_dispatcher::hash;
+			return ( strlen($hash("test"))==preg_match_all('/[a-f0-9]/', $possible_hash) ) & ( strlen($hash("test"))==strlen($possible_hash) ) ;
 		}
 
 
 }
-
-echo(strlen($hash("test")));
-echo "<br>".$hash("test");
 ?>
