@@ -55,15 +55,19 @@ class db_dispatcher
 			return $sql->fetchAll()[0]['v'];
 		}
 
-		function create_file($h_code,$link,$author){
-			$sql = $this->cnnx->prepare("INSERT INTO `file_ref` (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (':h_code', ':author', ':author', '0', ':time', '1')");
+		function create_file($h_code,$author){
+			echo 'create_file';
+			$sql = $this->cnnx->prepare("INSERT INTO `file_ref` (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (:h_code, :author, :author, 0, :time, 1)");
 			$sql->execute([':h_code' => $h_code , ':author' => $author, ':time' => time()  ]);
+			//print_r($sql->errorInfo());
 		}
 
 		function create_path($h_code, $tree){
+			echo 'create_path';
 			for ($i=0; $i < sizeof($tree) ; $i++) {
-				$sql = $this->cnnx->prepare("INSERT INTO  `tag` (`h_code`, `tag`, `weight`) VALUES (':h_code', ':tag', ':w')");
+				$sql = $this->cnnx->prepare("INSERT INTO  `tag` (`h_code`, `tag`, `weight`) VALUES (:h_code, :tag, :w)");
 				$sql->execute([':h_code' => $h_code , ':tag' => $tree[$i], ':w' => $i  ]);
+				print_r($sql->errorInfo());
 			}
 		}
 

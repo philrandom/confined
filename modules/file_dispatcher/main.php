@@ -20,6 +20,7 @@ class dispatcher
 		*/
     function __construct($link,$right,$author=-1)
     {
+    		$this->right=$right;
 			if(preg_match_all('/[rcu]/',$right)!=strlen($right) & ( preg_match_all('/[ru]/',$right)!=0 ^ preg_match_all('/c/',$right)!=0 ))
 			{
 				$this->error[] = "[file_dispatcher:__construct()] $right isn't correct";
@@ -81,16 +82,15 @@ class dispatcher
 					//create file
 					$cnnx = new db_dispatcher();
 					$hash = const_dispatcher::hash;
-					$cnnx->create_file($hash($link.$author),$link,$author);
-					$this->$h_code = $cnnx->create_path($this->tree);
+					$this->h_code = $hash($link.$author);
+					$cnnx->create_file($this->h_code,$author);
+					$cnnx->create_path($this->h_code,$this->tree);
 					$cnnx->kill();
 				}else {
 					$this->error[] = "[file_dispatcher:__construct()] $link isn't path; specify path for creation mode";
 					return -1;
 				}
 			}
-
-
     }
 
 		function is_path($possible_path){
