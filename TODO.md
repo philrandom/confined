@@ -3,11 +3,11 @@
 ## file system
 - hash filename to avoid security CSRF weaknesses
 
-[x] connection with SQL sb
-[x] creation files
-[x] set specific version
-[ ] compression
-[ ] deletion
+- [x] connection with SQL sb
+- [x] creation files
+- [x] set specific version
+- [ ] compression
+- [ ] deletion
 
 ## lecture
 - add themes
