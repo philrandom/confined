@@ -49,15 +49,47 @@ class db_dispatcher
 				return($r[0]['h_code']);
 		}
 
+		function get_author($h_code){
+			$sql = $this->cnnx->prepare("SELECT author  FROM `" . const_dispatcher::file_ref_table . "` where h_code=:h_code ");
+			$sql->execute([':h_code'=>$h_code]);
+			return $sql->fetchAll()[0]['author'];
+		}
+
 		function get_version($h_code){
-			$sql = $this->cnnx->prepare("SELECT v FROM `" . const_dispatcher::file_ref_table . "` where active=1 ");
-			$sql->execute();
+			$sql = $this->cnnx->prepare("SELECT v FROM `" . const_dispatcher::file_ref_table . "` where active=1 and h_code=:h_code");
+			$sql->execute([':h_code'=>$h_code]);
 			return $sql->fetchAll()[0]['v'];
+		}
+		
+		function update_current_version($h_code,$v,$last_colab=1){
+			echo "sql update_current_version<br>";
+			$sql = $this->cnnx->prepare("UPDATE `" . const_dispatcher::file_ref_table . "` SET active=0 where h_code=:h_code");
+			$sql->execute([':h_code'=>$h_code]);
+			
+			
+			$sql = $this->cnnx->prepare("SELECT * from `" . const_dispatcher::file_ref_table . "` where v=:v and h_code=:h_code");
+			$sql->execute([':h_code'=>$h_code,':v'=>$v]);
+			print_r($sql->errorInfo());
+			print_r('for v='.$v.':'.$sql->fetchAll());
+			if( sizeof($sql->fetchAll())==1 ){
+				$sql = $this->cnnx->prepare("UPDATE `" . const_dispatcher::file_ref_table . "` SET active=1 where v=:v and h_code=:h_code");
+				$sql->execute([':h_code'=>$h_code,':v'=>$v]);
+				print_r($sql->errorInfo());
+			}
+			else {
+				//echo 'author#'.$this->get_author($h_code).'#';
+				$author = $this->get_author($h_code);
+				$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::file_ref_table . "` (`h_code`, `author`, `last_colab`,`v`,`date`,`active`) VALUES (:h_code, :author, :last_colab, :v , :date , 1)"); // where v = :v and h_code = :h_code");
+				$sql->execute([':h_code'=>$h_code, ':author' => $author, ':last_colab'=>$last_colab, ':v' => $v ,':date'=>time()]);
+				print_r($sql->errorInfo());
+				//print_r($sql);
+				echo 'do an insert manualy plz';
+			}
 		}
 
 		function create_file($h_code,$author){
 			echo 'create_file';
-			$sql = $this->cnnx->prepare("INSERT INTO `file_ref` (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (:h_code, :author, :author, 0, :time, 1)");
+			$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::file_ref_table . "` (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (:h_code, :author, :author, 0, :time, 1)");
 			$sql->execute([':h_code' => $h_code , ':author' => $author, ':time' => time()  ]);
 			//print_r($sql->errorInfo());
 		}

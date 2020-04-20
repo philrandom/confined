@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `file_ref` (
+  `idcommit` int(11) NOT NULL AUTO_INCREMENT,
   `h_code` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `author` int(11) NOT NULL,
   `last_colab` int(11) NOT NULL,
@@ -35,9 +36,9 @@ CREATE TABLE `file_ref` (
   `date` int(11) NOT NULL DEFAULT current_timestamp(),
   `active` tinyint(1) NOT NULL,
 
-  PRIMARY KEY (`h_code`),
-  FOREIGN KEY (`author`) REFERENCES user(`id`),
-  FOREIGN KEY (`last_colab`) REFERENCES user(`id`)
+  PRIMARY KEY (`idcommit`),
+  FOREIGN KEY (`author`) REFERENCES user(`iduser`),
+  FOREIGN KEY (`last_colab`) REFERENCES user(`iduser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

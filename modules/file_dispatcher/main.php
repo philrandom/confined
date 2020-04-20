@@ -123,8 +123,29 @@ class dispatcher
 			fwrite($fp,$data);
 			fclose($fp);
 		}
+		
 		function read_from_file(){
 			return stream_get_contents(fopen(const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v , "rb"));
+		}
+		
+		function new_version(){
+			$this->get_version();
+			$this->v++;
+			$this->set_version($this->v);
+		}
+		
+		function set_version($v){
+			$this->v=$v;
+			$cnnx = new db_dispatcher();
+			$cnnx->update_current_version($this->h_code,$this->v);
+			$cnnx->kill();
+		}
+		
+		function get_version(){
+			$cnnx = new db_dispatcher();
+			$this->v = $cnnx->get_version($this->h_code);
+			$cnnx->kill();
+			return $this->v;
 		}
 
 }
