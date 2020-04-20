@@ -26,21 +26,21 @@ class dispatcher
 				$this->error[] = "[file_dispatcher:__construct()] $right isn't correct";
 				return -1;
 			}
-				echo "[ok]construct<br>";
+				//echo "[ok]construct<br>";
 			if(preg_match_all('/[^c]/', $right)){
 				//--------READING or UPDATE
-				echo "reading...<br>";
+				//echo "reading...<br>";
 				if($this->is_hash($link)){	//is a HASH
-					echo "[ok] hash<br>";
+					//echo "[ok] hash<br>";
 					$this->h_code = $link;
 					$cnnx = new db_dispatcher();
 					$this->tree = $cnnx->search_by_hash($this->h_code);
-					print_r($this->tree);
+					//print_r($this->tree);
 					$this->v = $cnnx->get_version($this->h_code);
 					$cnnx->kill();
 
 				}else if($this->is_path($link)){
-					echo "this is a path";
+					//echo "this is a path";
 					$this->tree = explode("/",$link);
 					unset($this->tree[sizeof($this->tree)-1]);
 					print_r($this->tree);
@@ -48,7 +48,7 @@ class dispatcher
 					$this->h_code = $cnnx->search_by_path($this->tree);
 					if( $this->h_code == 'NOT_FOUND' )
 						$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND";
-					echo $this->h_code;
+					//echo $this->h_code;
 					$this->v = $cnnx->get_version($this->h_code);
 					$cnnx->kill();
 
@@ -57,11 +57,11 @@ class dispatcher
 					return -1;
 				}
 			} else if(preg_match_all('/[^ru]/', $right)!=0){
-				echo "<br>[construct] creation...";
+				//echo "<br>[construct] creation...";
 				//---------CREATION
 				if($this->is_path($link)){
 					//needed information are author date;
-					echo "<br>[construct creation] enter...<br>";
+					//echo "<br>[construct creation] enter...<br>";
 					
 					if( $author==-1 ) {
 						$this->error[] = "[file_dispatcher:__construct():is_path() creation] specify author";
@@ -71,7 +71,7 @@ class dispatcher
 					$cnnx = new db_dispatcher();
 					$this->tree = explode("/",$link);
 					unset($this->tree[sizeof($this->tree)-1]);
-					print_r($this->tree);
+					//print_r($this->tree);
 					
 					//verify is file exist
 					$this->h_code = $cnnx->search_by_path($this->tree);
@@ -80,7 +80,7 @@ class dispatcher
 						return -1;
 					}
 					$this->v = 0;
-					echo "[contruct creation] path is free";
+					//echo "[contruct creation] path is free";
 					//create file
 					$cnnx = new db_dispatcher();
 					$hash = const_dispatcher::hash;
@@ -88,9 +88,9 @@ class dispatcher
 					$cnnx->create_file($this->h_code,$author);
 					$cnnx->create_path($this->h_code,$this->tree);
 					$cnnx->kill();
-					echo const_dispatcher::backup.'/'.$this->h_code;
+					//echo const_dispatcher::backup.'/'.$this->h_code;
 					if(!mkdir(const_dispatcher::backup.'/'.$this->h_code, 0777, true))
-						echo 'error will writing on disk. <u>tips</u> verify right';
+						$this->error[] = 'error will writing on disk. <u>tips</u> verify right';
 					
 				}else {
 					$this->error[] = "[file_dispatcher:__construct()] $link isn't path; specify path for creation mode";
@@ -118,10 +118,13 @@ class dispatcher
 				$this->error[] = "[file_dispatcher:save_in_file] stream for ". $this->h_code ." doesn't have right for writing";
 				return -1;
 			}
-			echo const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v;
+			//echo const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v;
 			$fp = fopen(const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v,"wb");
-			echo fwrite($fp,$data);
+			fwrite($fp,$data);
 			fclose($fp);
+		}
+		function read_from_file(){
+			return stream_get_contents(fopen(const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v , "rb"));
 		}
 
 }
