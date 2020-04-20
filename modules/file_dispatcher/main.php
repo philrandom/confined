@@ -61,7 +61,8 @@ class dispatcher
 				//---------CREATION
 				if($this->is_path($link)){
 					//needed information are author date;
-					echo "<br>[construct creation] enter...";
+					echo "<br>[construct creation] enter...<br>";
+					
 					if( $author==-1 ) {
 						$this->error[] = "[file_dispatcher:__construct():is_path() creation] specify author";
 						return -1;
@@ -78,6 +79,7 @@ class dispatcher
 						$this->error[] = "[file_dispatcher:__construct():is_path() creation] $link allready EXIST";
 						return -1;
 					}
+					$this->v = 0;
 					echo "[contruct creation] path is free";
 					//create file
 					$cnnx = new db_dispatcher();
@@ -86,6 +88,10 @@ class dispatcher
 					$cnnx->create_file($this->h_code,$author);
 					$cnnx->create_path($this->h_code,$this->tree);
 					$cnnx->kill();
+					echo const_dispatcher::backup.'/'.$this->h_code;
+					if(!mkdir(const_dispatcher::backup.'/'.$this->h_code, 0777, true))
+						echo 'error will writing on disk. <u>tips</u> verify right';
+					
 				}else {
 					$this->error[] = "[file_dispatcher:__construct()] $link isn't path; specify path for creation mode";
 					return -1;
@@ -105,6 +111,17 @@ class dispatcher
 		function getError(){
 			print_r($this->error);
 			return sizeof($this->error);
+		}
+		
+		function save_in_file($data){
+			if( preg_match_all('/c|u/',$this->right) == 0 ){
+				$this->error[] = "[file_dispatcher:save_in_file] stream for ". $this->h_code ." doesn't have right for writing";
+				return -1;
+			}
+			echo const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v;
+			$fp = fopen(const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v,"wb");
+			echo fwrite($fp,$data);
+			fclose($fp);
 		}
 
 }
