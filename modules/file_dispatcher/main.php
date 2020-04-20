@@ -6,6 +6,7 @@ class dispatcher
 
 		protected $tree;
 		protected $h_code;
+		protected $v;
 		private $right;
 
 		private $error;
@@ -34,6 +35,7 @@ class dispatcher
 					$cnnx = new db_dispatcher();
 					$this->tree = $cnnx->search_by_hash($this->h_code);
 					print_r($this->tree);
+					$this->v = $cnnx->get_version($this->h_code);
 					$cnnx->kill();
 
 				}else if($this->is_path($link)){
@@ -46,30 +48,36 @@ class dispatcher
 					if( $this->h_code == 'NOT_FOUND' )
 						$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND";
 					echo $this->h_code;
+					$this->v = $cnnx->get_version($this->h_code);
 					$cnnx->kill();
 
 				}else {
 					$this->error[] = "[file_dispatcher:__construct()] $link isn't hash nor path";
 					return -1;
 				}
-			} else if(preg_match_all('/[^ru]/', $right)){
+			} else if(preg_match_all('/[^ru]/', $right)!=0){
+				echo "<br>[construct] creation...";
 				//---------CREATION
 				if($this->is_path($link)){
 					//needed information are author date;
+					echo "<br>[construct creation] enter...";
 					if( $author==-1 ) {
 						$this->error[] = "[file_dispatcher:__construct():is_path() creation] specify author";
 						return -1;
 					}
+					
 					$cnnx = new db_dispatcher();
 					$this->tree = explode("/",$link);
 					unset($this->tree[sizeof($this->tree)-1]);
 					print_r($this->tree);
+					
 					//verify is file exist
 					$this->h_code = $cnnx->search_by_path($this->tree);
 					if( $this->h_code != 'NOT_FOUND' ) {
 						$this->error[] = "[file_dispatcher:__construct():is_path() creation] $link allready EXIST";
 						return -1;
 					}
+					echo "[contruct creation] path is free";
 					//create file
 					$cnnx = new db_dispatcher();
 					$hash = const_dispatcher::hash;

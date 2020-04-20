@@ -49,6 +49,12 @@ class db_dispatcher
 				return($r[0]['h_code']);
 		}
 
+		function get_version($h_code){
+			$sql = $this->cnnx->prepare("SELECT v FROM `" . const_dispatcher::file_ref_table . "` where active=1 ");
+			$sql->execute();
+			return $sql->fetchAll()[0]['v'];
+		}
+
 		function create_file($h_code,$link,$author){
 			$sql = $this->cnnx->prepare("INSERT INTO `file_ref` (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (':h_code', ':author', ':author', '0', ':time', '1')");
 			$sql->execute([':h_code' => $h_code , ':author' => $author, ':time' => time()  ]);
