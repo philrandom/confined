@@ -130,8 +130,7 @@ class dispatcher
 		
 		function new_version(){
 			$this->get_version();
-			$this->v++;
-			$this->set_version($this->v);
+			$this->set_version($this->v+1);
 		}
 		
 		function set_version($v){
