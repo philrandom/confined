@@ -8,12 +8,12 @@ require('main.php');
 //echo "[creation]";
 $z = new dispatcher("C/memory/pointers/",'c',1);
 //$z = new dispatcher("C/memory/pointers/",'u');
-$z->save_in_file("v0");
+$z->save_in_file("v4");
 echo $z->read_from_file();
 
 $z = new dispatcher("C/memory/pointers/",'u',1);
 $z->new_version();
-$z->save_in_file("NEW");
+$z->save_in_file("# Pointers");
 echo $z->read_from_file();
 
 /*$z->new_version();

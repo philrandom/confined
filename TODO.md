@@ -2,8 +2,12 @@
 
 ## file system
 - hash filename to avoid security CSRF weaknesses
-- versionning : pre-previous; previous; actual;
-- connection with SQL sb
+
+[x] connection with SQL sb
+[x] creation files
+[x] set specific version
+[ ] compression
+[ ] deletion
 
 ## lecture
 - add themes
