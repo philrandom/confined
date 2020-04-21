@@ -17,3 +17,14 @@ Dashboard :
   - user progression
   - modification
   
+## installation
+
+for `apache` use `.htaccess` :
+```
+ErrorDocument 404 /404.php
+```
+
+or for `nginx`:
+```
+error_page  404  /404.php;
+```
