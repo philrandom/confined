@@ -21,6 +21,7 @@
 
 ## simple editor
 - clicking editor as in powerpoint
+- write in file by using the file system simply use : `document.getElementById('textbox_id').value`
 
 ## summary
 - add a summary for navigation
