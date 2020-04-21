@@ -13,6 +13,9 @@ class db_dispatcher
       $this->cnnx = null;
 		}
 
+/*--------------------------
+SECTION search for dispatcher:__construct
+--------------------------*/
 		function search_by_hash($h_code){
 			$sql = $this->cnnx->prepare("SELECT tag FROM ".const_dispatcher::tag_table." WHERE  h_code like :h_code order by weight asc");
 			$sql->execute([':h_code' => $h_code]);
@@ -27,11 +30,10 @@ class db_dispatcher
 		}
 
 		function search_by_path($tree){
-
-	/* example to search : C/network/socket/
-	SELECT * FROM (
-	SELECT count(h_code) C, h_code, tag, weight FROM `tag` where ( tag='C' and weight=0 ) or ( tag='network' and weight=1 ) or ( tag='socket' and weight=2 ) group by h_code
-    ) rep where C=3*/
+			/* example to search : C/network/socket/
+			SELECT * FROM (
+			SELECT count(h_code) C, h_code, tag, weight FROM `tag` where ( tag='C' and weight=0 ) or ( tag='network' and weight=1 ) or ( tag='socket' and weight=2 ) group by h_code
+			) rep where C=3*/
 
 			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
 			for($i=0 ; $i < sizeof($tree); $i++) {
@@ -49,6 +51,9 @@ class db_dispatcher
 				return($r[0]['h_code']);
 		}
 
+/*--------------------------
+SECTION versionnig for dispatcher:*_version
+--------------------------*/
 		function get_author($h_code){
 			$sql = $this->cnnx->prepare("SELECT author  FROM `" . const_dispatcher::file_ref_table . "` where h_code=:h_code ");
 			$sql->execute([':h_code'=>$h_code]);
@@ -85,6 +90,10 @@ class db_dispatcher
 				//print_r($sql);
 			}
 		}
+
+/*--------------------------
+SECTION creation for dispatcher:__construct
+--------------------------*/
 
 		function create_file($h_code,$author){
 			//echo 'create_file';
