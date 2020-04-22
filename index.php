@@ -18,7 +18,7 @@ require('./modules/file_dispatcher/main.php');?>
 
 	$url = explode("/",$_SERVER['REQUEST_URI']);
 	unset($url[sizeof($url)-1]);
-	echo $_SERVER['REQUEST_URI'];
+	
 	if( $url[1] == 'lecture' ) {
 		include('./views/lecture.php');
 	} 
