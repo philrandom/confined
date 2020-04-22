@@ -1,5 +1,5 @@
 <?php
-require("../etc/sql.php");
+//require("../etc/sql.php");
 class db_dispatcher
 {
 

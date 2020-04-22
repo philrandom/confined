@@ -1,6 +1,16 @@
 <?php
+require("./etc/file_dispatcher/config.php");
+require("./etc/sql.php");
+require("./modules/file_dispatcher/sql/db_dispatcher.php");
+require('./modules/file_dispatcher/main.php');?>
+<html>
+<head>
+	<link rel="stylesheet" href="./views/style/lecture.css">
+	<meta charset="UTF-8">
+</head>
 
-
+<?php
+	session_start();
     $top = file_get_contents('views/top.html');
     if( $_SESSION["stype"] == "eleve" )
       { $top = str_replace("#0984e3","#27ae60",$top); }
@@ -10,4 +20,11 @@
 
 	include 'views/homepage.php';
 
+	$url = explode("/",$_SERVER['REQUEST_URI']);
+	unset($url[sizeof($url)-1]);
+	echo $_SERVER['REQUEST_URI'];
+	if( $url[1] == 'lecture' ) {
+		include('./views/lecture.php');
+	} 
 ?>
+</html>
