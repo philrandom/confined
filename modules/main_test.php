@@ -20,7 +20,7 @@ $z->save_in_file("# Memory8 v3");
 $z->new_version();
 $z->save_in_file("# Memory8 vNEW");
 echo $z->read_from_file();
-
+$z->rm();
 /*$z->new_version();
 $z->save_in_file("v2");
 echo $z->read_from_file();*/

@@ -116,6 +116,16 @@ SECTION creation for dispatcher:__construct
 				//print_r($sql->errorInfo());
 			}
 		}
+		
+/*----------------------------
+SECTION others function linked to fs
+----------------------------*/
+		function rm($h_code){
+			$sql = $this->cnnx->prepare("DELETE FROM `" . const_dispatcher::tag_table . "` where h_code = :h_code ");
+			$sql->execute([':h_code' => $h_code ]);
+			$sql = $this->cnnx->prepare("DELETE FROM `" . const_dispatcher::file_ref_table . "` where h_code = :h_code ");
+			$sql->execute([':h_code' => $h_code ]);
+		}
 
 }
 ?>

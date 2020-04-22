@@ -131,6 +131,20 @@ class dispatcher
 			return stream_get_contents(fopen($this->backup . '/' . $this->h_code . '/' . $this->v , "rb"));
 		}
 		
+		function rm(){
+			$cnnx = new db_dispatcher();
+			$cnnx->rm($this->h_code);
+			$cnnx->kill();
+
+			$files = scandir($this->backup . '/' . $this->h_code.'/');
+		 	unset($files[0]);unset($files[1]);
+		
+			foreach($files as $file) 
+				unlink($this->backup . '/' . $this->h_code.'/'.$file);
+			rmdir($this->backup . '/' . $this->h_code);
+		}
+		
+		
 		function new_version(){
 			$this->get_last_version();
 			$this->set_version($this->v+1);
