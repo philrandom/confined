@@ -1,4 +1,5 @@
 <?php
+require("../etc/sql.php");
 class db_dispatcher
 {
 
@@ -6,7 +7,7 @@ class db_dispatcher
 
 
 		function __construct(){
-		  $this->cnnx  = new PDO(const_dispatcher::type_sql.':dbname='.const_dispatcher::dbname.';host='.const_dispatcher::server, const_dispatcher::user_sql, const_dispatcher::pass_sql);
+		  $this->cnnx  = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
 		}
 
 		function kill(){

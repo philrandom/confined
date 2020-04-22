@@ -1,5 +1,5 @@
 <?php
-require("config.php");
+require("../etc/file_dispatcher/config.php");
 require("sql/db_dispatcher.php");
 class dispatcher
 {
