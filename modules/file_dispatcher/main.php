@@ -50,6 +50,10 @@ class dispatcher
 					$this->h_code = $cnnx->search_by_path($this->tree);
 					if( $this->h_code == 'NOT_FOUND' )
 						$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND";
+					else if( $this->tree != $cnnx->search_by_hash($this->h_code) ) {
+						$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND";
+						$this->h_code = 'NOT_FOUND';
+					}
 					//echo $this->h_code;
 					$this->v = $cnnx->get_version($this->h_code);
 					$cnnx->kill();
