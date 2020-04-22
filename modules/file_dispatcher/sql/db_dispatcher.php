@@ -66,6 +66,12 @@ SECTION versionnig for dispatcher:*_version
 			return $sql->fetchAll()[0]['v'];
 		}
 		
+		function get_last_version($h_code){
+			$sql = $this->cnnx->prepare("SELECT v FROM `" . const_dispatcher::file_ref_table . "` where h_code=:h_code order by v desc limit 1");
+			$sql->execute([':h_code'=>$h_code]);
+			return $sql->fetchAll()[0]['v'];
+		}
+		
 		function update_current_version($h_code,$v,$last_colab=1){
 			//echo "sql update_current_version<br>";
 			$sql = $this->cnnx->prepare("UPDATE `" . const_dispatcher::file_ref_table . "` SET active=0 where h_code=:h_code");

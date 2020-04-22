@@ -21,7 +21,7 @@ class const_dispatcher
 	/*---		compression		---
 	Phar::GZ 		// .tar.gz
 	Phar::BZ2 	// .tar.bz2  - note : you must enable it https://www.php.net/manual/en/bzip2.installation.php
-	Phar::NONE 	// .tar
+	Phar::NONE 	// do not compress
 	*/
 	const compression_type =	Phar::NONE;		//to compress old versions
 }

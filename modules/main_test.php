@@ -7,15 +7,18 @@ require('file_dispatcher/main.php');
 //print_r("is_hash=" . $z->is_hash("098f6bcd4621d373cade4e832627b4f6") . ".<br>");
 //echo "[creation]";
 echo getcwd();
-$z = new dispatcher("C/memory/memory15/",'c',1);
+$z = new dispatcher("C/memory/memory23/",'c',1);
+echo $z->get_h_code();
 //$z = new dispatcher("C/memory/pointers/",'u');
 //$z->save_in_file("v4");
 //echo $z->read_from_file();
 
-$z = new dispatcher("C/memory/memory15/",'u',1);
+$z = new dispatcher("C/memory/memory23/",'u',1);
 $z->save_in_file("# INIT");
+$z->set_version(3);
+$z->save_in_file("# Memory8 v3");
 $z->new_version();
-$z->save_in_file("# Memory8");
+$z->save_in_file("# Memory8 vNEW");
 echo $z->read_from_file();
 
 /*$z->new_version();
