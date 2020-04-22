@@ -23,8 +23,20 @@ h1,h2 {
 	font-family: helvetica;
 }
 
+code {
+	font-size: 17px;
+	background-color: grey;
+	padding-left:5px;
+	padding-right:5px;
+}
 
-
+table {
+	border-collapse: collapse;
+	border: 1px hidden black;
+}
+table td {
+  border: 1px solid black;
+}
 
 .codeblock {
 	background-color: #1c1c1c;
