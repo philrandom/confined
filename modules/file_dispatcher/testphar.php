@@ -1,14 +1,12 @@
 <?php
-echo $_SERVER['PHP_SELF'];
-
 try
 {
-	echo getcwd();
     $a = new PharData('../../data/5ab73bff9a44d3e7345271f2cfefd0bf/archive.tar');
 
     // ADD FILES TO archive.tar FILE
-    $a->addFile('../../data/5ab73bff9a44d3e7345271f2cfefd0bf/0');
-    $a->addFile('../../data/5ab73bff9a44d3e7345271f2cfefd0bf/1');
+    //$a->addFile('data/5ab73bff9a44d3e7345271f2cfefd0bf/0');
+    echo $a['../../data/5ab73bff9a44d3e7345271f2cfefd0bf/0']->getContent();
+    $a->addFile('./1');
 
     // COMPRESS archive.tar FILE. COMPRESSED FILE WILL BE archive.tar.gz
     $a->compress(Phar::GZ);
@@ -21,15 +19,3 @@ catch (Exception $e)
     echo "Exception : " . $e;
 }
 ?>
-
-<?php
-
-// decompress from gz
-$p = new PharData('test/oh.tar.gz');
-$p->decompress(); // creates /path/to/my.tar
-
-// unarchive from the tar
-$phar = new PharData('test/oh.tar');
-$phar->extractTo('test/');
-
- ?>

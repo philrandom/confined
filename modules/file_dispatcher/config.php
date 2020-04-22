@@ -11,7 +11,8 @@ class const_dispatcher
 	const file_ref_table = 					'file_ref';
 
 	/*---		BACKUP		---*/
-	const backup =									'../../data'; 	//place to backup
+	const backup =									'../data'; 	//place to backup
+	const backup_not_stream =						'/data'; 	//place to backup
 	const hash =										'md5';		//please use hash function with one argument for security avoiding CSRF exec. pleas use old hash algorithm
 	/*---		versionning section 	---*/
 	const max_version = 						5;				//max of last version available immediatly
@@ -22,6 +23,6 @@ class const_dispatcher
 	Phar::BZ2 	// .tar.bz2  - note : you must enable it https://www.php.net/manual/en/bzip2.installation.php
 	Phar::NONE 	// .tar
 	*/
-	const compression_type =	'Phar::GZ';		//to compress old versions
+	const compression_type =	Phar::NONE;		//to compress old versions
 }
  ?>

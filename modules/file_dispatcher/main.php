@@ -114,6 +114,7 @@ class dispatcher
 		}
 		
 		function save_in_file($data){
+			$this->get_version();
 			if( preg_match_all('/c|u/',$this->right) == 0 ){
 				$this->error[] = "[file_dispatcher:save_in_file] stream for ". $this->h_code ." doesn't have right for writing";
 				return -1;
@@ -134,10 +135,24 @@ class dispatcher
 		}
 		
 		function set_version($v){
+			echo 'set_version';
 			$this->v=$v;
 			$cnnx = new db_dispatcher();
 			$cnnx->update_current_version($this->h_code,$this->v);
 			$cnnx->kill();
+			if(const_dispatcher::rm_old_versions == 'no' & const_dispatcher::compression_type!=Phar::NONE){
+				if($this->v - const_dispatcher::max_version == 1 ){
+					$this->archive_compress();
+				}
+				if($this->v - const_dispatcher::max_version > 1) {
+					$this->archive_uncompress();
+					$this->archive_compress();
+				}
+			} else if(const_dispatcher::rm_old_versions == 'yes'){
+				for ($i = 0; $i <= $this->v - const_dispatcher::max_version ; $i++) {
+					unlink(const_dispatcher::backup . '/' . $this->h_code . '/' . $i);
+				}
+			}
 		}
 		
 		function get_version(){
@@ -147,5 +162,37 @@ class dispatcher
 			return $this->v;
 		}
 
+		function archive_compress(){
+			try{
+				$a = new PharData(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
+
+				// ADD FILES TO archive.tar FILE
+				for ($i = 0; $i <= $this->v - const_dispatcher::max_version ; $i++){
+					$a->addFile(const_dispatcher::backup . '/' . $this->h_code . '/' . $i,$i);
+					unlink(const_dispatcher::backup . '/' . $this->h_code . '/' . $i);
+				}
+				// COMPRESS archive.tar FILE. COMPRESSED FILE WILL BE archive.tar.gz
+				///$a->compress(const_dispatcher::compression_type);
+				$a->compress(const_dispatcher::compression_type);
+				// NOTE THAT BOTH FILES WILL EXISTS. SO IF YOU WANT YOU CAN UNLINK archive.tar
+				unlink(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
+			} catch (Exception $e)
+			{
+				echo "Exception : " . $e;
+			}
+		}
+		
+		function archive_uncompress(){
+			// decompress from gz
+			$p = new PharData(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar.gz');
+			$p->decompress(); // creates /path/to/my.tar
+			unlink(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar.gz');
+			// unarchive from the tar
+			$phar = new PharData(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
+			$phar->extractTo(const_dispatcher::backup . '/' . $this->h_code . '/');
+			
+			unlink(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
+		
+		}
 }
 ?>
