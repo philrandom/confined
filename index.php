@@ -4,10 +4,7 @@ require("./etc/sql.php");
 require("./modules/file_dispatcher/sql/db_dispatcher.php");
 require('./modules/file_dispatcher/main.php');?>
 <html>
-<head>
-	<link rel="stylesheet" href="./views/style/lecture.css">
-	<meta charset="UTF-8">
-</head>
+
 
 <?php
 	session_start();
@@ -18,7 +15,6 @@ require('./modules/file_dispatcher/main.php');?>
       { $top = str_replace("#0984e3","#d63031",$top); }
     echo $top;
 
-	include 'views/homepage.php';
 
 	$url = explode("/",$_SERVER['REQUEST_URI']);
 	unset($url[sizeof($url)-1]);
