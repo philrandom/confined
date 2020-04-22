@@ -7,6 +7,7 @@ class dispatcher
 		protected $tree;
 		protected $h_code;
 		protected $v;
+		protected $backup;
 		private $right;
 
 		private $error;
@@ -18,8 +19,9 @@ class dispatcher
 						u : update
 						c : create
 		*/
-    function __construct($link,$right,$author=-1)
+    function __construct($backup, $link,$right,$author=-1)
     {
+    		$this->backup=$backup;
     		$this->right=$right;
 			if(preg_match_all('/[rcu]/',$right)!=strlen($right) & ( preg_match_all('/[ru]/',$right)!=0 ^ preg_match_all('/c/',$right)!=0 ))
 			{
@@ -88,8 +90,8 @@ class dispatcher
 					$cnnx->create_file($this->h_code,$author);
 					$cnnx->create_path($this->h_code,$this->tree);
 					$cnnx->kill();
-					//echo const_dispatcher::backup.'/'.$this->h_code;
-					if(!mkdir(const_dispatcher::backup.'/'.$this->h_code, 0777, true))
+					//echo $this->backup.'/'.$this->h_code;
+					if(!mkdir($this->backup.'/'.$this->h_code, 0777, true))
 						$this->error[] = 'error will writing on disk. <u>tips</u> verify right';
 					
 				}else {
@@ -119,14 +121,14 @@ class dispatcher
 				$this->error[] = "[file_dispatcher:save_in_file] stream for ". $this->h_code ." doesn't have right for writing";
 				return -1;
 			}
-			//echo const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v;
-			$fp = fopen(const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v,"wb");
+			//echo $this->backup . '/' . $this->h_code . '/' . $this->v;
+			$fp = fopen($this->backup . '/' . $this->h_code . '/' . $this->v,"wb");
 			fwrite($fp,$data);
 			fclose($fp);
 		}
 		
 		function read_from_file(){
-			return stream_get_contents(fopen(const_dispatcher::backup . '/' . $this->h_code . '/' . $this->v , "rb"));
+			return stream_get_contents(fopen($this->backup . '/' . $this->h_code . '/' . $this->v , "rb"));
 		}
 		
 		function new_version(){
@@ -153,7 +155,7 @@ class dispatcher
 				}
 			} else if(const_dispatcher::rm_old_versions == 'yes'){
 				for ($i = 0; $i <= $this->v - const_dispatcher::max_version ; $i++) {
-					unlink(const_dispatcher::backup . '/' . $this->h_code . '/' . $i);
+					unlink($this->backup . '/' . $this->h_code . '/' . $i);
 				}
 			}
 		}
@@ -175,12 +177,12 @@ class dispatcher
 		function archive_compress(){
 			try{
 				echo '<br>[...]compress';
-				$a = new PharData(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
+				$a = new PharData($this->backup . '/' . $this->h_code . '/archive.tar');
 				echo '<br>construct';
 				// ADD FILES TO archive.tar FILE
 				for ($i = 0; $i <= $this->v - const_dispatcher::max_version ; $i++){
-					$a->addFile(const_dispatcher::backup . '/' . $this->h_code . '/' . $i,$i);
-					unlink(const_dispatcher::backup . '/' . $this->h_code . '/' . $i);
+					$a->addFile($this->backup . '/' . $this->h_code . '/' . $i,$i);
+					unlink($this->backup . '/' . $this->h_code . '/' . $i);
 					echo '<br>addfile'.$i;
 				}
 				// COMPRESS archive.tar FILE. COMPRESSED FILE WILL BE archive.tar.gz
@@ -188,7 +190,7 @@ class dispatcher
 				$a->compress(const_dispatcher::compression_type);
 				echo '<br>compressing';
 				// NOTE THAT BOTH FILES WILL EXISTS. SO IF YOU WANT YOU CAN UNLINK archive.tar
-				unlink(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
+				unlink($this->backup . '/' . $this->h_code . '/archive.tar');
 				echo '<br>unlink tar';
 				echo '<br>[OK]compress';
 			} catch (Exception $e)
@@ -201,14 +203,14 @@ class dispatcher
 		function archive_uncompress(){
 			echo '<br>[...]uncompress';
 			// decompress from gz
-			$p = new PharData(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar.gz');
+			$p = new PharData($this->backup . '/' . $this->h_code . '/archive.tar.gz');
 			$p->decompress(); // creates /path/to/my.tar
-			unlink(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar.gz');
+			unlink($this->backup . '/' . $this->h_code . '/archive.tar.gz');
 			// unarchive from the tar
-			$phar = new PharData(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
-			$phar->extractTo(const_dispatcher::backup . '/' . $this->h_code . '/');
+			$phar = new PharData($this->backup . '/' . $this->h_code . '/archive.tar');
+			$phar->extractTo($this->backup . '/' . $this->h_code . '/');
 			
-			unlink(const_dispatcher::backup . '/' . $this->h_code . '/archive.tar');
+			unlink($this->backup . '/' . $this->h_code . '/archive.tar');
 			echo '<br>[OK]uncompress';
 		}
 		
