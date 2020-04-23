@@ -12,6 +12,9 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+a {
+	color: black;
+}
 
 #head-title {
 	text-align : center;
