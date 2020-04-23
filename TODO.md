@@ -6,8 +6,8 @@
 - [x] connection with SQL sb
 - [x] creation files
 - [x] set specific version
+- [x] deletion
 - [ ] compression
-- [ ] deletion
 
 ## lecture
 - add themes

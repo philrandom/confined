@@ -27,13 +27,7 @@ require('./modules/file_dispatcher/main.php');?>
 		include('./views/tag.php');
 		include('./views/write.php');
 	} 
-	if( $url[1] == 'upload' ) {
-		echo $_POST['article'];
-		/*$z = new dispatcher("./data",str_replace("/write/","",$_SERVER['REQUEST_URI']),'u',1);
-		$z->new_version();
-		$z->save_in_file($_POST['article']);
-		echo $z->read_from_file();*/
-	}
+
 	
 ?>
 </html>
