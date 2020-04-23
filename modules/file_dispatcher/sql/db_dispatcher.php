@@ -51,6 +51,20 @@ SECTION search for dispatcher:__construct
 			else 
 				return($r[0]['h_code']);
 		}
+		
+		function summary($tree){
+			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
+			for($i=0 ; $i < sizeof($tree); $i++) {
+				$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
+				if($i != sizeof($tree)-1)		$str = $str . ' or ';
+			}
+			$str = $str. " group by h_code ) rep where C=".sizeof($tree);
+			//echo $str;
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute();
+			$r = $sql->fetchAll();
+			return($r);
+		}
 
 /*--------------------------
 SECTION versionnig for dispatcher:*_version
