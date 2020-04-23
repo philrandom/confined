@@ -32,9 +32,8 @@ print_r($z->get_h_code());
 	?>
 
 	<br>
-	<textarea rows="40" cols="80" name="article" form="uform" >
-	<?php if($z->get_h_code()!='NOT_FOUND') { print_r($z->read_from_file());} ?>
-	</textarea><br>
+	<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
+	<br>
 	<form action='/upload.php' method="post" id="uform" >
 	  <input type="submit" class='button' value='Publish' >
 	</form>
