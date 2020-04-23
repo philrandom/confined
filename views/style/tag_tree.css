@@ -23,26 +23,6 @@
 	color:white;
 }
 
-@keyframes shift-anim-dead {
-  from {
-    width: 30px; 
-  }
-  to {
-    width: 0px;
-  }
-}
-
-@keyframes shift-anim-grow {
-  from {
-    width: 0px; 
-  }
-  to {
-    width: 30px;
-  }
-}
-
-
-
 .shift-r {
 	animation-duration: 0.7s;
   	animation-name: shift-anim-grow;
