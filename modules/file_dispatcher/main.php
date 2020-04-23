@@ -114,10 +114,7 @@ class dispatcher
 			return ( strlen($hash("test"))==preg_match_all('/[a-f0-9]/', $possible_hash) ) & ( strlen($hash("test"))==strlen($possible_hash) );
 		}
 
-		function getError(){
-			print_r($this->error);
-			return sizeof($this->error);
-		}
+
 		
 		function save_in_file($data){
 			$this->get_version();
@@ -251,6 +248,11 @@ class dispatcher
 			}
 			$cnnx->kill();
 			return $a;
+		}
+		
+		function getError(){
+			print_r($this->error);
+			return sizeof($this->error);
 		}
 }
 ?>
