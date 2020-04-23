@@ -1,0 +1,95 @@
+#englobe-tag {
+	height : 25px;
+	width : auto;
+	display : ruby-base-container;
+}
+.bloc {
+	width: max-content;
+	background-color:#2aa3b7;
+	padding-right: 5px;
+	padding-left: 5px;
+	position:relative;
+	font-family : arial;
+	color:white;
+}
+
+#tree-tag{
+	background-color: #2aa3b7;
+	width:auto;
+	height:25px;
+	position:absolute;
+	right:30%;
+	top : 10px;
+	color:white;
+}
+
+@keyframes shift-anim-dead {
+  from {
+    width: 30px; 
+  }
+  to {
+    width: 0px;
+  }
+}
+
+@keyframes shift-anim-grow {
+  from {
+    width: 0px; 
+  }
+  to {
+    width: 30px;
+  }
+}
+
+
+
+.shift-r {
+	animation-duration: 0.7s;
+  	animation-name: shift-anim-grow;
+	background-color:#2aa3b7;
+	clip-path: polygon(0px 0px,100% 50%,0px 100%);
+	/*width: 30px;*/
+	height:25px;
+	/*margin-right: -25px;*/
+	vertical-align: text-bottom; 
+}
+
+
+
+.shift-l {
+	/*animation-duration: 0.7s;*/
+  	/*animation-name: shift-anim-grow;*/
+	background-color:#2aa3b7;
+	clip-path: polygon(0px 0px, 100% 50%,0px 100%,100% 100%,100% 0px);
+	/*width: 30px;*/
+	height:25px;
+	margin-right: 0px;
+	margin-left: 0px;
+	vertical-align: text-bottom; 
+}
+
+.dead-r {
+	width: 0px;
+	transition-duration: 0.7s;
+	margin-right: 10px;
+}
+
+.grow-r {
+	width: 30px;
+	transition-duration: 0.7s;
+	margin-right: -25px;
+}
+
+.dead-l {
+	width: 0px;
+	transition-duration: 0.7s;
+}
+
+.grow-l {
+	width: 30px;
+	transition-duration: 0.7s;
+}
+
+
+
+

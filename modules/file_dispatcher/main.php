@@ -231,9 +231,15 @@ class dispatcher
 			unlink($this->backup . '/' . $this->h_code . '/archive.tar');
 			echo '<br>[OK]uncompress';
 		}
-		
+/*
+	GETTER
+*/
 		function get_h_code(){
 			return $this->h_code;
+		}
+		
+		function get_tree(){
+			return $this->tree;
 		}
 }
 ?>

@@ -13,13 +13,14 @@ require('./modules/file_dispatcher/main.php');?>
       { $top = str_replace("#0984e3","#27ae60",$top); }
     if( $_SESSION["stype"] == "helper" )
       { $top = str_replace("#0984e3","#d63031",$top); }
-    echo $top;
+    //echo $top;
 
 
 	$url = explode("/",$_SERVER['REQUEST_URI']);
 	unset($url[sizeof($url)-1]);
 	
 	if( $url[1] == 'lecture' ) {
+		include('./views/tag.php');
 		include('./views/lecture.php');
 	} 
 ?>
