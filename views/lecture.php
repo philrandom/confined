@@ -7,6 +7,7 @@ $z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI'])
 ?>
 <head>
 	<link rel="stylesheet" href="/views/style/lecture.css">
+	<link rel="stylesheet" href="/views/style/lecture-dark.css">
 	<meta charset="UTF-8">
 </head>
 <body>
