@@ -21,12 +21,12 @@ Dashboard :
 
 for `apache` use `.htaccess` :
 ```
-ErrorDocument 404 /404.php
+ErrorDocument 404 /index.php
 ```
 
 or for `nginx`:
 ```
-error_page  404  /404.php;
+error_page  404  /index.php;
 ```
 
 in `php.ini` :
@@ -35,3 +35,5 @@ in `php.ini` :
 php_value post_max_size 100M
 ```
 (100M as on github)
+
+see configuration in `/modules/file_dispatcher/config.php`
