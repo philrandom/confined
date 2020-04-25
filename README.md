@@ -36,4 +36,8 @@ php_value post_max_size 100M
 ```
 (100M as on github)
 
-see configuration in `/modules/file_dispatcher/config.php`
+see configuration in 
+```
+/etc/sql.php
+/etc/file_dispatcher/config.php
+```
