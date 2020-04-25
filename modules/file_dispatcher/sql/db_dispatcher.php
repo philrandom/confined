@@ -41,7 +41,7 @@ SECTION search for dispatcher:__construct
 				$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
 				if($i != sizeof($tree)-1)		$str = $str . ' or ';
 			}
-			$str = $str. " group by h_code ) rep where C=".sizeof($tree);
+			$str = $str. " or weight= ". sizeof($tree) ." group by h_code ) rep where C=".sizeof($tree);
 			//echo $str;
 			$sql = $this->cnnx->prepare($str);
 			$sql->execute();

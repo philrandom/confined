@@ -15,7 +15,7 @@ $z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI'])
 
 <?php 
 if( $z->get_h_code() != "NOT_FOUND" )
-	echo str_replace("<pre><code class=\"","<pre style=\"background-color: #0f0f0f\"><code class=\"prettyprint linenums ",$z->read_from_file()); 
+	echo "<div class=article>".str_replace("<pre><code class=\"","<pre style=\"background-color: #0f0f0f\"><code class=\"prettyprint linenums ",$z->read_from_file())."</div>"; 
 else
 	if( sizeof($z->get_summary()) != 0 ) {
 		//print_r($z->get_summary());

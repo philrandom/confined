@@ -96,7 +96,7 @@ class dispatcher
 						$cnnx->kill();
 						//echo $this->backup.'/'.$this->h_code;
 						if(!mkdir($this->backup.'/'.$this->h_code, 0777, true))
-							$this->error[] = 'error will writing on disk. <u>tips</u> verify right';
+							$this->error[] = 'error while writing on disk. <u>tips</u> verify right';
 						
 					}else {
 						$this->error[] = "[file_dispatcher:__construct()] $link isn't path; specify path for creation mode";
@@ -247,9 +247,26 @@ class dispatcher
 				$a[] = $cnnx->search_by_hash($point['h_code']);
 			}
 			$cnnx->kill();
+			//----TEST
+			$a = [["mammifere","rongeur","rat"],["mammifere","rongeur","octodon"], ["poisson","requin"]];
+			//----TEST
+			$tab=array();
+			$max_node_level = 3;
+			for($l=0; $l<$max_node_level; $l++)
+				$tab[$l] = $this->get_cat_by_level($a,$l);
+			print_r($tab);	
+
+
 			return $a;
 		}
-		
+		function get_cat_by_level($a,$l) {
+			$level=array();
+			for($i=0; $i<sizeof($a); $i++) //branch
+				if($l<sizeof($a[$i]) | $l==0)
+					if(!in_array($a[$i][$l],array_keys($level)))
+						$level = array_merge($level,[$a[$i][$l] => 0]);	
+			return $level;
+		}
 		function getError(){
 			print_r($this->error);
 			return sizeof($this->error);
