@@ -26,8 +26,9 @@ require('./modules/file_dispatcher/main.php');?>
 	if( $url[1] == 'write' ) {
 		include('./views/tag.php');
 		include('./views/write.php');
-	} 
-
-	
+	} 	
+	if( $url[1] == 'login' ) {
+		include('./views/login.php');
+	}
 ?>
 </html>

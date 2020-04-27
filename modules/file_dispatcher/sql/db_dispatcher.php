@@ -20,13 +20,11 @@ SECTION search for dispatcher:__construct
 		function search_by_hash($h_code){
 			$sql = $this->cnnx->prepare("SELECT tag FROM ".const_dispatcher::tag_table." WHERE  h_code like :h_code order by weight asc");
 			$sql->execute([':h_code' => $h_code]);
-			//print_r($sql->errorInfo());
 			$tab = $sql->fetchAll();
 			$final = array();
 			foreach ($tab as $elem) {
 				$final[] = $elem['tag'];
 			}
-			//echo "[ok] search_by_hash";
 			return $final;
 		}
 

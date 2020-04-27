@@ -10,6 +10,5 @@ require('./modules/file_dispatcher/main.php');?>
 	$z = new dispatcher("./data",$_SESSION["path"],'c',1);
 	$z->new_version();
 	$z->save_in_file($_POST['article']);
-	//echo $z->read_from_file();
-	//header("Location: "."/lecture/".$_SESSION["path"]);
+	header("Location: "."/lecture/".$_SESSION["path"]);
 ?>

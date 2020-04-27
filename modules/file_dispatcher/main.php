@@ -1,20 +1,27 @@
 <?php
-//require("../etc/file_dispatcher/config.php");
-//require("sql/db_dispatcher.php");
+/*---REQUIRED FILES
+config files in :
+/etc/file_dispatcher/config.php
+/etc/sql.php
+
+and the sql motor dispatcher :
+./sql/db_dispatcher.php
+*/
 class dispatcher
 {
 
-		protected $tree;
-		protected $h_code;
-		protected $v;
+		protected $tree;		//path to the current file
+		protected $h_code;		//hash of the current file
+		protected $v;			//version
 		protected $backup;
 		private $right;
 
-		private $error;
+		private $error;			//array of errors
 
 		/*
-		$link 	enter your hash or path;
-		$right choose between
+		$backup 	hard link in server where to backup
+		$link 		enter your hash or path;
+		$right 		choose between
 						r : read
 						u : update
 						c : create
@@ -23,29 +30,26 @@ class dispatcher
 		{
 				$this->backup=$backup;
 				$this->right=$right;
-				if(preg_match_all('/[rcu]/',$right)!=strlen($right) & ( preg_match_all('/[ru]/',$right)!=0 ^ preg_match_all('/c/',$right)!=0 ))
-				{
+				//verify if $right is correct
+				if(preg_match_all('/[rcu]/',$right)!=strlen($right) & ( preg_match_all('/[ru]/',$right)!=0 ^ preg_match_all('/c/',$right)!=0 )){
 					$this->error[] = "[file_dispatcher:__construct()] $right isn't correct";
 					return -1;
 				}
-					//echo "[ok]construct<br>";
+
 				if(preg_match_all('/[^c]/', $right)){
-					//--------READING or UPDATE
-					//echo "reading...<br>";
+					//---READ or UPDATE
+		
 					if($this->is_hash($link)){	//is a HASH
-						//echo "[ok] hash<br>";
 						$this->h_code = $link;
 						$cnnx = new db_dispatcher();
 						$this->tree = $cnnx->search_by_hash($this->h_code);
-						//print_r($this->tree);
 						$this->v = $cnnx->get_version($this->h_code);
 						$cnnx->kill();
 
 					}else if($this->is_path($link)){
-						//echo "this is a path";
 						$this->tree = explode("/",$link);
 						unset($this->tree[sizeof($this->tree)-1]);
-						//print_r($this->tree);
+
 						$cnnx = new db_dispatcher();
 						$this->h_code = $cnnx->search_by_path($this->tree);
 						if( $this->h_code == 'NOT_FOUND' )
@@ -54,7 +58,7 @@ class dispatcher
 							$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND";
 							$this->h_code = 'NOT_FOUND';
 						}
-						//echo $this->h_code;
+
 						$this->v = $cnnx->get_version($this->h_code);
 						$cnnx->kill();
 
@@ -62,12 +66,11 @@ class dispatcher
 						$this->error[] = "[file_dispatcher:__construct()] $link isn't hash nor path";
 						return -1;
 					}
+
 				} else if(preg_match_all('/[^ru]/', $right)!=0){
-					//echo "<br>[construct] creation...";
-					//---------CREATION
+					//---CREATION
 					if($this->is_path($link)){
 						//needed information are author date;
-						//echo "<br>[construct creation] enter...<br>";
 						
 						if( $author==-1 ) {
 							$this->error[] = "[file_dispatcher:__construct():is_path() creation] specify author";
@@ -77,7 +80,6 @@ class dispatcher
 						$cnnx = new db_dispatcher();
 						$this->tree = explode("/",$link);
 						unset($this->tree[sizeof($this->tree)-1]);
-						//print_r($this->tree);
 						
 						//verify is file exist
 						$this->h_code = $cnnx->search_by_path($this->tree);
@@ -85,26 +87,29 @@ class dispatcher
 							$this->error[] = "[file_dispatcher:__construct():is_path() creation] $link allready EXIST";
 							return -1;
 						}
-						$this->v = 0;
-						//echo "[contruct creation] path is free";
+
 						//create file
+						$this->v = 0;
 						$cnnx = new db_dispatcher();
 						$hash = const_dispatcher::hash;
 						$this->h_code = $hash($link.$author);
-						$cnnx->create_file($this->h_code,$author);
-						$cnnx->create_path($this->h_code,$this->tree);
+						$cnnx->create_file($this->h_code,$author);			//SQL TABLE file_ref
+						$cnnx->create_path($this->h_code,$this->tree);		//SQL TABLE tag
 						$cnnx->kill();
-						//echo $this->backup.'/'.$this->h_code;
 						if(!mkdir($this->backup.'/'.$this->h_code, 0777, true))
 							$this->error[] = 'error while writing on disk. <u>tips</u> verify right';
 						
-					}else {
+					}else{
 						$this->error[] = "[file_dispatcher:__construct()] $link isn't path; specify path for creation mode";
 						return -1;
 					}
 				}
 		}
 
+
+/*----------------
+SECTION is_
+-----------------*/
 		function is_path($possible_path){
 			return preg_match_all('/[a-zA-Z0-9\ \/]/', $possible_path)==strlen($possible_path) & preg_match_all('/\//', $possible_path)!=0  &  $possible_path[strlen($possible_path)-1]=='/';
 		}
@@ -114,15 +119,15 @@ class dispatcher
 			return ( strlen($hash("test"))==preg_match_all('/[a-f0-9]/', $possible_hash) ) & ( strlen($hash("test"))==strlen($possible_hash) );
 		}
 
-
-		
+/*-------------------------
+SECTION FILESYSTEM
+--------------------------*/
 		function save_in_file($data){
 			$this->get_version();
 			if( preg_match_all('/c|u/',$this->right) == 0 ){
 				$this->error[] = "[file_dispatcher:save_in_file] stream for ". $this->h_code ." doesn't have right for writing";
 				return -1;
 			}
-			//echo $this->backup . '/' . $this->h_code . '/' . $this->v;
 			$fp = fopen($this->backup . '/' . $this->h_code . '/' . $this->v,"wb");
 			fwrite($fp,$data);
 			fclose($fp);
@@ -144,8 +149,11 @@ class dispatcher
 				unlink($this->backup . '/' . $this->h_code.'/'.$file);
 			rmdir($this->backup . '/' . $this->h_code);
 		}
-		
-		
+
+
+/*---------------------------		
+SECTION versionning
+---------------------------*/
 		function new_version(){
 			$this->get_last_version();
 			$this->set_version($this->v+1);
@@ -189,6 +197,10 @@ class dispatcher
 			return $this->v;
 		}
 
+
+/*---------------------------
+SECTION archive
+-----------------------------*/
 		function archive_compress(){
 			try{
 				echo '<br>[...]compress';
@@ -201,7 +213,6 @@ class dispatcher
 					echo '<br>addfile'.$i;
 				}
 				// COMPRESS archive.tar FILE. COMPRESSED FILE WILL BE archive.tar.gz
-				///$a->compress(const_dispatcher::compression_type);
 				$a->compress(const_dispatcher::compression_type);
 				echo '<br>compressing';
 				// NOTE THAT BOTH FILES WILL EXISTS. SO IF YOU WANT YOU CAN UNLINK archive.tar
@@ -219,7 +230,7 @@ class dispatcher
 			echo '<br>[...]uncompress';
 			// decompress from gz
 			$p = new PharData($this->backup . '/' . $this->h_code . '/archive.tar.gz');
-			$p->decompress(); // creates /path/to/my.tar
+			$p->decompress(); 
 			unlink($this->backup . '/' . $this->h_code . '/archive.tar.gz');
 			// unarchive from the tar
 			$phar = new PharData($this->backup . '/' . $this->h_code . '/archive.tar');
@@ -228,9 +239,12 @@ class dispatcher
 			unlink($this->backup . '/' . $this->h_code . '/archive.tar');
 			echo '<br>[OK]uncompress';
 		}
-/*
-	GETTER
-*/
+
+
+/*----------------------
+SECTION getter
+-----------------------*/
+
 		function get_h_code(){
 			return $this->h_code;
 		}
@@ -247,15 +261,14 @@ class dispatcher
 				$a[] = $cnnx->search_by_hash($point['h_code']);
 			}
 			$cnnx->kill();
-			//----TEST
+			/*//----TEST
 			$a = [["mammifere","rongeur","rat"],["mammifere","rongeur","octodon"], ["poisson","requin"]];
-			//----TEST
 			$tab=array();
 			$max_node_level = 3;
 			for($l=0; $l<$max_node_level; $l++)
 				$tab[$l] = $this->get_cat_by_level($a,$l);
 			print_r($tab);	
-
+			//----ENDTEST*/
 
 			return $a;
 		}
