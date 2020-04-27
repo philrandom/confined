@@ -41,3 +41,10 @@ see configuration in
 /etc/sql.php
 /etc/file_dispatcher/config.php
 ```
+
+run in this order :
+```
+user.sql
+file_ref.sql
+tag.sql
+```
