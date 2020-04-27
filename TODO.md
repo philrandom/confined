@@ -20,8 +20,8 @@
 - create `install.php` and a `config.php`
 
 ## simple editor
-- clicking editor as in powerpoint
-- write in file by using the file system simply use : `document.getElementById('textbox_id').value`
+- use MARKDOWN
+- extra files
 
 ## summary
 - add a summary for navigation
