@@ -29,25 +29,48 @@ SECTION search for dispatcher:__construct
 		}
 
 		function search_by_path($tree){
-			/* example to search : C/network/socket/
-			SELECT * FROM (
-			SELECT count(h_code) C, h_code, tag, weight FROM `tag` where ( tag='C' and weight=0 ) or ( tag='network' and weight=1 ) or ( tag='socket' and weight=2 ) group by h_code
-			) rep where C=3*/
+			
+			/* EXAMPLE TREE
+			/OS/
+				linux/
+				bsd/
+					macOS/
+			*/
 
+
+			//[OK] /OS/linux/
+			//[OK] /OS/bsd/macOS/
+			//[FAIL] /OS/bsd/
 			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
 			for($i=0 ; $i < sizeof($tree); $i++) {
 				$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
 				if($i != sizeof($tree)-1)		$str = $str . ' or ';
 			}
-			$str = $str. " or weight= ". sizeof($tree) ." group by h_code ) rep where C=".sizeof($tree);
+			$str = $str." group by h_code ) rep where C=".sizeof($tree);
 			//echo $str;
 			$sql = $this->cnnx->prepare($str);
 			$sql->execute();
 			$r = $sql->fetchAll();
-			if(sizeof($r) != 1)
-				return 'NOT_FOUND';
-			else 
+			if(sizeof($r) != 1) {
+					//[OK] /OS/bsd/
+					$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
+					for($i=0 ; $i < sizeof($tree); $i++) {
+						$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
+						if($i != sizeof($tree)-1)		$str = $str . ' or ';
+					}
+					$str = $str." or weight= ". sizeof($tree) ." group by h_code ) rep where C=".sizeof($tree);
+					//echo $str;
+					$sql = $this->cnnx->prepare($str);
+					$sql->execute();
+					$r = $sql->fetchAll();
+					if(sizeof($r) != 1){
+						return 'NOT_FOUND';
+					}		
+			}
+			if(sizeof($r) == 1)
 				return($r[0]['h_code']);
+			else
+				return 'NOT_FOUND';
 		}
 		
 		function summary($tree){

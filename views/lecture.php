@@ -1,6 +1,7 @@
 <?php
 $z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
 //print_r($z->get_h_code());
+//print_r($z->getError());
 //echo '<br><br><br><br><br><br><br><br><br><br>';
 //print_r(preg_match_all("[/]",$_SERVER['REQUEST_URI'])-2);
 ?>

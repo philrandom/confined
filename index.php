@@ -20,11 +20,11 @@ require('./modules/file_dispatcher/main.php');?>
 	unset($url[sizeof($url)-1]);
 	
 	if( $url[1] == 'lecture' ) {
-		include('./views/tag.php');
+		include('./views/tag-tree.php');
 		include('./views/lecture.php');
 	} 
 	if( $url[1] == 'write' ) {
-		include('./views/tag.php');
+		include('./views/tag-tree.php');
 		include('./views/write.php');
 	} 	
 	if( $url[1] == 'login' ) {

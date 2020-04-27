@@ -53,9 +53,9 @@ class dispatcher
 						$cnnx = new db_dispatcher();
 						$this->h_code = $cnnx->search_by_path($this->tree);
 						if( $this->h_code == 'NOT_FOUND' )
-							$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND";
+							$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND : h_code is NOT_FOUND";
 						else if( $this->tree != $cnnx->search_by_hash($this->h_code) ) {
-							$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND";
+							$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND : tree doesn't match";
 							$this->h_code = 'NOT_FOUND';
 						}
 
