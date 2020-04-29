@@ -16,9 +16,10 @@ $z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI'])
 <?php 
 if( $z->get_h_code() != "NOT_FOUND" )	//print article
 	echo "<div class=article>".str_replace("<pre><code class=\"","<pre style=\"background-color: #0f0f0f\"><code class=\"prettyprint linenums ",$z->read_from_file())."</div>"; 
-else
+//else
 	if( sizeof($z->get_summary()) != 0 ) {	//SUMMARY
 		for($k=0; $k<3; $k++)	echo '<br>';
+		echo "<div style='border-top: medium dashed grey;'><h1>Summary</h1></div>";
 		foreach($z->get_summary() as $tree)
 			for($i=preg_match_all("[/]",$_SERVER['REQUEST_URI'])-2; $i<sizeof($tree);$i++) {
 					echo "<br>";

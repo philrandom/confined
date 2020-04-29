@@ -136,7 +136,11 @@ SECTION FILESYSTEM
 		function read_from_file(){
 			return stream_get_contents(fopen($this->backup . '/' . $this->h_code . '/' . $this->v , "rb"));
 		}
-		
+
+		function read_from_file_by_version($v){
+			return stream_get_contents(fopen($this->backup . '/' . $this->h_code . '/' . $v , "rb"));
+		}	
+
 		function rm(){
 			$cnnx = new db_dispatcher();
 			$cnnx->rm($this->h_code);
