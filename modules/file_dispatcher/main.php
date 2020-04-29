@@ -125,6 +125,7 @@ SECTION is_
 SECTION FILESYSTEM
 --------------------------*/
 		function save_in_file($data){
+			$data = str_replace("?","&#63;",$data); //to avoid malecious code <\?\php
 			$this->get_version();
 			if( preg_match_all('/c|u/',$this->right) == 0 ){
 				$this->error[] = "[file_dispatcher:save_in_file] stream for ". $this->h_code ." doesn't have right for writing";

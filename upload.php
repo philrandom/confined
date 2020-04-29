@@ -22,6 +22,6 @@ require('./modules/file_dispatcher/main.php');?>
 	}
 	$z->new_version();
 	$z->save_in_file($_POST['article']);
-	echo '<br>'.$z->get_h_code();
-	//header("Location: "."/lecture/".$_SESSION["path"]);
+	//echo '<br>'.$z->get_h_code();
+	header("Location: "."/lecture/".$_SESSION["path"]);
 ?>
