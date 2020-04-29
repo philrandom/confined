@@ -1,116 +1,115 @@
-
-<h1>Fichier</h1>
+<h1>Héritage</h1>
 <hr />
-<h2>introduction</h2>
-<p>Types de fichier ou flux : <code>binaires</code> et <code>texte</code>.</p>
-<p>traitement de flux : ouverture -&gt; action -&gt; fermer.</p>
-<h2>chemin d'accès</h2>
-<p><code>file.Separator</code>.</p>
-<p><code>System.getProperty()</code> donne des info sur la localisation de default </p>
-<pre><code class="Java">File f = new File(System.getProperty(&quot;user.dir&quot;));
-    //user.dir : donne la localisation 
-
-File f2 = new File(&quot;save/1.save&quot;);
-File f3 = new File(f,f2);   //concatenation du chemin
-</code></pre>
-
+<blockquote>
+<p><a href="mailto:louis.moreau.lm@gmail.com">louis.moreau.lm@gmail.com</a></p>
+</blockquote>
+<h2>Standardisation</h2>
 <table>
 <thead>
 <tr>
-<th>fonction</th>
-<th></th>
+<th><strong>type</strong></th>
+<th><strong>nom</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Exists</td>
-<td></td>
+<td>methode</td>
+<td>minMaj</td>
 </tr>
 <tr>
-<td>isFile</td>
-<td></td>
-</tr>
-<tr>
-<td>isDirectory</td>
-<td></td>
-</tr>
-<tr>
-<td>canRead</td>
-<td></td>
-</tr>
-<tr>
-<td>...</td>
-<td></td>
-</tr>
-<tr>
-<td>getParent</td>
-<td>dossier au dessus</td>
-</tr>
-<tr>
-<td>getAbsolutePath</td>
-<td></td>
-</tr>
-<tr>
-<td>lastModified</td>
-<td>TimeMachine</td>
-</tr>
-<tr>
-<td>mkdir</td>
-<td></td>
-</tr>
-<tr>
-<td>mkdirs</td>
-<td>creer plusieurs dossier en meme temps</td>
-</tr>
-<tr>
-<td>listFile</td>
-<td>ls</td>
+<td>constructeur</td>
+<td>MajMaj</td>
 </tr>
 </tbody>
 </table>
-<p><a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html">MAN File JAVA</a></p>
-<pre><code class="Java">File f = new File(System.getProperty(&quot;user.dir&quot;));
-    //user.dir : donne la localisation 
+<h2>protective</h2>
+<p><br>
+<code>protective</code> s'arrete à la porté du package</p>
+<pre><code>
+     /projet
+                /mainsrc
+                /lib1
 
-File [] list = f.listFiles();
-for(File f : list)  //for each  
-//equiv en python for(i in range())  
-{
-    if(f.isFile()) syso(&quot; fichier: &quot;+ f.getName());
-    else syso(&quot;Dossier : &quot; + f.getName())
+</code></pre>
+
+<p>protective s'arret juste dans lib1, ici</p>
+<pre><code class="Java">//MonEleve
+
+public class MonEleve {
+        protected String nom;
+        protected String prenom;
+
+        public MonEleve(String nom, String prenom)
+        {
+                this.nom = nom;
+                this.prenom = prenom;
+        }
+
+        public String toString() {
+                return prenom +&quot; &quot;+nom;
+        }
+
+
+}
+
+//Main
+
+main () {
+        MonEleve eleve = new MonEleve(&quot;A&quot;,&quot;B&quot;);
+        syso(eleve) //hashmemory
 }
 </code></pre>
 
-<p><code>System.getProperty("line.separator")</code> retour à la ligne pour tout os ( <code>
-</code> sous linux et <code>
-</code> windows )</p>
-<h2>Buffer</h2>
-<blockquote>
-<p>flux ne lit qu'un seule caractère. buffer charge tout le flux dispo dans en string</p>
-</blockquote>
+<h1>Heritage et polymorphisme</h1>
+<hr />
 <table>
 <thead>
 <tr>
-<th>func</th>
-<th></th>
+<th>super class</th>
+<th>obj</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>br.read()</td>
-<td></td>
+<td>parent</td>
+<td>A</td>
 </tr>
 <tr>
-<td>br.readLine()</td>
-<td></td>
+<td>childA</td>
+<td>B</td>
 </tr>
 <tr>
-<td>br.skip</td>
-<td></td>
-</tr>
-<tr>
-<td>br.close</td>
-<td></td>
+<td>childB</td>
+<td>C</td>
 </tr>
 </tbody>
 </table>
+<p>ici, C hérite aussi de A</p>
+<pre><code class="Java">public class A {}
+public class B extends A {}
+
+</code></pre>
+
+<h1>Membre de classes</h1>
+<p><br>
+<code>public</code> et  <code>protected</code> accessible par child. <strong>(inv faux)</strong>.  (<code>private</code> n'est pas accesible par child)</p>
+<p>si classB=childA  alors <code>List&lt;A&gt;</code> peut inclure des B.  </p>
+<p>child peut redefinir attribut de parent</p>
+<p><code>super()</code> permet d'utiliser attribut de parent qui porte le meme nom que dans child</p>
+<pre><code class="Java">public class EleveNote extends MonEleve {
+
+        private int note;
+        public EleveNote(String nom, String prenom, int note){
+                //---methode1
+                this.nom = nom // this.nom class MonEleve
+                //---methode2
+                super(nom,prenom); //utilise le constructeur
+                this.note=note;
+                /*
+                 * super()              appel constructeur parent
+                 * super.methode()      appel methode parent
+                 * super.attribut       appel attribut parent si non private
+                 */
+        }
+}
+</code></pre>

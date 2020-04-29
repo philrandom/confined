@@ -7,12 +7,21 @@ require('./modules/file_dispatcher/main.php');?>
 <?php
 	session_start();
 	echo 'POST'.$_POST["article"].$_SESSION["path"];
-	$z = new dispatcher("./data",str_replace("/write/","",$_SERVER['REQUEST_URI']),'r',1);
-	if( $z->get_h_code() != "NOT_FOUND" )	//UPDATE
+	$z = new dispatcher("./data",$_SESSION["path"],'r',1);
+	echo $z->get_h_code();
+	if( $z->get_h_code() != "NOT_FOUND" ){	//UPDATE
+		$z = new dispatcher("./data",$_SESSION["path"],'u',1);
+		echo $_SESSION["path"]." - 'u',1";
+
+	}
+	else {	//CREATE
 		$z = new dispatcher("./data",$_SESSION["path"],'c',1);
-	else	//CREATE
-		$z = new dispatcher("./data",$_SESSION["path"],'c',1);
+
+		echo $_SESSION["path"]." - 'c',1";
+		echo $z->getError();
+	}
 	$z->new_version();
 	$z->save_in_file($_POST['article']);
-	header("Location: "."/lecture/".$_SESSION["path"]);
+	echo '<br>'.$z->get_h_code();
+	//header("Location: "."/lecture/".$_SESSION["path"]);
 ?>

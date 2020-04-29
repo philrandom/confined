@@ -28,7 +28,7 @@ SECTION search for dispatcher:__construct
 			return $final;
 		}
 
-		function search_by_path($tree){
+		function search_by_path($tree,$restrict=0){
 			
 			/* EXAMPLE TREE
 			/OS/
@@ -51,7 +51,7 @@ SECTION search for dispatcher:__construct
 			$sql = $this->cnnx->prepare($str);
 			$sql->execute();
 			$r = $sql->fetchAll();
-			if(sizeof($r) != 1) {
+			if(sizeof($r) != 1 & $restrict==0) {
 					//[OK] /OS/bsd/
 					$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
 					for($i=0 ; $i < sizeof($tree); $i++) {
