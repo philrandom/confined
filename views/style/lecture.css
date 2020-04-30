@@ -3,6 +3,11 @@
     src: url('/assets/fonts/Georgia.ttf');
 }
 
+@font-face {
+    font-family: 'Droid Sans Mono'; 
+    src: url('/assets/fonts/DroidSansMono.ttf');
+}
+
 body {
 	font-family: 'Georgia';
 	margin-left: 20%;
