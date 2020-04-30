@@ -2,11 +2,7 @@
     font-family: 'Georgia'; 
     src: url('/assets/fonts/Georgia.ttf');
 }
-
-@font-face {
-    font-family: 'Droid Sans Mono'; 
-    src: url('/assets/fonts/DroidSansMono.ttf');
-}
+@import url(//fonts.googleapis.com/css?family=Droid+Sans+Mono);
 
 body {
 	font-family: 'Georgia';
