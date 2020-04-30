@@ -1,0 +1,112 @@
+<h1>Héritage</h1>
+<hr />
+<h2>Standardisation</h2>
+<table>
+<thead>
+<tr>
+<th><strong>type</strong></th>
+<th><strong>nom</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>methode</td>
+<td>minMaj</td>
+</tr>
+<tr>
+<td>constructeur</td>
+<td>MajMaj</td>
+</tr>
+</tbody>
+</table>
+<h2>protective</h2>
+<p><br>
+<code>protective</code> s'arrete à la porté du package</p>
+<pre><code>
+     /projet
+                /mainsrc
+                /lib1
+
+</code></pre>
+
+<p>protective s'arret juste dans lib1, ici</p>
+<pre><code class="Java">//MonEleve
+
+public class MonEleve {
+        protected String nom;
+        protected String prenom;
+
+        public MonEleve(String nom, String prenom)
+        {
+                this.nom = nom;
+                this.prenom = prenom;
+        }
+
+        public String toString() {
+                return prenom +&quot; &quot;+nom;
+        }
+
+
+}
+
+//Main
+
+main () {
+        MonEleve eleve = new MonEleve(&quot;A&quot;,&quot;B&quot;);
+        syso(eleve) //hashmemory
+}
+</code></pre>
+
+<h1>Heritage et polymorphisme</h1>
+<hr />
+<table>
+<thead>
+<tr>
+<th>super class</th>
+<th>obj</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent</td>
+<td>A</td>
+</tr>
+<tr>
+<td>childA</td>
+<td>B</td>
+</tr>
+<tr>
+<td>childB</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<p>ici, C hérite aussi de A</p>
+<pre><code class="Java">public class A {}
+public class B extends A {}
+
+</code></pre>
+
+<h1>Membre de classes</h1>
+<p><br>
+<code>public</code> et  <code>protected</code> accessible par child. <strong>(inv faux)</strong>.  (<code>private</code> n'est pas accesible par child)</p>
+<p>si classB=childA  alors <code>List&lt;A&gt;</code> peut inclure des B.  </p>
+<p>child peut redefinir attribut de parent</p>
+<p><code>super()</code> permet d'utiliser attribut de parent qui porte le meme nom que dans child</p>
+<pre><code class="Java">public class EleveNote extends MonEleve {
+
+        private int note;
+        public EleveNote(String nom, String prenom, int note){
+                //---methode1
+                this.nom = nom // this.nom class MonEleve
+                //---methode2
+                super(nom,prenom); //utilise le constructeur
+                this.note=note;
+                /*
+                 * super()              appel constructeur parent
+                 * super.methode()      appel methode parent
+                 * super.attribut       appel attribut parent si non private
+                 */
+        }
+}
+</code></pre>
