@@ -30,7 +30,7 @@ if( $z->get_h_code() != "NOT_FOUND" )	//print article
 			}
 	}
 	else 	//CREATION PAGE
-		echo "<div style='margin-top:40%'>What do you want to make?<br><u><a href=".str_replace("/lecture/","/write/",$_SERVER['REQUEST_URI']) .">page</a></u></div>";
+		echo "<div style='margin-top:40%;'>Woops, this page does not exist, do you want to create it? <br><u><a style='text-decoration:none; color:#2aa3b7;' href=".str_replace("/lecture/","/write/",$_SERVER['REQUEST_URI']) .">Create this page</a></u></div>";
 
 ?>
 </body>

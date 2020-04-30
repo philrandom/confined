@@ -7,11 +7,11 @@ class db_dispatcher
 
 
 		function __construct(){
-		  $this->cnnx  = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
+			$this->cnnx  = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
 		}
 
 		function kill(){
-      $this->cnnx = null;
+      		$this->cnnx = null;
 		}
 
 /*--------------------------

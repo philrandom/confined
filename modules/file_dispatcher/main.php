@@ -81,7 +81,7 @@ class dispatcher
 						$this->tree = explode("/",$link);
 						unset($this->tree[sizeof($this->tree)-1]);
 						
-						//verify is file exist
+						//verify if file exists
 						$this->h_code = $cnnx->search_by_path($this->tree,1);
 						if( $this->h_code != 'NOT_FOUND' ) {
 							$this->error[] = "[file_dispatcher:__construct():is_path() creation] $link allready EXIST. its h_code is : ".$this->h_code;

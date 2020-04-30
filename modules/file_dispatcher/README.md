@@ -9,7 +9,7 @@ It's a dynamic method of tagging and hierarchization
 /python/django/socket.md
 ```
 
-Then you can find all this courses by searching tag-name `socket`.
+Then you can find all these courses by searching tag-name `socket`.
 But if you want to search socket in C you could search by using tag `socket` `C`.
 
 Now you are reading course of `C`. How to know the next chapter ? This module aims to classify with a tree view.

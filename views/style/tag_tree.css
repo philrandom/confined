@@ -1,17 +1,18 @@
 #englobe-tag {
 	height : 25px;
 	width : auto;
-	display : ruby-base-container;
+	display : flex;
 }
 .bloc {
+	height: 25px;
 	width: max-content;
 	background-color:#2aa3b7;
 	padding-right: 5px;
 	padding-left: 5px;
 	position:relative;
 	font-family : arial;
-	color:white;
 }
+
 #englobe-tag a {
 	color:white;
 }
@@ -30,11 +31,12 @@
 	animation-duration: 0.7s;
   	animation-name: shift-anim-grow;
 	background-color:#2aa3b7;
-	clip-path: polygon(0px 0px,100% 50%,0px 100%);
+	clip-path: polygon(0px 0px,70% 50%,0px 100%);
 	/*width: 30px;*/
 	height:25px;
 	/*margin-right: -25px;*/
 	vertical-align: text-bottom; 
+	border-left: 1px solid #2aa3b7;
 }
 
 
@@ -43,12 +45,13 @@
 	/*animation-duration: 0.7s;*/
   	/*animation-name: shift-anim-grow;*/
 	background-color:#2aa3b7;
-	clip-path: polygon(0px 0px, 100% 50%,0px 100%,100% 100%,100% 0px);
+	clip-path: polygon(0px 0px, 70% 50%,0px 100%,100% 100%,100% 0px);
 	/*width: 30px;*/
 	height:25px;
 	margin-right: 0px;
 	margin-left: 0px;
 	vertical-align: text-bottom; 
+	border-right: 1px solid #2aa3b7;
 }
 
 .dead-r {
@@ -58,7 +61,7 @@
 }
 
 .grow-r {
-	width: 30px;
+	width: 15px;
 	transition-duration: 0.7s;
 	margin-right: -25px;
 }
@@ -69,8 +72,9 @@
 }
 
 .grow-l {
-	width: 30px;
+	width: 15px;
 	transition-duration: 0.7s;
+	margin-left: 10px;
 }
 
 
