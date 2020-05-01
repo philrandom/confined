@@ -1,8 +1,8 @@
 <?php
 	//display errors
-	//ini_set('display_errors', 1);
-	//ini_set('display_startup_errors', 1);
-	//error_reporting(E_ALL);
+	// ini_set('display_errors', 1);
+	// ini_set('display_startup_errors', 1);
+	// error_reporting(E_ALL);
 
 	require("./etc/file_dispatcher/config.php");
 	require("./etc/sql.php");
@@ -23,13 +23,16 @@
 <html>
 
 	<?php
+
+		//on récupère les infos de l'utilisateur actuel
 		session_start();
+
 		//header 
 		$top = file_get_contents('views/top.html');
+		if( $_SESSION["stype"] == "prof" )
+			$top = str_replace("#444444","#2aa3b7",$top);
 		if( $_SESSION["stype"] == "eleve" )
-		{ $top = str_replace("#2aa3b7","#27ae60",$top); }
-		if( $_SESSION["stype"] == "helper" )
-		{ $top = str_replace("#2aa3b7","#d63031",$top); }
+			$top = str_replace("#2aa3b7","#444444",$top);
 		echo $top;
 
 		$url = explode("/",$_SERVER['REQUEST_URI']);
@@ -44,7 +47,10 @@
 			include('./views/write.php');
 		}else	
 		if( $url[1] == 'login' ) {
-			include('./views/login.php');
+			if($url[-1] == '?error=true')
+				include('./views/login.php?error=true');
+			else
+				include('./views/login.php');
 		}else
 		if( $url[1] == 'v' ) {
 			include('./views/version.php');

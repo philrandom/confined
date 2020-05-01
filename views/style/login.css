@@ -1,0 +1,45 @@
+
+.wrapper
+{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin:auto;
+    margin-top: 7%;
+    width:25%;
+}
+
+form
+{
+    margin-top: 5%;
+}
+
+.form-group
+{
+    margin-top: 2%;
+}
+
+.title 
+{
+    display:flex;
+    justify-content: center;
+}
+
+form .title
+{
+    margin-top: 10%;
+}
+
+.sbmit
+{
+    transition-property: all;
+    background-color: white;
+    color:black;
+}
+
+.sbmit:hover 
+{
+    background-color: #2aa3b7;
+    color: white;
+    -webkit-transition: 300ms linear;
+    -ms-transition: 300ms linear;
+    transition: 300ms linear;
+}

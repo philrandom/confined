@@ -1,6 +1,41 @@
-<html>
-    <link rel="stylesheet" href="/views/style/top.css">
-    <div class=bar style="background-color: #2aa3b7;"></div>
-    <a href="/login/"><div class=rond style="background-color: #2aa3b7;"><img src=/assets/icons/iconLogin2.png style="height:100%; width:100%; display: block;  margin: auto; "></img></div></a>
-    <a href=/index.php><img src=/assets/icons/logo.png class=logo></img></a>
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/views/style/top.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script>
+            
+            $(document).ready(function()
+            {
+                $("button").click(function()
+                {
+                    document.getElementById("user-pannel").innerHTML = "<a href='/login/'>Log in</a>"
+                });
+            });
+            
+        </script>
+    </head>
+
+    
+
+    <body>
+
+        <!-- bar indicator -->
+        <div class="bar" style="background-color: #444444;"></div>
+
+        <!-- User button -->
+        <div id="user">
+            <button style="background-color: #444444;" class="rond btn"><img src="/assets/icons/iconLogin3.png" style="height:100%; width:100%; display: block;  margin: auto;"></img></button>
+            <div id="user-pannel"></div>
+        </div>
+        
+        <a href="/index.php"><img src="/assets/icons/logo.png" class="logo"></img></a>
+
+    </body>
+    
 </html>
