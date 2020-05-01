@@ -1,0 +1,58 @@
+
+/* formulaire dans le quel on place la barre de recherche*/
+
+#form-search
+{
+    width:50%;
+    margin:auto;
+    margin-top: 10%;
+}
+
+/* div qui encadre la barre et la loupe */
+#search-bar
+{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    border-radius: 20px;
+    box-shadow: 0px 0px 1px #444444 ;
+    padding: 1px;
+}
+
+/*bouton dans lequel on a la div contenant la loupe */
+#btn-loupe
+{
+    background: #2aa3b7;
+    border: 1px solid grey;
+    cursor: pointer;
+    width:8%;
+    border:none;
+    border-radius: 20px;
+}
+
+#loupe-container img
+{
+    display:block;
+    width:100%;
+    height:100%;
+}
+
+#input
+{
+    padding-left: 3%;
+    border:none;
+    border-radius: 20px;
+    width:95%;
+}
+
+#input:focus
+{
+    outline: none;
+}
+
+/* bloc des topics classés par ordre décroissant de poids */
+#bloc-cours
+{
+    margin-top: 20%;
+}

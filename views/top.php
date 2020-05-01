@@ -64,7 +64,7 @@
             <div id="user-pannel"></div>
         </div>
         
-        <a href="/index.php"><img src="/assets/icons/logo.png" class="logo"></img></a>
+        <a href="/"><img src="/assets/icons/logo.png" class="logo"></img></a>
 
     </body>
     

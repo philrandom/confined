@@ -30,7 +30,7 @@
         session_start();
         $_SESSION['user'] = $r['user'];
         $_SESSION['stype'] = $r['type'];
-        header("Location:/index.php");
+        header("Location:/");
         
     }
     else //if this page isn't accessed through the registeration form

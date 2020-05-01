@@ -42,10 +42,13 @@
 		$url = explode("/",$_SERVER['REQUEST_URI']);
 		unset($url[sizeof($url)-1]);
 
+		if( $url[1] == ''){
+			include('./views/frontpage.php');
+		}else
 		if( $url[1] == 'lecture' ) {
 			include('./views/tag-tree.php');
 			include('./views/lecture.php');
-		}else 
+		}else
 		if( $url[1] == 'write' ) {
 			include('./views/tag-tree.php');
 			include('./views/write.php');
@@ -62,9 +65,12 @@
 			else
 				include('./views/register.php');
 		}else
+		if( $url[1] == 'disconnect' ) {
+			include('./modules/login/disconnection.php');
+		}else
 		if( $url[1] == 'v' ) {
 			include('./views/version.php');
-		} else
+		}else
 		if( $url[1] != '' ) {
 			echo "<div style='margin:20%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";
 		}

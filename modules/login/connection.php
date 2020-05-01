@@ -32,7 +32,7 @@
             $_SESSION['user'] = $r['user'];
             $_SESSION['stype'] = $r['type'];
             $cnnx = null;
-            header("Location:/index.php");
+            header("Location:/");
         }
         else //if not found
         {
