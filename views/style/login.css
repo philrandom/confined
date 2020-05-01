@@ -43,3 +43,29 @@ form .title
     -ms-transition: 300ms linear;
     transition: 300ms linear;
 }
+
+#choose
+{
+    margin-left: -5%;
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#choose label
+{
+    margin-bottom: 0px;
+}
+
+input[type=radio]
+{
+    margin: 0px;
+    margin-top:2%;
+    margin-left: 10%;
+}
+
+.center-radio
+{
+    display: flex;
+    align-items: center;
+}

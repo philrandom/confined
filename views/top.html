@@ -14,7 +14,17 @@
             {
                 $("button").click(function()
                 {
-                    document.getElementById("user-pannel").innerHTML = "<a href='/login/'>Log in</a>"
+                    //si le menu de connexion n'est pas affiché, on l'affiche
+                    if(document.getElementById("user-pannel").innerHTML == '')
+                    {
+                        document.getElementById("user-pannel").innerHTML = "<a href='/login/' class='lien-1'>Log in</a><a href='/register/' class='lien-2'>I'm new</a>";
+                        $("#user-pannel").addClass("user-pannel-active");
+                    }
+                    //si il est affiché, on le ferme quand on clique sur le bouton
+                    else
+                    {
+                        document.getElementById("user-pannel").innerHTML = '';
+                    }
                 });
             });
             
@@ -30,7 +40,9 @@
 
         <!-- User button -->
         <div id="user">
-            <button style="background-color: #444444;" class="rond btn"><img src="/assets/icons/iconLogin3.png" style="height:100%; width:100%; display: block;  margin: auto;"></img></button>
+            <div class="button-div">
+                <button style="background-color: #444444;" class="rond btn"><img src="/assets/icons/iconLogin3.png" style="height:100%; width:100%; display: block;  margin: auto;"></img></button>
+            </div>
             <div id="user-pannel"></div>
         </div>
         

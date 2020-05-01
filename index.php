@@ -30,9 +30,13 @@
 		//header 
 		$top = file_get_contents('views/top.html');
 		if( $_SESSION["stype"] == "prof" )
+		{
 			$top = str_replace("#444444","#2aa3b7",$top);
+		}
 		if( $_SESSION["stype"] == "eleve" )
+		{
 			$top = str_replace("#2aa3b7","#444444",$top);
+		}
 		echo $top;
 
 		$url = explode("/",$_SERVER['REQUEST_URI']);
@@ -51,6 +55,12 @@
 				include('./views/login.php?error=true');
 			else
 				include('./views/login.php');
+		}else	
+		if( $url[1] == 'register' ) {
+			if($url[-1] == '?error=true')
+				include('./views/register.php?error=true');
+			else
+				include('./views/register.php');
 		}else
 		if( $url[1] == 'v' ) {
 			include('./views/version.php');
