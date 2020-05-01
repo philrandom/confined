@@ -28,7 +28,7 @@
 		session_start();
 
 		//header 
-		$top = file_get_contents('views/top.html');
+		$top = file_get_contents('views/top.php');
 		if( $_SESSION["stype"] == "prof" )
 		{
 			$top = str_replace("#444444","#2aa3b7",$top);

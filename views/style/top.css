@@ -1,3 +1,12 @@
+
+
+/*-----------------header-------------------*/
+
+
+
+
+/* top bar */
+
 .bar{
   height: 10px;
   width: 100%;
@@ -8,6 +17,23 @@
   left: 0px;
   z-index: 1000;
 }
+
+
+
+/* logo (top left corner) */
+
+.logo{
+  width: 10%;
+  height: auto;
+  position: fixed;
+  top: 35px;
+  left: 30px;
+  z-index: 1000;
+}
+
+
+
+/* user button (top right corner) */
 
 .rond{
   height: 50px;
@@ -37,14 +63,8 @@
   box-shadow: 0px 0px 10px #333333;
 }
 
-.logo{
-  width: 10%;
-  height: auto;
-  position: fixed;
-  top: 35px;
-  left: 30px;
-  z-index: 1000;
-}
+
+/* user pannel wrapper (including the round user icon)*/
 
 #user
 {
@@ -58,18 +78,30 @@
   flex-direction:column;
 }
 
-#user-pannel
-{
-  margin-top: 10%;
-  padding-left: 12%;
-  display:flex;
-}
+
+/* user pannel when clicked */
 
 .user-pannel-active
 {
-  
+  margin-top: 10%;
+  margin-left: 5%;
+  display:flex;
+  flex-direction: column;
   box-shadow: 0px 0px 2px #333333;
   border-radius: 10px;
+}
+
+
+
+/*connection links */
+
+#connect
+{
+  width: 100%;
+  display:flex;
+  padding-right: 7%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .button-div
@@ -77,9 +109,11 @@
   text-align: center;
 }
 
-.lien-1
+.lien
 {
   width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .lien-1:hover
@@ -90,4 +124,82 @@
 .lien-2:hover
 {
   text-decoration: none;
+}
+
+
+
+/* username */
+
+#name-container
+{
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#name
+{
+  font-size: 2em;
+}
+
+/* account link */
+
+#myaccount
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lien-compte
+{
+  padding-top: 10%;
+  padding-bottom: 10%;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+
+#lien-compte:hover
+{
+  text-decoration: none;
+}
+
+
+
+/* disconnect button */
+
+#disconnect
+{
+  display: flex;
+  justify-content: center;
+}
+
+#door
+{
+  margin-top: 10%;
+  margin-bottom: 10%;
+  border-radius: 50%;
+  width:30%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#door:hover
+{
+  box-shadow: 0px 0px 5px #333333;
+}
+
+#door-container
+{
+  width:80%;
+  height:80%;
+}
+
+#door-container img
+{
+  width:100%;
+  height:100%;
+  padding-bottom: 5%;
 }
