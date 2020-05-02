@@ -23,7 +23,7 @@
 	width:auto;
 	height:25px;
 	position:absolute;
-	right:30%;
+	right:20%;
 	top : 10px;
 	color:white;
 }
@@ -38,6 +38,7 @@
 	/*margin-right: -25px;*/
 	vertical-align: text-bottom; 
 	border-left: 1px solid #2aa3b7;
+	box-sizing: content-box;
 }
 
 

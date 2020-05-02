@@ -29,5 +29,5 @@ require('./modules/file_dispatcher/main.php');?>
 	$z->create_attach($_FILES['fileToUpload']);
 
 	echo '<br>'.$z->get_h_code();
-	//header("Location: "."/lecture/".$_SESSION["path"]);
+	header("Location: "."/lecture/".$_SESSION["path"]);
 ?>
