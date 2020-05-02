@@ -48,9 +48,10 @@
 	?>
 
 	<br>
-	<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
+	<textarea rows="40" cols="80" name="article" form="uform" ><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 	<br>
-	<form action='/upload.php' method="post" id="uform" >
+	<form action='/upload.php' method="post" id="uform"  enctype="multipart/form-data">
+		<input type="file" name="fileToUpload" id="fileToUpload">
 	  <input type="submit" class='button' value='Publish' >
 	</form>
 	<br>

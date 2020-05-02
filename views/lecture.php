@@ -31,6 +31,6 @@ if( $z->get_h_code() != "NOT_FOUND" )	//print article
 	}
 	else 	//CREATION PAGE
 		echo "<div style='margin-top:40%;'>Woops, this page does not exist, do you want to create it? <br><u><a style='text-decoration:none; color:#2aa3b7;' href=".str_replace("/lecture/","/write/",$_SERVER['REQUEST_URI']) .">Create this page</a></u></div>";
-
+//print_r($z->getError());
 ?>
 </body>

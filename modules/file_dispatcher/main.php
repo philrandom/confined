@@ -156,6 +156,46 @@ SECTION FILESYSTEM
 				unlink($this->backup . '/' . $this->h_code.'/'.$file);
 			rmdir($this->backup . '/' . $this->h_code);
 		}
+/*---------------------------
+SECTION attachement
+---------------------------*/
+
+		function create_attach($file) {
+
+			if(! in_array(strtolower(pathinfo($file['name'],PATHINFO_EXTENSION)),const_dispatcher::authorized_ext)) {
+				$this->error[] = "[file_dispatcher:create_attachement] extension is not valid";
+				return -1;
+			}
+
+			//define path of location 
+			if( const_dispatcher::separate_location == 'yes' ) {
+				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement;
+				if (!file_exists($final_place))
+					mkdir( $final_place, 0777);
+				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement . '/' . $this->h_code;
+
+			}
+			else {
+				$final_place = $this->backup. '/' . $this->h_code . '/'  . const_dispatcher::name_dir_attachement;
+			}
+			//create directory
+			if (!file_exists($final_place))
+				mkdir( $final_place, 0777);
+
+			if (file_exists($target_file)) {
+				$this->error[] = "Sorry, file already exists.";
+				return -1;
+			}
+			
+
+			if (move_uploaded_file($file["tmp_name"], $final_place.'/'.$file["name"])) {
+				echo "The file ". basename( $file["name"]). " has been uploaded.";
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+			}
+
+		}
+
 
 
 /*---------------------------		
