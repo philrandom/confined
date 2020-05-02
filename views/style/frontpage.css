@@ -29,6 +29,7 @@
     width:8%;
     border:none;
     border-radius: 20px;
+    margin-right: 0.5%;
 }
 
 #loupe-container img
@@ -51,7 +52,13 @@
     outline: none;
 }
 
-/* bloc de cours*/
+/* bloc des cours*/
+#bloc-des-cours
+{
+    margin-bottom: 5%;
+}
+
+/* blocs de cours*/
 .bloc-cours
 {
     width:80%;

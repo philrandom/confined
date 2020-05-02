@@ -1,7 +1,23 @@
 <?php
 
-$z = new dispatcher("./data",str_replace("/write/","",$_SERVER['REQUEST_URI']),'r',1);
-print_r($z->get_h_code());
+	$z = new dispatcher("./data",str_replace("/write/","",$_SERVER['REQUEST_URI']),'r',1);
+	print_r($z->get_h_code());	
+
+	// $cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+	// $sql = "SELECT author FROM tag WHERE tag LIKE :query GROUP BY tag ORDER BY weight DESC";
+    // $res = $cnnx->prepare($sql);
+    // $res->bindParam(':query',$query);
+    // $res->execute();
+    // $res = $res->fetchAll();
+
+	// if($_SESSION['stype'] == 'admin')
+	// {
+
+	// }
+	// else
+	// {
+	// 	header('location:/error/');
+	// }
 
 ?>
 <head>

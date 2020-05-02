@@ -6,6 +6,14 @@ h1
     margin-bottom:2%;
 }
 
+
+/* bloc des tags*/
+#bloc-des-tags
+{
+    margin-bottom: 5%;
+}
+
+/* blocs de tag*/
 .bloc-tag
 {
     font-size: 2em;
