@@ -25,8 +25,8 @@
 	<?php
 
 		//on récupère les infos de l'utilisateur actuel
+		// echo var_dump($_SESSION['resQuery']);
 		session_start();
-
 		//header 
 		$top = file_get_contents('views/top.php');
 		if( $_SESSION["stype"] == "prof" )
@@ -43,6 +43,10 @@
 		unset($url[sizeof($url)-1]);
 
 		if( $url[1] == ''){
+			include('./modules/search_engine/search.php');
+		}else
+		if( $url[1] == 'frontpage' ) {
+			// echo var_dump($_SESSION['resQuery']);
 			include('./views/frontpage.php');
 		}else
 		if( $url[1] == 'lecture' ) {
@@ -64,6 +68,9 @@
 				include('./views/register.php?error=true');
 			else
 				include('./views/register.php');
+		}else
+		if( $url[1] == 'dashboard' ) {
+			include('./views/dashboard.php');
 		}else
 		if( $url[1] == 'disconnect' ) {
 			include('./modules/login/disconnection.php');

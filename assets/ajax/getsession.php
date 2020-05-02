@@ -1,3 +1,6 @@
 <?php
     session_start();
-    print json_encode($_SESSION);
+    if(isset($_SESSION['user']))
+        print ($_SESSION['user']);
+    else
+        print('');

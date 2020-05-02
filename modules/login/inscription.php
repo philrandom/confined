@@ -26,10 +26,10 @@
         $res->bindParam(':type',$type);
         $res->execute();
 
-        //user redirection to the front page
+        //connection and user redirection to the front page 
         session_start();
-        $_SESSION['user'] = $r['user'];
-        $_SESSION['stype'] = $r['type'];
+        $_SESSION['user'] = $user;
+        $_SESSION['stype'] = $type;
         header("Location:/");
         
     }

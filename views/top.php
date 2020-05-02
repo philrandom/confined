@@ -21,17 +21,15 @@
                         $.get('/assets/ajax/getsession.php',function(data){
                             cocheck(data);
                         });
-                        function cocheck(res){
+                        function cocheck(user){
                             $("#user-pannel").addClass("user-pannel-active");
-                            if(res == '[]')
+                            if(user == '')
                             {
                                 document.getElementById("user-pannel").innerHTML = "<div id=\"connect\"><div class=\"lien\"><a href='/login/' class='lien-1'>Log in</a></div><div class=\"lien\"><a href='/register/' class='lien-2'>I'm new</a></div></div>";
                             }
                             else
                             {
-                                res = res.split('"');
-                                $name = res[3];
-                                document.getElementById("user-pannel").innerHTML = "<div id=\"name-container\"><p id=\"name\" style=\"color:#444444\">"+$name+"</p></div><div id=\"myaccount\"><a id=\"lien-compte\" href=\"/dashboard/\"><NOBR>See my Account</NOBR></a></div><div id=\"disconnect\"><div id=\"door\" style=\"background-color: #444444;\"><div id=\"door-container\"><a href=\"/disconnect/\"><img src=\"/assets/icons/door.png\"></a></div></div></div>";
+                                document.getElementById("user-pannel").innerHTML = "<div id=\"name-container\"><p id=\"name\" style=\"color:#444444\">"+user+"</p></div><div id=\"myaccount\"><a id=\"lien-compte\" href=\"/dashboard/\"><NOBR>See my Account</NOBR></a></div><div id=\"disconnect\"><div id=\"door\" style=\"background-color: #444444;\"><div id=\"door-container\"><a href=\"/disconnect/\"><img src=\"/assets/icons/door.png\"></a></div></div></div>";
                             }
                         }
                     }

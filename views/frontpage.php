@@ -1,5 +1,40 @@
 <?php
-    $db = new db_dispatcher;
+
+    //display errors
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    if(isset($_SESSION['resQuery']))
+    {
+        $res = $_SESSION['resQuery'];
+
+        $maxweight = 0;
+        for($i = 0, $j = sizeof($res); $i < $j; $i++)
+        {
+            if($maxweight < $res[$i]['weight'])
+            {
+                $maxweight = $res[$i]['weight'];
+            }
+        }
+
+        $res_trie = array();
+        $parcours = 0;
+        for($i = $maxweight; $i != 0; $i--)
+        {
+            $res_trie[$parcours] = array();
+            for($k = 0, $l = sizeof($res); $k < $l; $k++)
+            {
+                
+                if($res[$k]['weight'] == $i)
+                {
+                    array_push($res_trie[$parcours],$res[$k]);
+                }
+            }
+            $parcours ++;
+        }
+        
+    }
 ?>
 
 <!DOCTYPE html>
@@ -19,10 +54,29 @@
             </div>
         </form>
 
-        <div id="bloc-cours">
-            <?php foreach($res as $cours){?>
-                <div class = "cours"><?php echo "";?></div>
-            <?php } ?>
+        <div id="bloc-des-cours">
+            <?php foreach($res_trie as $poids){ 
+                    foreach($poids as $cours){ 
+                        $z = new dispatcher("./data",$cours['h_code'],'r');
+                        $path_array = $z->get_tree();
+                        $path = '/lecture/';
+                        foreach($path_array as $elt)
+                        {
+                            $path = $path.$elt;
+                            $path = $path.'/';
+                        } 
+            ?>
+                        <div class="bloc-cours">
+                            <a class="lien-cours" href="<?php echo $path ?>">
+                                <?php                                
+                                    echo '<br>';   
+                                    echo var_dump($path);                                                                      
+                                ?>
+                            </a>
+                        </div>
+            <?php   } 
+                  } 
+            ?>
         </div>
     </body>
 
