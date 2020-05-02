@@ -17,7 +17,7 @@
         $cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
 
         //searching for the user
-        $sql = "SELECT * FROM `user` WHERE (user = :user AND pass = :pass) OR (mail = :mail AND pass = :pass)";
+        $sql = "SELECT * FROM USER WHERE (user = :user AND pass = :pass) OR (mail = :mail AND pass = :pass)";
         $res = $cnnx->prepare($sql);
         $res->bindParam(':user',$user);
         $res->bindParam(':pass',$pass);

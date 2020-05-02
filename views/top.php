@@ -12,7 +12,7 @@
             
             $(document).ready(function()
             {
-                $("button").click(function()
+                $(".button-div").click(function()
                 {
                     //si le menu de connexion n'est pas affiché, on l'affiche
                     if(document.getElementById("user-pannel").innerHTML == '')

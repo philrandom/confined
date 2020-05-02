@@ -25,8 +25,8 @@
 	<?php
 
 		//on récupère les infos de l'utilisateur actuel
-		// echo var_dump($_SESSION['resQuery']);
 		session_start();
+		
 		//header 
 		$top = file_get_contents('views/top.php');
 		if( $_SESSION["stype"] == "prof" )

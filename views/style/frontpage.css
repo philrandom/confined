@@ -51,23 +51,34 @@
     outline: none;
 }
 
-/* bloc des topics classés par ordre décroissant de poids */
-#bloc-cours
+/* bloc de cours*/
+.bloc-cours
 {
-    margin-top: 20%;
-    display:flex;
+    width:80%;
+    margin-left: 2%;
+    font-size: 2em;
 }
 
+.bloc-cours:hover
+{
+    text-decoration: none;
+}
+
+/* h2 topics */
 #topics
 {
+    font-size: 3em;
     margin-top: 5%;
-    margin-left: 5%;
+    margin-left: 2%;
     margin-bottom: 2%;
 }
 
+/* h2 courses */
 #courses
 {
+    font-size: 3em;
     margin-top: 5%;
-    margin-left: 5%;
+    margin-left: 2%;
     margin-bottom: 2%;
+    
 }

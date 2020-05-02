@@ -22,10 +22,24 @@
         $res->bindParam(':query',$query);
         $res->execute();
         $res = $res->fetchAll();
+
+        //on récupère les infos de connection pour ne pas se déconnecter si on est connecté
+        $connected = false;
+        if(isset($_SESSION['user']))
+        {
+            $user = $_SESSION['user'];
+            $stype = $_SESSION['stype'];
+            $connected = true;
+        }
         session_destroy();
         session_start();
         unset($_SESSION['resQuery']);
         $_SESSION['resQuery'] = $res;
+        if($connected)
+        {
+            $_SESSION['user'] = $user;
+            $_SESSION['stype'] = $stype;
+        }
         header('location:/frontpage/');
     }
     //if this page isn't accessed the right way
