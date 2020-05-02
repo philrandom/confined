@@ -17,14 +17,15 @@
             $query = '%%';
         }
         $cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
-        $sql = "SELECT * FROM tag WHERE tag LIKE :query ORDER BY weight DESC";
+        $sql = "SELECT * FROM tag WHERE tag LIKE :query GROUP BY tag ORDER BY weight DESC";
         $res = $cnnx->prepare($sql);
         $res->bindParam(':query',$query);
         $res->execute();
         $res = $res->fetchAll();
+        session_destroy();
+        session_start();
         unset($_SESSION['resQuery']);
         $_SESSION['resQuery'] = $res;
-        // echo var_dump($_SESSION['resQuery']);
         header('location:/frontpage/');
     }
     //if this page isn't accessed the right way

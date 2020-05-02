@@ -46,7 +46,6 @@
 			include('./modules/search_engine/search.php');
 		}else
 		if( $url[1] == 'frontpage' ) {
-			// echo var_dump($_SESSION['resQuery']);
 			include('./views/frontpage.php');
 		}else
 		if( $url[1] == 'lecture' ) {
@@ -56,6 +55,9 @@
 		if( $url[1] == 'write' ) {
 			include('./views/tag-tree.php');
 			include('./views/write.php');
+		}else
+		if( $url[1] == 'tag' ) {
+			include('./views/tag.php');
 		}else	
 		if( $url[1] == 'login' ) {
 			if($url[-1] == '?error=true')

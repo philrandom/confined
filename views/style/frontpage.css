@@ -57,3 +57,17 @@
     margin-top: 20%;
     display:flex;
 }
+
+#topics
+{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+#courses
+{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-bottom: 2%;
+}

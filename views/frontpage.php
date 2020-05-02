@@ -5,10 +5,12 @@
 	ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
+    //le résultat de la recherche est récupéré par $_SESSION
     if(isset($_SESSION['resQuery']))
     {
         $res = $_SESSION['resQuery'];
 
+        //on détermine le poids max des tags obtenus
         $maxweight = 0;
         for($i = 0, $j = sizeof($res); $i < $j; $i++)
         {
@@ -18,9 +20,10 @@
             }
         }
 
+        //on trie les tags par poids et on les range par poids croissant dans res_trie
         $res_trie = array();
         $parcours = 0;
-        for($i = $maxweight; $i != 0; $i--)
+        for($i = 0, $j = $maxweight; $i <= $j; $i++)
         {
             $res_trie[$parcours] = array();
             for($k = 0, $l = sizeof($res); $k < $l; $k++)
@@ -33,7 +36,6 @@
             }
             $parcours ++;
         }
-        
     }
 ?>
 
@@ -55,14 +57,27 @@
         </form>
 
         <div id="bloc-des-cours">
-            <?php foreach($res_trie as $poids){ 
-                    foreach($poids as $cours){ 
+            <?php $disp = true;
+                for($i = 0, $j = sizeof($res_trie); $i < $j; $i++){
+                    if(isset($res_trie[$i][0]))
+                    {
+                        if($res_trie[$i][0]['weight'] == 0)
+                        {
+                            echo '<h2 id="topics">Topics</h2>';
+                        }
+                        if($res_trie[$i][0]['weight'] >= 1 && $disp == true)
+                        {
+                            $disp = false;
+                            echo '<h2 id="courses">Courses</h2>';
+                        }
+                    }
+                    foreach($res_trie[$i] as $cours){ 
                         $z = new dispatcher("./data",$cours['h_code'],'r');
                         $path_array = $z->get_tree();
                         $path = '/lecture/';
-                        foreach($path_array as $elt)
+                        for($l = 0, $m = $res_trie[$i][0]['weight']; $l <= $m; $l++)
                         {
-                            $path = $path.$elt;
+                            $path = $path.$path_array[$l];
                             $path = $path.'/';
                         } 
             ?>
@@ -75,9 +90,10 @@
                             </a>
                         </div>
             <?php   } 
-                  } 
+                } 
             ?>
         </div>
+        
     </body>
 
 </html>

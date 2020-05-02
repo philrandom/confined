@@ -30,7 +30,7 @@
 						$(".shift-l").addClass("dead-l");
 						for(var i = 0; i < table.length-1; i++) {
 							console.log(table[i]);
-							$("#"+table[i]).html("<a href='/tag/"+table[i]+"'>"+table[i]+"</a>");
+							$("#"+table[i]).html("<a href='/tag/"+table[i]+"/'>"+table[i]+"</a>");
 						}
 					} else if( document.getElementById ("tree-tag").innerHTML == "<i class=\"fa fa-eye\"></i>tag" ) {
 						document.getElementById ("tree-tag").innerHTML = "<i class=\"fa fa-eye\"></i>tree";
