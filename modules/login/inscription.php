@@ -18,7 +18,7 @@
         $cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
 
         //searching for the user
-        $sql = "INSERT INTO USER VALUES (NULL, :user, :mail, :pass, NULL, :type)";
+        $sql = "INSERT INTO user VALUES (NULL, :user, :mail, :pass, NULL, :type)";
         $res = $cnnx->prepare($sql);
         $res->bindParam(':user',$user);
         $res->bindParam(':pass',$pass);
