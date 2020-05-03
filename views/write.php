@@ -13,7 +13,9 @@
 	$res = $res->fetchAll();
 	$author = $res[0]['user'];
 	include('./views/tag-tree.php');
+	
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -46,26 +48,46 @@
 
 	<body>
 		<?php
+			//updating the url path in session
 			session_start();
 			$_SESSION['path']=str_replace("/write/","",$_SERVER['REQUEST_URI']);
+
+			//getting the title of the course
+			$url = explode("/",$_SERVER['REQUEST_URI']);
+			$size = sizeof($url) - 2;
+
+			//if the visitor is an admin or is the user author of the article
+			if($_SESSION['stype'] == 'admin' or $res[0]['user'] == $_SESSION['user'])
+			{
+				//titre
+				echo "<h1 id=\"titre-write\">".$url[$size]."</h1>"
 		?>
-		<?php if($_SESSION['stype'] == 'admin' or $res[0]['user'] == $_SESSION['user']){?>
 				<br>
 				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 				<br>
 				<form action='/upload.php' method="post" id="uform" >
 					<input type="submit" class='button' value='Publish' >
 				</form>
-		<?php echo "<p id=\"author\">Author : $author</p>";}
-			//si le visiteur n'a pas les droits, il doit stage sa commit et ne peut pas upload directement
-			else if(isset($_SESSION['user'])){?>
+		<?php 	if($author != null){
+					echo "<p id=\"author\">Author : $author</p>";
+				}
+			}
+			//si le user n'a pas les droits, il doit stage sa commit et ne peut pas upload directement
+			else if(isset($_SESSION['user']))
+			{
+				//titre
+				echo "<h1 id=\"titre-write\">".$url[$size]."</h1>"
+		?>
 				<br>
 				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 				<br>
 				<form action='/stage_commit.php' method="post" id="uform" >
-				<input type="submit" class='button' value='Submit' >
-			</form>
-		<?php echo "<p id=\"author\">Author : $author</p>";}
+					<input type="submit" class='button' value='Submit' >
+				</form>
+		<?php 	if($author != null){
+					echo "<p id=\"author\">Author : $author</p>";
+				}
+			}
 			else 
 			{
 				echo "<div style='margin:20%; margin-left:35%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";
