@@ -9,7 +9,6 @@
     if(isset($_SESSION['resQuery']))
     {
         $res = $_SESSION['resQuery'];
-
         //on détermine le poids max des tags obtenus
         $maxweight = 0;
         for($i = 0, $j = sizeof($res); $i < $j; $i++)
@@ -19,7 +18,6 @@
                 $maxweight = $res[$i]['weight'];
             }
         }
-
         //on trie les tags par poids et on les range par poids croissant dans res_trie
         $res_trie = array();
         $parcours = 0;
@@ -83,11 +81,8 @@
                         $z = new dispatcher("./data",$cours['h_code'],'r');
                         $path_array = $z->get_tree();
                         $path = '/lecture/';
-                        for($l = 0, $m = $res_trie[$i][0]['weight']; $l <= $m; $l++)
-                        {
-                            $path = $path.$path_array[$l];
-                            $path = $path.'/';
-                        } 
+                        for($l = 0; $l < sizeof($path_array); $l++)
+                            $path = $path.$path_array[$l].'/';
             ?>
                         <div class="bloc-cours">
                             <a class="lien-cours" href="<?php echo $path ?>">
