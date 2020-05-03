@@ -58,3 +58,29 @@ img {
 	margin-top: 50px;
 
 }
+
+.modif
+{
+	position: absolute;
+	margin-left:50%;
+	margin-top:5%;
+}
+
+.modif:hover
+{
+	text-decoration: none;
+}
+
+#author
+{
+	margin-top:10%;
+	margin-bottom:10%;
+	margin-left:80%;
+	color:gray;
+}
+
+#titre-write
+{
+	margin-top:10%;
+	margin-left: 2%;
+}

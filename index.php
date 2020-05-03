@@ -29,13 +29,20 @@
 		
 		//header 
 		$top = file_get_contents('views/top.php');
-		if( $_SESSION["stype"] == "prof" )
+		if(!isset($_SESSION['user']))
 		{
+			$top = str_replace("#004d5a","#444444",$top);
+			$top = str_replace("#2aa3b7","#444444",$top);
+		}
+		else if( $_SESSION["stype"] == "admin" )
+		{
+			$top = str_replace("#004d5a","#2aa3b7",$top);
 			$top = str_replace("#444444","#2aa3b7",$top);
 		}
-		if( $_SESSION["stype"] == "eleve" )
+		else if( $_SESSION["stype"] == "user" )
 		{
-			$top = str_replace("#2aa3b7","#444444",$top);
+			$top = str_replace("#444444","#004d5a",$top);
+			$top = str_replace("#2aa3b7","#004d5a",$top);
 		}
 		echo $top;
 
@@ -53,7 +60,6 @@
 			include('./views/lecture.php');
 		}else
 		if( $url[1] == 'write' ) {
-			include('./views/tag-tree.php');
 			include('./views/write.php');
 		}else
 		if( $url[1] == 'tag' ) {
@@ -81,7 +87,7 @@
 			include('./views/version.php');
 		}else
 		if( $url[1] != '' ) {
-			echo "<div style='margin:20%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";
+			echo "<div style='margin:20%; margin-left:35%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";
 		}
 	?>
 

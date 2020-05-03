@@ -23,13 +23,13 @@
 /*bouton dans lequel on a la div contenant la loupe */
 #btn-loupe
 {
-    background: #2aa3b7;
     border: 1px solid grey;
     cursor: pointer;
     width:8%;
     border:none;
     border-radius: 20px;
     margin-right: 0.5%;
+    z-index: 5;
 }
 
 #loupe-container img
@@ -37,6 +37,7 @@
     display:block;
     width:100%;
     height:100%;
+    z-index: 10;
 }
 
 #input

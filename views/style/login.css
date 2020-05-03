@@ -38,10 +38,9 @@ form .title
 .sbmit:hover 
 {
     background-color: #2aa3b7;
-    color: white;
-    -webkit-transition: 300ms linear;
-    -ms-transition: 300ms linear;
-    transition: 300ms linear;
+    -webkit-transition: 100ms linear;
+    -ms-transition: 100ms linear;
+    transition: 100ms linear;
 }
 
 #choose
