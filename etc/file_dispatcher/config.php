@@ -7,6 +7,12 @@ class const_dispatcher
 
 	/*---		BACKUP		---*/
 	const hash =										'md5';		//please use hash function with one argument for security avoiding CSRF exec. pleas use old hash algorithm
+	/*---		Attachement	---*/
+	const authorized_ext = 					['pdf','jpg','png','avi'];
+	const separate_location =				'yes';
+		//yes 	write in /data/attachement/
+		//no 	write in /data/h_code/attachement/
+	const name_dir_attachement = 			'attachement';
 	/*---		versionning section 	---*/
 	const max_version = 						5;				//max of last version available immediatly
 	const rm_old_versions =				'no';			//delete old versions (rm as remove)

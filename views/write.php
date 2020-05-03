@@ -16,7 +16,6 @@
 ?>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<link rel="stylesheet" href="/views/style/lecture.css">
 		<meta charset="UTF-8">
