@@ -29,9 +29,9 @@
 	<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=doxy"></script> <!-- prettify to colorify code blocks -->
 
 	<?php 
-	if( $z->get_h_code() != "NOT_FOUND" )	//print article
+	if( $z->get_h_code() != "NOT_FOUND" ){	//print article
 		echo "<div class=article>".str_replace("<pre><code class=\"","<pre style=\"background-color: #0f0f0f\"><code class=\"prettyprint linenums ",$z->read_from_file())."</div>"; 
-	//else
+	}
 		if( sizeof($z->get_summary()) != 0 ) {	//SUMMARY
 			for($k=0; $k<3; $k++)	echo '<br>';
 			echo "<div style='border-top: medium dashed grey;'><h1>Summary</h1></div>";
@@ -60,11 +60,11 @@
 
 		}
 		else{	//CREATION PAGE
-		?>
-			<!-- on cache le crayon -->
-			<style>.modif{display: none;}</style>
-		<?php
-			echo "<div style='margin-top:40%;'>Woops, this page does not exist, do you want to create it? <br><u><a style='text-decoration:none; color:#2aa3b7;' href=".str_replace("/lecture/","/write/",$_SERVER['REQUEST_URI']) .">Create this page</a></u></div>";
+			?>
+				<!-- on cache le crayon -->
+				<style>.modif{display: none;}</style>
+			<?php
+				echo "<div style='margin-top:40%;'>Woops, this page does not exist, do you want to create it? <br><u><a style='text-decoration:none; color:#2aa3b7;' href=".str_replace("/lecture/","/write/",$_SERVER['REQUEST_URI']) .">Create this page</a></u></div>";
 		}
 	?>
 

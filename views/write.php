@@ -60,7 +60,10 @@
 			if($_SESSION['stype'] == 'admin' or $res[0]['user'] == $_SESSION['user'])
 			{
 				//titre
-				echo "<h1 id=\"titre-write\">".$url[$size]."</h1>"
+				echo "<h1 id=\"titre-write\">".$url[$size]."</h1>";
+
+				//l'user n'a pas les droits
+				$_SESSION['write_right'] = 'yes';
 		?>
 				<br>
 				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
@@ -76,12 +79,15 @@
 			else if(isset($_SESSION['user']))
 			{
 				//titre
-				echo "<h1 id=\"titre-write\">".$url[$size]."</h1>"
+				echo "<h1 id=\"titre-write\">".$url[$size]."</h1>";
+
+				//l'user n'a pas les droits
+				$_SESSION['write_right'] = 'no';
 		?>
 				<br>
 				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 				<br>
-				<form action='/stage_commit.php' method="post" id="uform" >
+				<form action='/upload.php' method="post" id="uform" >
 					<input type="submit" class='button' value='Submit' >
 				</form>
 		<?php 	if($author != null){
