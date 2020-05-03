@@ -17,11 +17,12 @@
             $query = '%%';
         }
         $cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
-        $sql = "SELECT * FROM tag WHERE tag LIKE :query GROUP BY tag ORDER BY weight DESC";
+        $sql = "SELECT * FROM tag WHERE tag LIKE :query ORDER BY weight DESC";
         $res = $cnnx->prepare($sql);
         $res->bindParam(':query',$query);
         $res->execute();
         $res = $res->fetchAll();
+		print_r($res);
 
         //on récupère les infos de connection pour ne pas se déconnecter si on est connecté
         $connected = false;
