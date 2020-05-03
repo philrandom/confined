@@ -1,9 +1,9 @@
 <?php
 
     //display errors
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+	//ini_set('display_errors', 1);
+	//ini_set('display_startup_errors', 1);
+    //error_reporting(E_ALL);
 
     //le résultat de la recherche est récupéré par $_SESSION
     if(isset($_SESSION['resQuery']))
@@ -48,23 +48,11 @@
         <link rel="stylesheet" href="/views/style/top.css">
         <?php 		
             if(!isset($_SESSION['user']))
-            {
-        ?>
-                <style>#btn-loupe{background-color: #444444;}</style>
-        <?php
-            }
+                echo "<style>#btn-loupe{background-color: #444444;}</style>";
             else if( $_SESSION["stype"] == "admin" )
-            {
-        ?>
-                <style>#btn-loupe{background-color: #2aa3b7;}</style>
-        <?php
-            }
+                echo "<style>#btn-loupe{background-color: #2aa3b7;}</style>";
             else if( $_SESSION["stype"] == "user" )
-            {
-        ?>
-                <style>#btn-loupe{background-color: #004d5a;}</style>
-        <?php 
-            }
+                echo "<style>#btn-loupe{background-color: #004d5a;}</style>";
         ?>
     </head>
 
@@ -72,7 +60,7 @@
         <form id="form-search" action="/modules/search_engine/search.php" method="GET">
             <div id="search-bar">
                 <input id="input" type="text" name="query" placeholder="Search for a topic">
-                <button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"><img src="/assets/icons/loupe2.png"></i></button>
+                <!--<button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"><img src="/assets/icons/loupe2.png"></i></button>-->
             </div>
         </form>
 
