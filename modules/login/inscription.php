@@ -36,6 +36,5 @@
     else //if this page isn't accessed through the registeration form
     {
         //404 error
-        echo "<div style='margin:20%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";
-        echo var_dump($_POST);
+        echo "<div style='margin:20%; margin-left:35%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";
     }

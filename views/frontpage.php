@@ -46,13 +46,33 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="/views/style/frontpage.css">
         <link rel="stylesheet" href="/views/style/top.css">
+        <?php 		
+            if(!isset($_SESSION['user']))
+            {
+        ?>
+                <style>#btn-loupe{background-color: #444444;}</style>
+        <?php
+            }
+            else if( $_SESSION["stype"] == "admin" )
+            {
+        ?>
+                <style>#btn-loupe{background-color: #2aa3b7;}</style>
+        <?php
+            }
+            else if( $_SESSION["stype"] == "user" )
+            {
+        ?>
+                <style>#btn-loupe{background-color: #004d5a;}</style>
+        <?php 
+            }
+        ?>
     </head>
 
     <body>
         <form id="form-search" action="/modules/search_engine/search.php" method="GET">
             <div id="search-bar">
                 <input id="input" type="text" name="query" placeholder="Search for a topic">
-                <button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"><img src="/assets/icons/loupe.png"></i></button>
+                <button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"><img src="/assets/icons/loupe2.png"></i></button>
             </div>
         </form>
 
