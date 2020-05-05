@@ -51,7 +51,9 @@ class dispatcher
 						unset($this->tree[sizeof($this->tree)-1]);
 
 						$cnnx = new db_dispatcher();
-						$this->h_code = $cnnx->search_by_path($this->tree);
+						//echo "CONSTRUCT SEARCHBYPATHREFILTERED";
+						//print_r($this->tree);
+						$this->h_code = $cnnx->search_by_path_refiltered($this->tree);
 						if( $this->h_code == 'NOT_FOUND' )
 							$this->error[] = "[file_dispatcher:__construct():is_path() reading] $link NOT_FOUND : h_code is NOT_FOUND";
 						else if( $this->tree != $cnnx->search_by_hash($this->h_code) ) {
@@ -82,7 +84,7 @@ class dispatcher
 						unset($this->tree[sizeof($this->tree)-1]);
 						
 						//verify if file exists
-						$this->h_code = $cnnx->search_by_path($this->tree,1);
+						$this->h_code = $cnnx->search_by_path_refiltered($this->tree);
 						if( $this->h_code != 'NOT_FOUND' ) {
 							$this->error[] = "[file_dispatcher:__construct():is_path() creation] $link allready EXIST. its h_code is : ".$this->h_code;
 							print_r("formal tree : ");

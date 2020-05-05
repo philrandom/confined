@@ -29,7 +29,23 @@ SECTION search for dispatcher:__construct
 		}
 
 		function search_by_path($tree,$restrict=0){
-			
+			//echo 'entry sbp';
+			$r = $this->search_by_path_kern($tree,$restrict);
+			if(sizeof($r) == 1)
+				return($r[0]);
+			else
+				return 'NOT_FOUND';
+		}
+
+		
+		function search_by_path_refiltered($tree,$restrict=0){
+			return $this->search_by_path($tree,$restrict);
+		}
+
+		function search_by_path_kern($tree,$restrict=0){
+			$restrict = 0;
+			//echo 'entry sbpk';
+			//print_r($tree);
 			/* EXAMPLE TREE
 			/OS/
 				linux/
@@ -47,30 +63,51 @@ SECTION search for dispatcher:__construct
 				if($i != sizeof($tree)-1)		$str = $str . ' or ';
 			}
 			$str = $str." group by h_code ) rep where C=".sizeof($tree);
-			//echo $str;
+			//echo '<br>FIRST REQ'.$str;
 			$sql = $this->cnnx->prepare($str);
 			$sql->execute();
-			$r = $sql->fetchAll();
-			if(sizeof($r) != 1 & $restrict==0) {
-					//[OK] /OS/bsd/
-					$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
-					for($i=0 ; $i < sizeof($tree); $i++) {
-						$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
-						if($i != sizeof($tree)-1)		$str = $str . ' or ';
-					}
-					$str = $str." or weight= ". sizeof($tree) ." group by h_code ) rep where C=".sizeof($tree);
-					//echo $str;
-					$sql = $this->cnnx->prepare($str);
-					$sql->execute();
-					$r = $sql->fetchAll();
-					if(sizeof($r) != 1){
-						return 'NOT_FOUND';
-					}		
+			$r1 = $sql->fetchAll();
+
+			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
+			for($i=0 ; $i < sizeof($tree); $i++) {
+				$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
+				if($i != sizeof($tree)-1)		$str = $str . ' or ';
 			}
-			if(sizeof($r) == 1)
-				return($r[0]['h_code']);
-			else
-				return 'NOT_FOUND';
+			$str = $str." or weight= ". sizeof($tree) ." group by h_code ) rep where C=".(sizeof($tree)+1);
+			//echo '<br>SECOND REQ'.$str;
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute();
+			$r2 = $sql->fetchAll();
+			/*
+			echo '<br> r1 :';
+			print_r($r1);
+			echo '<br> r2 :';
+			print_r($r2);		
+			echo '<br>';
+			*/
+			//CLEANING
+			$r1_clean = array();
+			$r2_clean = array();
+			foreach($r1 as $r1tmp)
+				$r1_clean[] = $r1tmp['h_code'];
+			foreach($r2 as $r2tmp)
+				$r2_clean[] = $r2tmp['h_code'];
+			/*
+			echo '<br> r1_clean :';
+			print_r($r1_clean);
+			echo '<br> r2_clean :';
+			print_r($r2_clean);		
+			echo '<br>';
+			*/
+			$r = array();
+			foreach( $r1_clean as $r1_elem )
+				if(!in_array($r1_elem,$r2_clean))
+					$r[] = $r1_elem;
+			//echo '<br> FINAL RESULT ';
+			//print_r($r);
+
+			return $r;
+		
 		}
 		
 		function summary($tree){
