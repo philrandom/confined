@@ -33,7 +33,7 @@ CREATE TABLE `file_ref` (
   `author` int(11) NOT NULL,
   `last_colab` int(11) NOT NULL,
   `v` int(11) DEFAULT NULL,
-  `date` int(11) NOT NULL DEFAULT current_timestamp(),
+  `date` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
