@@ -360,5 +360,16 @@ SECTION QCM
 			$cnnx->kill();
 			return $st;
 		}
+
+
+		function get_all_row_qcm() {
+			$cnnx = new db_dispatcher();
+			$resultat = $cnnx->get_all_row_qcm_sql($this->h_code);
+			$cnnx->kill();
+
+			return $resultat;
+		}
+
+
 }
 ?>

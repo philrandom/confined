@@ -41,7 +41,29 @@
 		}
 		</style>
 		<script>
+<<<<<<< HEAD
 
+=======
+			var num_q=1;
+			$(document).ready(function()
+            {
+				$("#add-question").click(function(){
+				  var xhttp = new XMLHttpRequest();
+				  xhttp.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+							num_q++;
+							document.getElementById("bloc-qcm").innerHTML = this.responseText + document.getElementById("bloc-q-1").innerHTML.replace(/1/g,""+num_q);
+
+						}
+				  };
+				  xhttp.open("POST", "/ajax/qcm_upload.php", true);
+				  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				  var str = "h_code="+document.getElementById("hash_code").innerHTML+"&qu="+document.getElementById("q-"+num_q).value+"&A="+document.getElementById("A-"+num_q).value+"&B="+document.getElementById("B-"+num_q).value+"&C="+document.getElementById("C-"+num_q).value+"&D="+document.getElementById("D-"+num_q).value+"&V="+document.getElementById("V-"+num_q).value;
+					alert(str);
+				  xhttp.send(str);
+				});
+			});
+>>>>>>> c39986e09ef52cd6ee690bd75c0ffb2a7b7464a6
 		</script>
 	</head>
 
@@ -59,7 +81,7 @@
 			//titre
 			echo "<h1 id=\"titre-write\">".$url[$size]."</h1>";
 		
-			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html in the following textarea. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/$hash/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use the questionnaire utility below the textarea</p>";
+			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html in the following textarea. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/<span id='hash_code'>$hash</span>/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use the questionnaire utility below the textarea</p>";
 		
 			//if the user is an admin 
 			if($_SESSION['stype'] == 'admin'){
@@ -73,6 +95,49 @@
 					<input type="file" name="fileToUpload" id="fileToUpload">
 				</form>
 
+<<<<<<< HEAD
+=======
+				<!--QCM-->
+				<div id="bloc-qcm">
+
+					<!--BLOC DE LA PREMIERE QUESTION-->
+					<div id="bloc-q-1">
+					  <div class="div-bloc-question"><!--div only for style-->
+						<!--UNE QUESTION-->
+						<div class="question">
+							<label >Question 1</label>
+							<input name="q-1" id="q-1" type="text">
+						</div>
+						
+						<!--4 REPONSES-->
+						<div class = bloc-questions>
+							<div class="response">
+								<label for="q-1-1">A</label>
+								<input id="A-1" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-2">B</label>
+								<input name="q-1-2" id="B-1" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-3">C</label>
+								<input name="q-1-3" id="C-1" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-4">D</label>
+								<input name="q-1-4" id="D-1" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-4">V</label>
+								<input name="q-1-4" id="V-1" type="text">
+							</div>
+						</div>
+					  </div>
+					</div>
+				</div>
+				<div id="add-question" class="fa fa-plus-square"></div>
+
+>>>>>>> c39986e09ef52cd6ee690bd75c0ffb2a7b7464a6
 		<?php   if($author != null){
 					echo "<p id=\"author\">Author : $author</p>";
 				}
