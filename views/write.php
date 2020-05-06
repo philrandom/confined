@@ -41,9 +41,22 @@
 		}
 		</style>
 		<script>
+			var num_q=1;
 			$(document).ready(function()
             {
-
+				$("#add-question").click(function(){
+				  var xhttp = new XMLHttpRequest();
+				  xhttp.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+						 	alert(this.responseText);
+						}
+				  };
+				  xhttp.open("POST", "/ajax/qcm_upload.php", true);
+				  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				  var str = "h_code="+document.getElementById("hash_code").innerHTML+"&qu="+document.getElementById("q-"+num_q).value+"&A="+document.getElementById("A-"+num_q).value+"&B="+document.getElementById("B-"+num_q).value+"&C="+document.getElementById("C-"+num_q).value+"&D="+document.getElementById("D-"+num_q).value+"&V="+document.getElementById("V-"+num_q).value;
+					alert(str);
+				  xhttp.send(str);
+				});
 			});
 		</script>
 	</head>
@@ -62,7 +75,7 @@
 			//titre
 			echo "<h1 id=\"titre-write\">".$url[$size]."</h1>";
 		
-			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html in the following textarea. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/$hash/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use the questionnaire utility below the textarea</p>";
+			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html in the following textarea. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/<span id='hash_code'>$hash</span>/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use the questionnaire utility below the textarea</p>";
 		
 			//if the user is an admin 
 			if($_SESSION['stype'] == 'admin'){
@@ -85,51 +98,35 @@
 						<!--UNE QUESTION-->
 						<div class="question">
 							<label for="q-1">Question 1</label>
-							<input name="q-1"type="text">
+							<input name="q-1" id="q-1" type="text">
 						</div>
 						
 						<!--4 REPONSES-->
 						<div class = bloc-questions>
 							<div class="response">
 								<label for="q-1-1">A</label>
-								<input name="q-1-1" type="text">
+								<input name="q-1-1" id="A-1" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-2">B</label>
-								<input name="q-1-2" type="text">
+								<input name="q-1-2" id="B-1" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-3">C</label>
-								<input name="q-1-3" type="text">
+								<input name="q-1-3" id="C-1" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-4">D</label>
-								<input name="q-1-4" type="text">
+								<input name="q-1-4" id="D-1" type="text">
 							</div>
+							<div class="response">
+								<label for="q-1-4">V</label>
+								<input name="q-1-4" id="V-1" type="text">
+							</div>
+
 						</div>
 
-						<!--VALID RESPONSE-->
-						<div class="V">
-							<div id="v-1">Valid question</label>							
-								<div>
-									<label for="r-1-1">A</label>
-									<input type="radio" id="r-1-1" name="r-1-1" value="A">
-								</div>
-								<div>
-									<label for="r-1-2">B</label>
-									<input type="radio" id="r-1-2" name="r-1-2" value="B">
-								</div>
-								<div>
-									<label for="r-1-3">C</label>
-									<input type="radio" id="r-1-3" name="r-1-3" value="C">
-								</div>
-								<div>
-									<label for="r-1-4">D</label>
-									<input type="radio" id="r-1-4" name="r-1-4" value="D">
-								</div>
-							</div>
-						</div>
-
+				
 					</div>
 					
 					<div id="add-question" class="fa fa-plus-square"></div>
