@@ -208,6 +208,12 @@ SECTION qcm
 			return $sql->execute([':h_code'=>$h_code, ':question'=>$qu, ':A' => $A, ':B' => $B, ':C' => $C, ':D' => $D, ':V'=>$V]);
 		}
 
+		function get_all_row_qcm_sql($h_code) {
+			$sql = $this->cnnx->prepare("SELECT * from `" . const_dispatcher::qcm . "` where h_code=:h_code");
+			$sql->execute([':h_code'=>$h_code]);
+			return $sql->fetchAll();
+		}
+
 
 }
 

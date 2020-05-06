@@ -48,9 +48,8 @@
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
-						 	document.getElementById("bloc-q-"+num_q).innerHTML = this.responseText;
 							num_q++;
-							document.getElementById("bloc-qcm").innerHTML = document.getElementById("bloc-qcm").innerHTML + document.getElementById("bloc-q-1").innerHTML.replace(/1/g,""+num_q);
+							document.getElementById("bloc-qcm").innerHTML = this.responseText + document.getElementById("bloc-q-1").innerHTML.replace(/1/g,""+num_q);
 
 						}
 				  };
@@ -96,8 +95,8 @@
 				<div id="bloc-qcm">
 
 					<!--BLOC DE LA PREMIERE QUESTION-->
-					<div id="bloc-q-1" class="div-bloc-question">
-
+					<div id="bloc-q-1">
+					  <div class="div-bloc-question"><!--div only for style-->
 						<!--UNE QUESTION-->
 						<div class="question">
 							<label >Question 1</label>
@@ -127,6 +126,7 @@
 								<input name="q-1-4" id="V-1" type="text">
 							</div>
 						</div>
+					  </div>
 					</div>
 				</div>
 				<div id="add-question" class="fa fa-plus-square"></div>
