@@ -41,21 +41,18 @@
 		}
 		</style>
 		<script>
-			var num_q=1;
 			$(document).ready(function()
             {
 				$("#add-question").click(function(){
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
-							num_q++;
-							document.getElementById("bloc-qcm").innerHTML = this.responseText + document.getElementById("bloc-q-1").innerHTML.replace(/1/g,""+num_q);
-
+							document.getElementById("bloc-qcm").innerHTML = this.responseText +"<div id='bloc-q'>"+ document.getElementById("bloc-q").innerHTML+"</div>" ;
 						}
 				  };
 				  xhttp.open("POST", "/ajax/qcm_upload.php", true);
 				  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				  var str = "h_code="+document.getElementById("hash_code").innerHTML+"&qu="+document.getElementById("q-"+num_q).value+"&A="+document.getElementById("A-"+num_q).value+"&B="+document.getElementById("B-"+num_q).value+"&C="+document.getElementById("C-"+num_q).value+"&D="+document.getElementById("D-"+num_q).value+"&V="+document.getElementById("V-"+num_q).value;
+				  var str = "h_code="+document.getElementById("hash_code").innerHTML+"&qu="+document.getElementById("q").value+"&A="+document.getElementById("A").value+"&B="+document.getElementById("B").value+"&C="+document.getElementById("C").value+"&D="+document.getElementById("D").value+"&V="+document.getElementById("V").value;
 					alert(str);
 				  xhttp.send(str);
 				});
@@ -95,35 +92,35 @@
 				<div id="bloc-qcm">
 
 					<!--BLOC DE LA PREMIERE QUESTION-->
-					<div id="bloc-q-1">
+					<div id="bloc-q">
 					  <div class="div-bloc-question"><!--div only for style-->
 						<!--UNE QUESTION-->
 						<div class="question">
-							<label >Question 1</label>
-							<input name="q-1" id="q-1" type="text">
+							<label >Nouvelle question </label>
+							<input name="q-1" id="q" type="text">
 						</div>
 						
 						<!--4 REPONSES-->
 						<div class = bloc-questions>
 							<div class="response">
 								<label for="q-1-1">A</label>
-								<input id="A-1" type="text">
+								<input id="A" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-2">B</label>
-								<input name="q-1-2" id="B-1" type="text">
+								<input name="q-1-2" id="B" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-3">C</label>
-								<input name="q-1-3" id="C-1" type="text">
+								<input name="q-1-3" id="C" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-4">D</label>
-								<input name="q-1-4" id="D-1" type="text">
+								<input name="q-1-4" id="D" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-4">V</label>
-								<input name="q-1-4" id="V-1" type="text">
+								<input name="q-1-4" id="V" type="text">
 							</div>
 						</div>
 					  </div>

@@ -31,6 +31,8 @@
             session_start();
             $_SESSION['user'] = $r['user'];
             $_SESSION['stype'] = $r['type'];
+			$_SESSION['mail'] = $r['mail'];
+			$_SESSION['photo'] = $r['photo'];
             $cnnx = null;
             header("Location:/");
         }
