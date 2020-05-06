@@ -195,7 +195,7 @@ SECTION attachement
 			} else {
 				echo "Sorry, there was an error uploading your file.";
 			}
-
+			return $final_place.'/'.$file["name"];
 		}
 
 
