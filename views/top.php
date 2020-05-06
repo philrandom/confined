@@ -29,7 +29,7 @@
                             }
                             else
                             {
-                                document.getElementById("user-pannel").innerHTML = "<div id=\"name-container\"><p id=\"name\" style=\"color:#444444\">"+user+"</p></div><div id=\"myaccount\"><a id=\"lien-compte\" href=\"/dashboard/\"><NOBR>See my Account</NOBR></a></div><div id=\"disconnect\"><div id=\"door\" style=\"background-color: #444444;\"><div id=\"door-container\"><a href=\"/disconnect/\"><img src=\"/assets/icons/door.png\"></a></div></div></div>";
+                                document.getElementById("user-pannel").innerHTML = "<div id=\"name-container\"><p id=\"name\" style=\"color:#444444\">"+user+"</p></div><div id=\"myaccount\"><p id=\"stype\"></p><a id=\"lien-compte\" href=\"/dashboard/\"><NOBR>See my Account</NOBR></a></div><div id=\"disconnect\"><div id=\"door\" style=\"background-color: #444444;\"><div id=\"door-container\"><a href=\"/disconnect/\"><img src=\"/assets/icons/door.png\"></a></div></div></div>";
                             }
                         }
                     }

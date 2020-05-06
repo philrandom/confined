@@ -69,6 +69,7 @@
     </head>
 
     <body>
+    
         <form id="form-search" action="/modules/search_engine/search.php" method="GET">
             <div id="search-bar">
                 <input id="input" type="text" name="query" placeholder="Search for a topic">

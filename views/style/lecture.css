@@ -89,3 +89,23 @@ img {
 {
 	margin-left: 2%;
 }
+
+#titre-write
+{
+	margin-top:10%;
+	margin-left: 2%;
+}
+
+textarea
+{
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+#indications
+{
+	margin-top:5%;
+	font-size: 0.6em;
+	margin-bottom: 2%;
+	color: gray;
+}

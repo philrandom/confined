@@ -31,5 +31,5 @@ require('./modules/file_dispatcher/main.php');?>
 
 	echo '<br>H8CODE'.$z->get_h_code()." saved in:";
 	print_r($z->get_tree());
-	//header("Location: "."/lecture/".$_SESSION["path"]);
+	header("Location: "."/lecture/".$_SESSION["path"]);
 ?>

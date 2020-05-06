@@ -163,8 +163,14 @@
 #myaccount
 {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#stype
+{
+  text-align: center;
 }
 
 #lien-compte

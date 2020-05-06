@@ -334,4 +334,9 @@ SECTION getter
 			return sizeof($this->error);
 		}
 }
+
+/*----------------------
+SECTION QCM
+-----------------------*/
+
 ?>

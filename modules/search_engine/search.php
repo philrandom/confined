@@ -10,37 +10,41 @@
     {
         if(isset($_GET['query']))
         {
-            $query = '%'.$_GET['query'].'%';
+            //quand on search un tag
+            $query = $_GET['query'];
+            header("location:/tag/".$query."/");
         }
         else
         {
+            //quand on accède à la frontpage par le bouton 
             $query = '%%';
+            $cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+            $sql = "SELECT * FROM tag WHERE tag LIKE :query GROUP BY tag ORDER BY weight DESC";
+            $res = $cnnx->prepare($sql);
+            $res->bindParam(':query',$query);
+            $res->execute();
+            $res = $res->fetchAll();
+    
+            //on récupère les infos de connection pour ne pas se déconnecter si on est connecté
+            $connected = false;
+            if(isset($_SESSION['user']))
+            {
+                $user = $_SESSION['user'];
+                $stype = $_SESSION['stype'];
+                $connected = true;
+            }
+            session_destroy();
+            session_start();
+            unset($_SESSION['resQuery']);
+            $_SESSION['resQuery'] = $res;
+            if($connected)
+            {
+                $_SESSION['user'] = $user;
+                $_SESSION['stype'] = $stype;
+            }
+            header('location:/frontpage/');
         }
-        $cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
-        $sql = "SELECT * FROM tag WHERE tag LIKE :query GROUP BY tag ORDER BY weight DESC";
-        $res = $cnnx->prepare($sql);
-        $res->bindParam(':query',$query);
-        $res->execute();
-        $res = $res->fetchAll();
 
-        //on récupère les infos de connection pour ne pas se déconnecter si on est connecté
-        $connected = false;
-        if(isset($_SESSION['user']))
-        {
-            $user = $_SESSION['user'];
-            $stype = $_SESSION['stype'];
-            $connected = true;
-        }
-        session_destroy();
-        session_start();
-        unset($_SESSION['resQuery']);
-        $_SESSION['resQuery'] = $res;
-        if($connected)
-        {
-            $_SESSION['user'] = $user;
-            $_SESSION['stype'] = $stype;
-        }
-        header('location:/frontpage/');
     }
     //if this page isn't accessed the right way
     else
