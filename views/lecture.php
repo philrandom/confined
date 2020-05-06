@@ -37,6 +37,40 @@ $z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI'])
 						echo "'>".$tree[$i]."</a>";
 				}
 			
+			//QCM
+			$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+			$sql = "SELECT * FROM `user` INNER JOIN score ON user.iduser=score.iduser WHERE score.iduser=".$_SESSION['user'];
+			$res = $cnnx->prepare($sql);
+			$res->execute();
+			$res = $res->fetchAll();
+
+			//si l'user a réussi le QCM
+			if(count($res) != 0)
+			{
+				echo "<p>Vous avez réussi l'évaluation pour ce cours</p>";
+			}
+			else
+			{//sinon, on lui affiche le qcm
+			?>
+				<!--QCM-->
+				<div id="bloc-qcm">
+
+					<?php 
+						$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+						$sql = "SELECT * FROM `qcm` WHERE h_code=$hash";
+						$res = $cnnx->prepare($sql);
+						$res->execute();
+						$res = $res->fetchAll();
+						foreach($res as $question)
+						{
+							echo var_dump($question);
+						}
+					?>
+
+				</div>
+
+			<?php }
+
 			//récupération de l'auteur de l'article
 			$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r',1);
 			$hash = $z->get_h_code();

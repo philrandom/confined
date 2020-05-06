@@ -41,10 +41,7 @@
 		}
 		</style>
 		<script>
-			$(document).ready(function()
-            {
 
-			});
 		</script>
 	</head>
 
@@ -75,66 +72,6 @@
 					<input type="submit" class='button' value='Publish'>
 					<input type="file" name="fileToUpload" id="fileToUpload">
 				</form>
-
-				<!--QCM-->
-				<div id="bloc-qcm">
-
-					<!--BLOC DE LA PREMIERE QUESTION-->
-					<div id="bloc-q-1" class="div-bloc-question">
-
-						<!--UNE QUESTION-->
-						<div class="question">
-							<label for="q-1">Question 1</label>
-							<input name="q-1"type="text">
-						</div>
-						
-						<!--4 REPONSES-->
-						<div class = bloc-questions>
-							<div class="response">
-								<label for="q-1-1">A</label>
-								<input name="q-1-1" type="text">
-							</div>
-							<div class="response">
-								<label for="q-1-2">B</label>
-								<input name="q-1-2" type="text">
-							</div>
-							<div class="response">
-								<label for="q-1-3">C</label>
-								<input name="q-1-3" type="text">
-							</div>
-							<div class="response">
-								<label for="q-1-4">D</label>
-								<input name="q-1-4" type="text">
-							</div>
-						</div>
-
-						<!--VALID RESPONSE-->
-						<div class="V">
-							<div id="v-1">Valid question</label>							
-								<div>
-									<label for="r-1-1">A</label>
-									<input type="radio" id="r-1-1" name="r-1-1" value="A">
-								</div>
-								<div>
-									<label for="r-1-2">B</label>
-									<input type="radio" id="r-1-2" name="r-1-2" value="B">
-								</div>
-								<div>
-									<label for="r-1-3">C</label>
-									<input type="radio" id="r-1-3" name="r-1-3" value="C">
-								</div>
-								<div>
-									<label for="r-1-4">D</label>
-									<input type="radio" id="r-1-4" name="r-1-4" value="D">
-								</div>
-							</div>
-						</div>
-
-					</div>
-					
-					<div id="add-question" class="fa fa-plus-square"></div>
-
-				</div>
 
 		<?php   if($author != null){
 					echo "<p id=\"author\">Author : $author</p>";
