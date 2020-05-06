@@ -41,9 +41,6 @@
 		}
 		</style>
 		<script>
-<<<<<<< HEAD
-
-=======
 			var num_q=1;
 			$(document).ready(function()
             {
@@ -53,17 +50,14 @@
 						if (this.readyState == 4 && this.status == 200) {
 							num_q++;
 							document.getElementById("bloc-qcm").innerHTML = this.responseText + document.getElementById("bloc-q-1").innerHTML.replace(/1/g,""+num_q);
-
 						}
 				  };
 				  xhttp.open("POST", "/ajax/qcm_upload.php", true);
 				  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				  var str = "h_code="+document.getElementById("hash_code").innerHTML+"&qu="+document.getElementById("q-"+num_q).value+"&A="+document.getElementById("A-"+num_q).value+"&B="+document.getElementById("B-"+num_q).value+"&C="+document.getElementById("C-"+num_q).value+"&D="+document.getElementById("D-"+num_q).value+"&V="+document.getElementById("V-"+num_q).value;
-					alert(str);
 				  xhttp.send(str);
 				});
 			});
->>>>>>> c39986e09ef52cd6ee690bd75c0ffb2a7b7464a6
 		</script>
 	</head>
 
@@ -95,8 +89,6 @@
 					<input type="file" name="fileToUpload" id="fileToUpload">
 				</form>
 
-<<<<<<< HEAD
-=======
 				<!--QCM-->
 				<div id="bloc-qcm">
 
@@ -137,7 +129,6 @@
 				</div>
 				<div id="add-question" class="fa fa-plus-square"></div>
 
->>>>>>> c39986e09ef52cd6ee690bd75c0ffb2a7b7464a6
 		<?php   if($author != null){
 					echo "<p id=\"author\">Author : $author</p>";
 				}

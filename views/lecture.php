@@ -1,10 +1,11 @@
 <?php
-$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
-//print_r($z->get_h_code());
-//print_r($z->getError());
-//echo '<br><br><br><br><br><br><br><br><br><br>';
-//print_r(preg_match_all("[/]",$_SERVER['REQUEST_URI'])-2);
+	$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
+	//print_r($z->get_h_code());
+	//print_r($z->getError());
+	//echo '<br><br><br><br><br><br><br><br><br><br>';
+	//print_r(preg_match_all("[/]",$_SERVER['REQUEST_URI'])-2);
 ?>
+
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
@@ -56,14 +57,8 @@ $z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI'])
 				<div id="bloc-qcm">
 
 					<?php 
-						$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
-						$sql = "SELECT * FROM `qcm` WHERE h_code=$hash";
-						$res = $cnnx->prepare($sql);
-						$res->execute();
-						$res = $res->fetchAll();
-						foreach($res as $question)
-						{
-							echo var_dump($question);
+						foreach($z->get_all_row_qcm() as $quest) {
+							echo "<div class></div>"
 						}
 					?>
 
