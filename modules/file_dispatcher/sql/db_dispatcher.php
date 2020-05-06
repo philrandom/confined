@@ -78,13 +78,7 @@ SECTION search for dispatcher:__construct
 			$sql = $this->cnnx->prepare($str);
 			$sql->execute();
 			$r2 = $sql->fetchAll();
-			/*
-			echo '<br> r1 :';
-			print_r($r1);
-			echo '<br> r2 :';
-			print_r($r2);		
-			echo '<br>';
-			*/
+
 			//CLEANING
 			$r1_clean = array();
 			$r2_clean = array();
@@ -92,19 +86,11 @@ SECTION search for dispatcher:__construct
 				$r1_clean[] = $r1tmp['h_code'];
 			foreach($r2 as $r2tmp)
 				$r2_clean[] = $r2tmp['h_code'];
-			/*
-			echo '<br> r1_clean :';
-			print_r($r1_clean);
-			echo '<br> r2_clean :';
-			print_r($r2_clean);		
-			echo '<br>';
-			*/
+
 			$r = array();
 			foreach( $r1_clean as $r1_elem )
 				if(!in_array($r1_elem,$r2_clean))
 					$r[] = $r1_elem;
-			//echo '<br> FINAL RESULT ';
-			//print_r($r);
 
 			return $r;
 		

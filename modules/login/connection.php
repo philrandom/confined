@@ -28,6 +28,7 @@
         //if found
         if(count($r) != 0)
         {
+			print_r($r);
             session_start();
             $_SESSION['user'] = $r['user'];
             $_SESSION['stype'] = $r['type'];
