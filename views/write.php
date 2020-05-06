@@ -53,7 +53,6 @@
 				  xhttp.open("POST", "/ajax/qcm_upload.php", true);
 				  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				  var str = "h_code="+document.getElementById("hash_code").innerHTML+"&qu="+document.getElementById("q").value+"&A="+document.getElementById("A").value+"&B="+document.getElementById("B").value+"&C="+document.getElementById("C").value+"&D="+document.getElementById("D").value+"&V="+document.getElementById("V").value;
-					alert(str);
 				  xhttp.send(str);
 				});
 			});
