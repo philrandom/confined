@@ -21,7 +21,7 @@ if($_SESSION['stype']=='user' ) {
 	$sql->execute([':iduser'=>$_SESSION['iduser']]);
 	print_r($sql->fetchAll()[0]['c']);
 	
-?>
+}
 ?>
 </h1>
 </div>
