@@ -200,5 +200,15 @@ SECTION others function linked to fs
 			$sql->execute([':h_code' => $h_code ]);
 		}
 
+/*----------------------------
+SECTION qcm
+----------------------------*/
+		function add_row_qcm_sql($h_code,$qu,$A,$B,$C,$D,$V) {
+			$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::qcm . "` (`h_code`, question, A, B, C, D, V ) VALUES (:h_code, :question, :A, :B, :C, :D, :V)");
+			return $sql->execute([':h_code'=>$h_code, ':question'=>$qu, ':A' => $A, ':B' => $B, ':C' => $C, ':D' => $D, ':V'=>$V]);
+		}
+
+
 }
+
 ?>

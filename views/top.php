@@ -18,7 +18,7 @@
                     if(document.getElementById("user-pannel").innerHTML == '')
                     {
                         $.ajaxSetup({cache: false});
-                        $.get('/assets/ajax/getsession.php',function(data){
+                        $.get('/ajax/getsession.php',function(data){
                             cocheck(data);
                         });
                         function cocheck(user){

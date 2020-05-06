@@ -333,10 +333,32 @@ SECTION getter
 			print_r($this->error);
 			return sizeof($this->error);
 		}
-}
-
 /*----------------------
 SECTION QCM
 -----------------------*/
-
+		/*
+			add_row_qcm				will add a question in db.
+									$qu		refere to question
+									$A		answer A
+									$B		answer B
+									$C		answer C
+									$D		answer D
+									$V		refere to the only valid correct answere
+											'A','B','C' or 'D'
+		*/
+		function add_row_qcm($qu,$A,$B,$C,$D,$V) {
+			if($this->right == 'r' ) {
+				$this->error[] = "[file_dispacther:add_row_question] You don't have rights to edit a qcm";
+				return false;
+			}
+			if(!(preg_match_all('/[A-D]/',$V)==1 & strlen($V)==1  )) {
+				$this->error[] = "[file_dispacther:add_row_question] The V parameters isn't correct";
+				return false;
+			}
+			$cnnx = new db_dispatcher();
+			$st = $cnnx->add_row_qcm_sql($this->h_code,$qu,$A,$B,$C,$D,$V);
+			$cnnx->kill();
+			return $st;
+		}
+}
 ?>
