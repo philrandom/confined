@@ -1,10 +1,12 @@
 <?php
-$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
-//print_r($z->get_h_code());
-//print_r($z->getError());
-//echo '<br><br><br><br><br><br><br><br><br><br>';
-//print_r(preg_match_all("[/]",$_SERVER['REQUEST_URI'])-2);
+	$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
+	$hash->$z->get_h_code();
+	//print_r($z->get_h_code());
+	//print_r($z->getError());
+	//echo '<br><br><br><br><br><br><br><br><br><br>';
+	//print_r(preg_match_all("[/]",$_SERVER['REQUEST_URI'])-2);
 ?>
+
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
@@ -37,6 +39,54 @@ $z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI'])
 						echo "'>".$tree[$i]."</a>";
 				}
 			
+			//QCM
+			$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+			$sql = "SELECT * FROM `user` INNER JOIN score ON user.iduser=score.iduser WHERE score.iduser=".$_SESSION['user'];
+			$res = $cnnx->prepare($sql);
+			$res->execute();
+			$res = $res->fetchAll();
+
+			//si l'user a réussi le QCM
+			if(count($res) != 0)
+			{
+				echo "<p>Vous avez réussi l'évaluation pour ce cours</p>";
+			}
+			else
+			{//sinon, on lui affiche le qcm
+			?>
+				<!--QCM-->
+				<div id="bloc-qcm">						
+
+						<form action="/modules/qcm_validate.php" method="POST">
+							<?php 
+								for($i = 0, $j = sizeof($z->get_all_row_qcm()); $i < $j; $i++) {
+							?>
+								<div class="bloc-question">
+									<br><br>
+									<div class="question"><?php echo $z->get_all_row_qcm()[$i]['question']; ?></div>								
+									
+									<br>
+									<label for="r-1-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['A'] ?></label>
+									<input type="radio" id="r-1-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-1-<?php echo $i; ?>">
+
+									<label for="r-2-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['B'] ?></label>
+									<input type="radio" id="r-2-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-2-<?php echo $i; ?>">
+
+									<label for="r-3-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['C'] ?></label>
+									<input type="radio" id="r-3-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-3-<?php echo $i; ?>">
+
+									<label for="r-4-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['D'] ?></label>
+									<input type="radio" id="r-4-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-4-<?php echo $i; ?>">
+									<br>	
+								</div>
+							<?php } ?>
+							<input style='display:none' type=text name="h_code" value="<?php echo $hash ?>"></div>
+						</form>					
+
+				</div>
+
+			<?php }
+
 			//récupération de l'auteur de l'article
 			$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r',1);
 			$hash = $z->get_h_code();
