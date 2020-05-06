@@ -1,5 +1,6 @@
 <?php
 	$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
+	$hash->$z->get_h_code();
 	//print_r($z->get_h_code());
 	//print_r($z->getError());
 	//echo '<br><br><br><br><br><br><br><br><br><br>';
@@ -54,13 +55,33 @@
 			{//sinon, on lui affiche le qcm
 			?>
 				<!--QCM-->
-				<div id="bloc-qcm">
+				<div id="bloc-qcm">						
 
-					<?php 
-						foreach($z->get_all_row_qcm() as $quest) {
-							echo "<div class></div>"
-						}
-					?>
+						<form action="/modules/qcm_validate.php" method="POST">
+							<?php 
+								for($i = 0, $j = sizeof($z->get_all_row_qcm()); $i < $j; $i++) {
+							?>
+								<div class="bloc-question">
+									<br><br>
+									<div class="question"><?php echo $z->get_all_row_qcm()[$i]['question']; ?></div>								
+									
+									<br>
+									<label for="r-1-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['A'] ?></label>
+									<input type="radio" id="r-1-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-1-<?php echo $i; ?>">
+
+									<label for="r-2-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['B'] ?></label>
+									<input type="radio" id="r-2-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-2-<?php echo $i; ?>">
+
+									<label for="r-3-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['C'] ?></label>
+									<input type="radio" id="r-3-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-3-<?php echo $i; ?>">
+
+									<label for="r-4-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['D'] ?></label>
+									<input type="radio" id="r-4-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-4-<?php echo $i; ?>">
+									<br>	
+								</div>
+							<?php } ?>
+							<input style='display:none' type=text name="h_code" value="<?php echo $hash ?>"></div>
+						</form>					
 
 				</div>
 
