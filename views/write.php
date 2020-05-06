@@ -40,6 +40,12 @@
 			transition: 100ms linear;
 		}
 		</style>
+		<script>
+			$(document).ready(function()
+            {
+
+			});
+		</script>
 	</head>
 
 	<body>
@@ -56,10 +62,10 @@
 			//titre
 			echo "<h1 id=\"titre-write\">".$url[$size]."</h1>";
 		
-			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/$hash/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use a form and add the responses to your questions in the second text box in a JSON format.</p>";
+			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html in the following textarea. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/$hash/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use the questionnaire utility below the textarea</p>";
 		
-			//if the visitor is an admin or is the user author of the article
-			if($_SESSION['stype'] == 'admin' or $res[0]['user'] == $_SESSION['user']){
+			//if the user is an admin 
+			if($_SESSION['stype'] == 'admin'){
 		?>
 				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 
@@ -69,6 +75,67 @@
 					<input type="submit" class='button' value='Publish'>
 					<input type="file" name="fileToUpload" id="fileToUpload">
 				</form>
+
+				<!--QCM-->
+				<div id="bloc-qcm">
+
+					<!--BLOC DE LA PREMIERE QUESTION-->
+					<div id="bloc-q-1" class="div-bloc-question">
+
+						<!--UNE QUESTION-->
+						<div class="question">
+							<label for="q-1">Question 1</label>
+							<input name="q-1"type="text">
+						</div>
+						
+						<!--4 REPONSES-->
+						<div class = bloc-questions>
+							<div class="response">
+								<label for="q-1-1">A</label>
+								<input name="q-1-1" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-2">B</label>
+								<input name="q-1-2" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-3">C</label>
+								<input name="q-1-3" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-4">D</label>
+								<input name="q-1-4" type="text">
+							</div>
+						</div>
+
+						<!--VALID RESPONSE-->
+						<div class="V">
+							<div id="v-1">Valid question</label>							
+								<div>
+									<label for="r-1-1">A</label>
+									<input type="radio" id="r-1-1" name="r-1-1" value="A">
+								</div>
+								<div>
+									<label for="r-1-2">B</label>
+									<input type="radio" id="r-1-2" name="r-1-2" value="B">
+								</div>
+								<div>
+									<label for="r-1-3">C</label>
+									<input type="radio" id="r-1-3" name="r-1-3" value="C">
+								</div>
+								<div>
+									<label for="r-1-4">D</label>
+									<input type="radio" id="r-1-4" name="r-1-4" value="D">
+								</div>
+							</div>
+						</div>
+
+					</div>
+					
+					<div id="add-question" class="fa fa-plus-square"></div>
+
+				</div>
+
 		<?php   if($author != null){
 					echo "<p id=\"author\">Author : $author</p>";
 				}

@@ -28,6 +28,11 @@
 	color:white;
 }
 
+#tree-tag:hover
+{
+	cursor: pointer;
+}
+
 .shift-r {
 	animation-duration: 0.7s;
   	animation-name: shift-anim-grow;
