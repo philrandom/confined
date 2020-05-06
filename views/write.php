@@ -48,7 +48,10 @@
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
-						 	alert(this.responseText);
+						 	document.getElementById("bloc-q-"+num_q).innerHTML = this.responseText;
+							num_q++;
+							document.getElementById("bloc-qcm").innerHTML = document.getElementById("bloc-qcm").innerHTML + document.getElementById("bloc-q-1").innerHTML.replace(/1/g,""+num_q);
+
 						}
 				  };
 				  xhttp.open("POST", "/ajax/qcm_upload.php", true);
@@ -97,7 +100,7 @@
 
 						<!--UNE QUESTION-->
 						<div class="question">
-							<label for="q-1">Question 1</label>
+							<label >Question 1</label>
 							<input name="q-1" id="q-1" type="text">
 						</div>
 						
@@ -105,7 +108,7 @@
 						<div class = bloc-questions>
 							<div class="response">
 								<label for="q-1-1">A</label>
-								<input name="q-1-1" id="A-1" type="text">
+								<input id="A-1" type="text">
 							</div>
 							<div class="response">
 								<label for="q-1-2">B</label>
@@ -123,15 +126,10 @@
 								<label for="q-1-4">V</label>
 								<input name="q-1-4" id="V-1" type="text">
 							</div>
-
 						</div>
-
-				
 					</div>
-					
-					<div id="add-question" class="fa fa-plus-square"></div>
-
 				</div>
+				<div id="add-question" class="fa fa-plus-square"></div>
 
 		<?php   if($author != null){
 					echo "<p id=\"author\">Author : $author</p>";
