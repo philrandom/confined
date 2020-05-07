@@ -29,7 +29,7 @@
 	//else
 		if( sizeof($z->get_summary()) != 0 ) {	//SUMMARY
 			for($k=0; $k<3; $k++)	echo '<br>';
-			echo "<div style='border-top: medium dashed grey;'><h1>Summary</h1></div>";
+			if( sizeof($z->get_summary()) > 1 )	echo "<div style='border-top: medium dashed grey;'><h1>Summary</h1></div>";
 			foreach($z->get_summary() as $tree)
 				for($i=preg_match_all("[/]",$_SERVER['REQUEST_URI'])-2; $i<sizeof($tree);$i++) {
 						echo "<br>";
