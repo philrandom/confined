@@ -62,8 +62,7 @@
 		if( $url[1] == 'write' & $_SESSION['user']!='' ) {
 			include('./views/tag-tree.php');
 			include('./views/write.php');
-		}else
-		if( $url[1] == 'remove' ) {
+		}else	if( $url[1] == 'remove' ) {
 			include('./views/remove.php');
 		}else
 		if( $url[1] == 'tag' ) {

@@ -55,4 +55,6 @@ run in this order :
 user.sql
 file_ref.sql
 tag.sql
+qcm.sql
+score.sql
 ```

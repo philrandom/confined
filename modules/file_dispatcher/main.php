@@ -173,17 +173,7 @@ SECTION attachement
 				return -1;
 			}
 
-			/*//define path of location 
-			if( const_dispatcher::separate_location == 'yes' ) {
-				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement;
-				if (!file_exists($final_place))
-					mkdir( $final_place, 0777);
-				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement . '/' . $this->h_code;
 
-			}
-			else {
-				$final_place = $this->backup. '/' . $this->h_code . '/'  . const_dispatcher::name_dir_attachement;
-			}*/
 
 			$final_place = $this->get_hard_path_attchment();
 			//create directory
@@ -232,6 +222,11 @@ SECTION attachement
 
 
 		}
+
+
+
+		
+
 
 /*---------------------------		
 SECTION versionning
