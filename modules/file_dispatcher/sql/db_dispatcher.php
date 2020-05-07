@@ -228,6 +228,20 @@ SECTION dashboard - score QCM
 			$sql->execute([':iduser'=>$this->get_userid($user)]);
 			return $sql->fetchAll();
 		}
+/*--------------------------------
+SECTION dashboard - commits
+--------------------------------*/
+		function get_all_articles() {
+			$str = "SELECT h_code FROM file_ref GROUP BY h_code";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute();
+			$all_arts_sql = $sql->fetchAll();
+			$all_arts = array();
+			foreach( $all_arts_sql as $tmp)
+				$all_arts[] = $tmp['h_code'];
+			return $all_arts;
+		}
+
 
 }
 

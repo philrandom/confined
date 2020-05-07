@@ -8,6 +8,7 @@ if($z->get_h_code() != 'NOT_FOUND') {
 	for($i=1; $i<=$z->get_last_version(); $i++) {
 		print_r("<h1> version : ".$i."</h1>");
 		echo "<textarea rows=\"40\" cols=\"80\">".$z->read_from_file_by_version($i)."</textarea>";
+		echo "<br><a href='/activate/".$z->get_h_code()."/".$i."'>activate the version ".$i."</a>";
 	}
 
 
