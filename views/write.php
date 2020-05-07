@@ -61,6 +61,12 @@
 
 				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 
+				<?php 
+					$hard_link = $z->get_hard_path_attchment();
+					foreach($z->ls_attach() as $attachment_pieces)
+						echo "<a href='/".$hard_link.'/'.$attachment_pieces. "' ><span style='background-color:grey; width:auto'>/".$hard_link.'/'.$attachment_pieces.'</span></a><br>';
+				?>
+
 				<form enctype="multipart/form-data" action='/upload.php' method="post" id="uform">
 					<input type="submit" class='button-lecture' value='Publish'>
 					<input type="file" name="fileToUpload" id="fileToUpload">

@@ -147,6 +147,10 @@ SECTION FILESYSTEM
 		}	
 
 		function rm(){
+			if($this->right!='u') {
+				$this->error[] = "[file_dispatcher:rm] You don't have the good right!";
+				return -1;
+			}
 			$cnnx = new db_dispatcher();
 			$cnnx->rm($this->h_code);
 			$cnnx->kill();
@@ -169,17 +173,9 @@ SECTION attachement
 				return -1;
 			}
 
-			//define path of location 
-			if( const_dispatcher::separate_location == 'yes' ) {
-				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement;
-				if (!file_exists($final_place))
-					mkdir( $final_place, 0777);
-				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement . '/' . $this->h_code;
 
-			}
-			else {
-				$final_place = $this->backup. '/' . $this->h_code . '/'  . const_dispatcher::name_dir_attachement;
-			}
+
+			$final_place = $this->get_hard_path_attchment();
 			//create directory
 			if (!file_exists($final_place))
 				mkdir( $final_place, 0777);
@@ -198,6 +194,38 @@ SECTION attachement
 			return $final_place.'/'.$file["name"];
 		}
 
+		function get_hard_path_attchment() {
+			//define path of location 
+			if( const_dispatcher::separate_location == 'yes' ) {
+				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement;
+				if (!file_exists($final_place))
+					mkdir( $final_place, 0777);
+				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement . '/' . $this->h_code;
+
+			}
+			else {
+				$final_place = $this->backup. '/' . $this->h_code . '/'  . const_dispatcher::name_dir_attachement;
+			}
+
+			return $final_place;
+
+		}	
+
+		function ls_attach() {
+				
+			$files = scandir($this->get_hard_path_attchment());
+			unset($files[0]);unset($files[1]);
+			$ls = array();
+			foreach($files as $file)
+				$ls[] = $file;
+			return $ls;
+
+
+		}
+
+
+
+		
 
 
 /*---------------------------		
