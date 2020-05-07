@@ -86,7 +86,11 @@
 		}else
 		if( $url[1] == 'v' ) {
 			include('./views/version.php');
+		}else 
+		if( $url[1] == 'activate' ) {
+			include('./views/activate.php');
 		}else
+
 		if( $url[1] != '' ) {
 			echo "<div style='margin:20%; margin-left:35%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";		}
 	?>
