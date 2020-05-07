@@ -14,6 +14,8 @@ class db_dispatcher
       		$this->cnnx = null;
 		}
 
+
+
 /*--------------------------
 SECTION search for dispatcher:__construct
 --------------------------*/
@@ -201,7 +203,31 @@ SECTION qcm
 			$sql->execute([':h_code'=>$h_code]);
 			return $sql->fetchAll();
 		}
+/*--------------------------
+SECTION dashboard - score QCM
+--------------------------*/
+//this section is not present in file_dispatcher/main.php
 
+		function get_userid($user) {
+			$str = "SELECT iduser FROM user where user=:user";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute([':user'=>$user]);
+			return $sql->fetchAll()[0]['iduser'];
+		}
+
+		function score_global_qcm($user) {
+			$str = "SELECT count(h_code) c FROM score where iduser=:iduser";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute([':iduser'=>$this->get_userid($user)]);
+			return $sql->fetchAll()[0]['c'];
+		}
+
+		function get_all_correct_grid_qcm($user) {
+			$str = "SELECT h_code FROM score where iduser=:iduser";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute([':iduser'=>$this->get_userid($user)]);
+			return $sql->fetchAll();
+		}
 
 }
 
