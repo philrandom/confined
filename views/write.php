@@ -89,7 +89,14 @@
 
 				<!--QCM-->
 				<div id="bloc-qcm">
-
+				<?php
+				foreach($z->get_all_row_qcm() as $quest) {
+							echo "<div class=div-bloc-question>".$quest['question']."<br>";
+							echo "<div class='response'>A ".$quest['A']."</div>";
+							echo "<div class='response'>B ".$quest['B']."</div>";
+							echo "<div class='response'>C ".$quest['C']."</div>";
+							echo "<div class='response'>D ".$quest['D']."</div></div>";
+				}?>
 					<!--BLOC DE LA PREMIERE QUESTION-->
 					<div id="bloc-q">
 					  <div class="div-bloc-question"><!--div only for style-->
