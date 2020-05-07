@@ -8,6 +8,7 @@
 <body>
 
 <?php
+<<<<<<< HEAD
 	if($_SESSION['stype']=='user' ) { 
 ?>
 	<div style="margin:20%;">
@@ -31,6 +32,5 @@
 
 	</h1>
 
-	</div>
 
 </body>

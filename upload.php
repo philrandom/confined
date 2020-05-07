@@ -16,7 +16,8 @@ require('./modules/file_dispatcher/main.php');?>
 
 	}
 	else {	//CREATE
-		$z = new dispatcher("./data",$_SESSION["path"],'c',1);
+		$cnnx = new db_dispatcher();
+		$z = new dispatcher("./data",$_SESSION["path"],'c',$cnnx->get_userid($_SESSION['user']));
 
 		echo $_SESSION["path"]." - 'c',1";
 		echo $z->getError();

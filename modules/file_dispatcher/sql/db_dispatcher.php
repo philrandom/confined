@@ -14,6 +14,8 @@ class db_dispatcher
       		$this->cnnx = null;
 		}
 
+
+
 /*--------------------------
 SECTION search for dispatcher:__construct
 --------------------------*/
@@ -200,6 +202,56 @@ SECTION qcm
 			$sql = $this->cnnx->prepare("SELECT * from `" . const_dispatcher::qcm . "` where h_code=:h_code");
 			$sql->execute([':h_code'=>$h_code]);
 			return $sql->fetchAll();
+		}
+/*--------------------------
+SECTION dashboard - score QCM
+--------------------------*/
+//this section is not present in file_dispatcher/main.php
+
+		function get_userid($user) {
+			$str = "SELECT iduser FROM user where user=:user";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute([':user'=>$user]);
+			return $sql->fetchAll()[0]['iduser'];
+		}
+
+		function score_global_qcm($user) {
+			$str = "SELECT count(h_code) c FROM score where iduser=:iduser";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute([':iduser'=>$this->get_userid($user)]);
+			return $sql->fetchAll()[0]['c'];
+		}
+
+		function get_all_correct_grid_qcm($user) {
+			$str = "SELECT h_code FROM score where iduser=:iduser";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute([':iduser'=>$this->get_userid($user)]);
+			return $sql->fetchAll();
+		}
+
+
+		function get_number_of_grid_qcm() {
+			$str = "SELECT count(h_code) maximum_grid FROM (SELECT * FROM `qcm` GROUP by h_code) r;";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute();
+			return $sql->fetchAll()[0]['maximum_grid'];
+		}
+
+	
+
+
+/*--------------------------------
+SECTION dashboard - commits
+--------------------------------*/
+		function get_all_articles() {
+			$str = "SELECT h_code FROM file_ref GROUP BY h_code";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute();
+			$all_arts_sql = $sql->fetchAll();
+			$all_arts = array();
+			foreach( $all_arts_sql as $tmp)
+				$all_arts[] = $tmp['h_code'];
+			return $all_arts;
 		}
 
 
