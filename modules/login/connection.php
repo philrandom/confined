@@ -30,6 +30,7 @@
         {
 			print_r($r);
             session_start();
+            $_SESSION['iduser'] = $r['iduser'];
             $_SESSION['user'] = $r['user'];
             $_SESSION['stype'] = $r['type'];
 			$_SESSION['mail'] = $r['mail'];

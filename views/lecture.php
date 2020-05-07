@@ -42,7 +42,7 @@
 			//QCM
 			//récupération du score de l'user dans la table score
 			$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
-			$sql = "SELECT * FROM score WHERE score.iduser=".$_SESSION['iduser']." AND h_code='".$hash."'";
+			$sql = "SELECT * FROM score WHERE iduser=".$_SESSION['iduser']." AND h_code='".$hash."'";
 			$res = $cnnx->prepare($sql);
 			$res->execute();
 			$res = $res->fetchAll();

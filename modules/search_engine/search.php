@@ -29,6 +29,7 @@
             $connected = false;
             if(isset($_SESSION['user']))
             {
+                $iduser = $_SESSION['iduser'];
                 $user = $_SESSION['user'];
                 $stype = $_SESSION['stype'];
                 $connected = true;
@@ -39,6 +40,7 @@
             $_SESSION['resQuery'] = $res;
             if($connected)
             {
+                $_SESSION['iduser'] = $iduser;
                 $_SESSION['user'] = $user;
                 $_SESSION['stype'] = $stype;
             }
