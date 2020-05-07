@@ -1,0 +1,85 @@
+<?php
+?>
+
+<head>
+	<link rel="stylesheet" href="/views/style/dashboard.css">
+</head>
+
+<body>
+
+<?php
+<<<<<<< HEAD
+	if($_SESSION['stype']=='user' ) { 
+?>
+	<div style="margin:20%;">
+
+	<h1>VOTRE SCORE (nombre de grilles de QCM validées) :
+
+	<?php
+
+		$cnnx  = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
+		$str = "SELECT iduser FROM user where user=:user";
+		$sql = $cnnx->prepare($str);
+		$sql->execute([':user'=>$_SESSION['user']]);
+		$_SESSION['iduser'] = $sql->fetchAll()[0]['iduser'];
+		$str = "SELECT count(h_code) c FROM score where iduser=:iduser";
+		$sql = $cnnx->prepare($str);
+		$sql->execute([':iduser'=>$_SESSION['iduser']]);
+		print_r($sql->fetchAll()[0]['c']);
+		
+	}
+	?>
+
+	</h1>
+
+	</div>
+=======
+if($_SESSION['stype']=='user' ) { 					//USER
+?>
+<div style="margin:20%;">
+		<h1>VOTRE SCORE nombre de grilles QCM validées
+		<?php
+			$cnnx = new db_dispatcher();
+			print_r($cnnx->score_global_qcm($_SESSION['user']));
+			echo "/";
+			print_r($cnnx->get_number_of_grid_qcm());
+		echo "</h1>";
+			foreach( $cnnx->get_all_correct_grid_qcm($_SESSION['user']) as $hash ) {
+				$z = new dispatcher('./data',$hash['h_code'],'r',1);
+				foreach($z->get_tree() as $p)
+					echo $p.'/';
+				echo "<br>";
+
+			}
+echo "</div>";
+}
+
+
+
+else if($_SESSION['stype']=='admin' ) { 				//ADMIN
+?>
+<div style="margin:20%;">
+		<h1>Nouvelles commits</h1>
+		<?php
+			$tmp=0;
+			$cnnx = new db_dispatcher();
+			foreach( $cnnx->get_all_articles() as $hash) {
+				$z = new dispatcher('./data',$hash,'r');
+				if($z->get_last_version() != $z->get_version()) {
+					echo "<a href='/v/".$z->get_h_code()."'>";
+					foreach($z->get_tree() as $p)
+						echo $p.'/';
+					echo "</a><br>";
+					$tmp++;
+				}
+			}
+			if($tmp==0)		echo "Aucune nouvelle commit";
+	echo "</div>";
+}?>
+
+
+
+
+>>>>>>> a2cf5205b6f235a1f447c077fa218b05bd6d84c3
+
+</body>
