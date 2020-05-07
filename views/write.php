@@ -15,31 +15,9 @@
 <html>
 
 	<head>
-		<link rel="stylesheet" href="/views/style/lecture.css">
 		<meta charset="UTF-8">
 		<title>CREATION</title>
-		<style>
-		.button {
-			background-color: #004d5a;
-			border: none;
-			color: white;
-			padding: 15px 32px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 4px 2px;
-			cursor: pointer;
-		}
-		.button:hover 
-		{
-			background-color: #2aa3b7;
-			color: white;
-			-webkit-transition: 100ms linear;
-			-ms-transition: 100ms linear;
-			transition: 100ms linear;
-		}
-		</style>
+		<link rel="stylesheet" href="/views/style/lecture.css">
 		<script>
 			$(document).ready(function()
             {
@@ -83,7 +61,7 @@
 				<!-- <textarea rows="40" cols="80" name="article" form="uform"><?php //if($z->get_h_code()!='NOT_FOUND') print_r($z->get_qcm_responses());?></textarea> -->
 
 				<form enctype="multipart/form-data" action='/upload.php' method="post" id="uform">
-					<input type="submit" class='button' value='Publish'>
+					<input type="submit" class='button-lecture' value='Publish'>
 					<input type="file" name="fileToUpload" id="fileToUpload">
 				</form>
 
@@ -132,6 +110,7 @@
 					  </div>
 					</div>
 				</div>
+				
 				<div id="add-question" class="fa fa-plus-square"></div>
 
 		<?php   if($author != null){
@@ -146,9 +125,57 @@
 				<!-- <textarea rows="40" cols="80" name="article" form="uform"><?php //if($z->get_h_code()!='NOT_FOUND') print_r($z->get_qcm_responses());?></textarea> -->
 				
 				<form enctype="multipart/form-data" action='/stage_commit.php' method="post" id="uform">
-					<input type="submit" class='button' value='Submit'>
+					<input type="submit" class='button-lecture' value='Submit'>
 					<input type="file" name="fileToUpload" id="fileToUpload">				
 				</form>
+
+				<!--QCM-->
+				<div id="bloc-qcm">
+				<?php
+				foreach($z->get_all_row_qcm() as $quest) {
+							echo "<div class=div-bloc-question>".$quest['question']."<br>";
+							echo "<div class='response'>A ".$quest['A']."</div>";
+							echo "<div class='response'>B ".$quest['B']."</div>";
+							echo "<div class='response'>C ".$quest['C']."</div>";
+							echo "<div class='response'>D ".$quest['D']."</div></div>";
+				}?>
+					<!--BLOC DE LA PREMIERE QUESTION-->
+					<div id="bloc-q">
+					  <div class="div-bloc-question"><!--div only for style-->
+						<!--UNE QUESTION-->
+						<div class="question">
+							<label >Nouvelle question </label>
+							<input name="q-1" id="q" type="text">
+						</div>
+						
+						<!--4 REPONSES-->
+						<div class = bloc-questions>
+							<div class="response">
+								<label for="q-1-1">A</label>
+								<input id="A" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-2">B</label>
+								<input name="q-1-2" id="B" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-3">C</label>
+								<input name="q-1-3" id="C" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-4">D</label>
+								<input name="q-1-4" id="D" type="text">
+							</div>
+							<div class="response">
+								<label for="q-1-4">V</label>
+								<input name="q-1-4" id="V" type="text">
+							</div>
+						</div>
+					  </div>
+					</div>
+				</div>
+				
+				<div id="add-question" class="fa fa-plus-square"></div>
 		<?php 
 				if($author != null){
 					echo "<p id=\"author\">Author : $author</p>";

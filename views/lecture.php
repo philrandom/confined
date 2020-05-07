@@ -40,8 +40,9 @@
 				}
 			
 			//QCM
+			//récupération du score de l'user dans la table score
 			$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
-			$sql = "SELECT * FROM `user` INNER JOIN score ON user.iduser=score.iduser WHERE score.iduser=".$_SESSION['user'];
+			$sql = "SELECT * FROM score WHERE score.iduser=".$_SESSION['iduser']." AND h_code='".$hash."'";
 			$res = $cnnx->prepare($sql);
 			$res->execute();
 			$res = $res->fetchAll();
@@ -49,13 +50,13 @@
 			//si l'user a réussi le QCM
 			if(count($res) != 0)
 			{
-				echo "<p>Vous avez réussi l'évaluation pour ce cours</p>";
+				echo "<p id=\"reussite\">Vous avez réussi l'évaluation pour ce cours</p>";
 			}
 			else
-			{//sinon, on lui affiche le qcm
+			{//sinon, on lui affiche le qcm 
 			?>
 				<!--QCM-->
-				<div id="bloc-qcm">						
+				<div id="bloc-qcm-lecture">						
 
 						<h1>QCM</h1>
 						
@@ -66,13 +67,9 @@
 								<div class="bloc-question">
 
 									<?php $idq = $row_qcm['idq'];?>
-
-									<input style='display:none' type=text name="idq" value="<?php echo $idq ?>"></div>
 									
-									<br><br>
 									<div class="question"><?php echo $row_qcm['question']; ?></div>								
 									
-									<br>
 									<label for="r-A-<?php echo $idq; ?>"><?php echo $row_qcm['A'] ?></label>
 									<input type="radio" id="r-A-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-A-<?php echo $idq; ?>">
 
@@ -83,12 +80,12 @@
 									<input type="radio" id="r-C-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-C-<?php echo $idq; ?>">
 
 									<label for="r-D-<?php echo $idq; ?>"><?php echo $row_qcm['D'] ?></label>
-									<input type="radio" id="r-D-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-D-<?php echo $idq; ?>">
-									<br>	
+									<input type="radio" id="r-D-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-D-<?php echo $idq; ?>">	
+									
 								</div>
 							<?php } ?>
 							<input style='display:none' type=text name="h_code" value="<?php echo $hash ?>"></div>
-							<input type="submit" value="Envoyer">
+							<input class="button-lecture" style="margin-left:5%;padding:2%;" type="submit" value="Envoyer">
 						</form>					
 
 				</div>
