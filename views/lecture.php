@@ -40,8 +40,17 @@
 				}
 			
 			//QCM
-			//récupération du score de l'user dans la table score
+
+			//vérification de l'existence du qcm
 			$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+			$sql = "SELECT * FROM qcm WHERE h_code='".$hash."'";
+			$res = $cnnx->prepare($sql);
+			$res->execute();
+			$res = $res->fetchAll();
+			if(count($res) !=0)
+			{
+
+			//récupération du score de l'user dans la table score
 			$sql = "SELECT * FROM score WHERE iduser=".$_SESSION['iduser']." AND h_code='".$hash."'";
 			$res = $cnnx->prepare($sql);
 			$res->execute();
@@ -52,7 +61,7 @@
 			{
 				echo "<p id=\"reussite\">Vous avez réussi l'évaluation pour ce cours</p>";
 			}
-			else
+			else 
 			{//sinon, on lui affiche le qcm 
 			?>
 				<!--QCM-->
@@ -91,6 +100,7 @@
 				</div>
 
 			<?php }
+			}
 
 			//récupération de l'auteur de l'article
 			$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r',1);
