@@ -1,6 +1,6 @@
 <?php
 	$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
-	$hash->$z->get_h_code();
+	$hash = $z->get_h_code();
 	//print_r($z->get_h_code());
 	//print_r($z->getError());
 	//echo '<br><br><br><br><br><br><br><br><br><br>';
