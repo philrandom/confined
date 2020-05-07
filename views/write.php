@@ -55,10 +55,11 @@
 		
 			//if the user is an admin 
 			if($_SESSION['stype'] == 'admin'){
+				
 		?>
-				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
+				<a href="<?php echo str_replace("/write/","/remove/",$_SERVER['REQUEST_URI']) ?>" class="trash fa fa-trash"></a>
 
-				<!-- <textarea rows="40" cols="80" name="article" form="uform"><?php //if($z->get_h_code()!='NOT_FOUND') print_r($z->get_qcm_responses());?></textarea> -->
+				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 
 				<form enctype="multipart/form-data" action='/upload.php' method="post" id="uform">
 					<input type="submit" class='button-lecture' value='Publish'>

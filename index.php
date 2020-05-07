@@ -63,6 +63,9 @@
 			include('./views/tag-tree.php');
 			include('./views/write.php');
 		}else
+		if( $url[1] == 'remove' ) {
+			include('./views/remove.php');
+		}else
 		if( $url[1] == 'tag' ) {
 			include('./views/tag.php');
 		}else	
