@@ -28,8 +28,9 @@ echo "</div>";
 else if($_SESSION['stype']=='admin' ) { 				//ADMIN
 ?>
 <div style="margin:20%;">
-		<h1>Nouvelle commits</h1>
+		<h1>Nouvelles commits</h1>
 		<?php
+			$tmp=0;
 			$cnnx = new db_dispatcher();
 			foreach( $cnnx->get_all_articles() as $hash) {
 				$z = new dispatcher('./data',$hash,'r');
@@ -38,9 +39,10 @@ else if($_SESSION['stype']=='admin' ) { 				//ADMIN
 					foreach($z->get_tree() as $p)
 						echo $p.'/';
 					echo "</a><br>";
+					$tmp++;
 				}
-
 			}
+			if($tmp==0)		echo "Aucune nouvelle commit";
 	echo "</div>";
 }?>
 
