@@ -59,7 +59,7 @@
 			include('./views/tag-tree.php');
 			include('./views/lecture.php');
 		}else
-		if( $url[1] == 'write' ) {
+		if( $url[1] == 'write' & $_SESSION['user']!='' ) {
 			include('./views/tag-tree.php');
 			include('./views/write.php');
 		}else
@@ -78,16 +78,16 @@
 			else
 				include('./views/register.php');
 		}else
-		if( $url[1] == 'dashboard' ) {
+		if( $url[1] == 'dashboard' & $_SESSION['user']!='' ) {
 			include('./views/dashboard.php');
 		}else
 		if( $url[1] == 'disconnect' ) {
 			include('./modules/login/disconnection.php');
 		}else
-		if( $url[1] == 'v' ) {
+		if( $url[1] == 'v' & $_SESSION['stype']=="admin" ) {
 			include('./views/version.php');
 		}else 
-		if( $url[1] == 'activate' ) {
+		if( $url[1] == 'activate' & $_SESSION['stype']=="admin" ) {
 			include('./views/activate.php');
 		}else
 

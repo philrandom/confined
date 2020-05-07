@@ -228,6 +228,18 @@ SECTION dashboard - score QCM
 			$sql->execute([':iduser'=>$this->get_userid($user)]);
 			return $sql->fetchAll();
 		}
+
+
+		function get_number_of_grid_qcm() {
+			$str = "SELECT count(h_code) maximum_grid FROM (SELECT * FROM `qcm` GROUP by h_code) r;";
+			$sql = $this->cnnx->prepare($str);
+			$sql->execute();
+			return $sql->fetchAll()[0]['maximum_grid'];
+		}
+
+	
+
+
 /*--------------------------------
 SECTION dashboard - commits
 --------------------------------*/

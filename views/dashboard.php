@@ -12,6 +12,8 @@ if($_SESSION['stype']=='user' ) { 					//USER
 		<?php
 			$cnnx = new db_dispatcher();
 			print_r($cnnx->score_global_qcm($_SESSION['user']));
+			echo "/";
+			print_r($cnnx->get_number_of_grid_qcm());
 		echo "</h1>";
 			foreach( $cnnx->get_all_correct_grid_qcm($_SESSION['user']) as $hash ) {
 				$z = new dispatcher('./data',$hash['h_code'],'r',1);
