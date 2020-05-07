@@ -1,0 +1,8 @@
+<h1>SUDO</h1>
+Mode administrateur de Linux.
+
+<p>
+sudo (/suːduː/[4] or /ˈsuːdoʊ/[4][5]) is a program for Unix-like computer operating systems that allows users to run programs with the security privileges of another user, by default the superuser.[6] It originally stood for "superuser do"[7] as the older versions of sudo were designed to run commands only as the superuser. However, the later versions added support for running commands not only as the superuser but also as other (restricted) users, and thus it is also commonly expanded as "substitute user do".[8][9] Although the latter case reflects its current functionality more accurately, sudo is still often called "superuser do" since it is so often used for administrative tasks.
+</p>
+
+<img src="/data/attachement/02957a4d4493c35e49c6886674285db8/sudo.jpg">

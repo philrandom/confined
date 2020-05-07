@@ -1,0 +1,4 @@
+<h1>Memory</h1>
+
+<p>The Java memory model describes how threads in the Java programming language interact through memory. Together with the description of single-threaded execution of code, the memory model provides the semantics of the Java programming language.</p>
+

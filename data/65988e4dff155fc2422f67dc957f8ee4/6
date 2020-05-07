@@ -1,0 +1,5 @@
+<h1>Linux filesystem</h1>
+<br>
+<p>Linux supports numerous file systems, but common choices for the system disk on a block device include the ext* family (ext2, ext3 and ext4), XFS, JFS, and btrfs. For raw flash without a flash translation layer (FTL) or Memory Technology Device (MTD), there are UBIFS, JFFS2 and YAFFS, among others. SquashFS is a common compressed read-only file system.</p>
+<br>
+<img src="/data/attachement/65988e4dff155fc2422f67dc957f8ee4/filesystem.jpg">
