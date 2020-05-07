@@ -1,6 +1,6 @@
 <?php
 	$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r');
-	$hash->$z->get_h_code();
+	$hash = $z->get_h_code();
 	//print_r($z->get_h_code());
 	//print_r($z->getError());
 	//echo '<br><br><br><br><br><br><br><br><br><br>';
@@ -57,30 +57,38 @@
 				<!--QCM-->
 				<div id="bloc-qcm">						
 
-						<form action="/modules/qcm_validate.php" method="POST">
+						<h1>QCM</h1>
+						
+						<form action="/modules/qcm/qcm_validate.php" method="POST">
 							<?php 
-								for($i = 0, $j = sizeof($z->get_all_row_qcm()); $i < $j; $i++) {
+								foreach($z->get_all_row_qcm() as $row_qcm) {
 							?>
 								<div class="bloc-question">
+
+									<?php $idq = $row_qcm['idq'];?>
+
+									<input style='display:none' type=text name="idq" value="<?php echo $idq ?>"></div>
+									
 									<br><br>
-									<div class="question"><?php echo $z->get_all_row_qcm()[$i]['question']; ?></div>								
+									<div class="question"><?php echo $row_qcm['question']; ?></div>								
 									
 									<br>
-									<label for="r-1-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['A'] ?></label>
-									<input type="radio" id="r-1-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-1-<?php echo $i; ?>">
+									<label for="r-A-<?php echo $idq; ?>"><?php echo $row_qcm['A'] ?></label>
+									<input type="radio" id="r-A-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-A-<?php echo $idq; ?>">
 
-									<label for="r-2-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['B'] ?></label>
-									<input type="radio" id="r-2-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-2-<?php echo $i; ?>">
+									<label for="r-B-<?php echo $idq; ?>"><?php echo $row_qcm['B'] ?></label>
+									<input type="radio" id="r-B-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-B-<?php echo $idq; ?>">
 
-									<label for="r-3-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['C'] ?></label>
-									<input type="radio" id="r-3-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-3-<?php echo $i; ?>">
+									<label for="r-C-<?php echo $idq; ?>"><?php echo $row_qcm['C'] ?></label>
+									<input type="radio" id="r-C-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-C-<?php echo $idq; ?>">
 
-									<label for="r-4-<?php echo $i; ?>"><?php echo $z->get_all_row_qcm()[$i]['D'] ?></label>
-									<input type="radio" id="r-4-<?php echo $i; ?>" name="question-<?php echo $i; ?>" value="r-4-<?php echo $i; ?>">
+									<label for="r-D-<?php echo $idq; ?>"><?php echo $row_qcm['D'] ?></label>
+									<input type="radio" id="r-D-<?php echo $idq; ?>" name="question-<?php echo $idq; ?>" value="r-D-<?php echo $idq; ?>">
 									<br>	
 								</div>
 							<?php } ?>
 							<input style='display:none' type=text name="h_code" value="<?php echo $hash ?>"></div>
+							<input type="submit" value="Envoyer">
 						</form>					
 
 				</div>
