@@ -36,7 +36,7 @@
 		session_start();
 		$iduser = $_SESSION['iduser'];
 
-		$cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+		$cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
 		$sql = "INSERT INTO score VALUES ($iduser,'$hash')";
 		$res = $cnnx->prepare($sql);
 		$res->execute();
