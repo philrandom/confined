@@ -3,11 +3,11 @@
     //display errors
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    	error_reporting(E_ALL);
 
     $tag = '%'.explode("/",$_SERVER['REQUEST_URI'])[2].'%';
 
-    $cnnx = new PDO('mysql:dbname=confined;host=localhost', 'root', 'root');
+    $cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
     $sql = "SELECT * FROM tag WHERE tag LIKE :tag";
     $res = $cnnx->prepare($sql);
     $res->bindParam(':tag',$tag);
