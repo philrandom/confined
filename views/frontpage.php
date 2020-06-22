@@ -84,12 +84,12 @@
                     {
                         if($res_trie[$i][0]['weight'] == 0)
                         {
-                            echo '<h2 id="topics">Topics</h2>';
+                            //echo '<h2 id="topics">Topics</h2>';
                         }
                         if($res_trie[$i][0]['weight'] >= 1 && $disp == true)
                         {
                             $disp = false;
-                            echo '<h2 id="courses">Courses</h2>';
+                            //echo '<h2 id="courses">Courses</h2>';
                         }
                     }
                     foreach($res_trie[$i] as $cours){ 
@@ -99,18 +99,54 @@
                         for($l = 0, $m = $res_trie[$i][0]['weight']; $l <= $m; $l++)
                         {
                             $path = $path.$path_array[$l];
-                            $path = $path.'/';
-                        } 
+                            $path = $path."/";
+                        }
+                        $path = explode("/",$path);
+                        unset($path[0]);
+                        unset($path[1]);
+                        array_pop($path);
+                        $title = end($path);
+                        $path = join("/",$path);
+                        $path = $path."/";
             ?>
                         <div class="bloc-cours">
-                            <a class="lien-cours" href="<?php echo $path ?>">
-                                <?php                                
-                                    echo '<br>';   
-                                    echo var_dump($path);                                                                      
-                                ?>
+                            <a class="lien-cours" href="<?php echo "/lecture/".$path ?>">
+                                <div class="course-title"><?php echo $title;?></div>
+                                <div class="course_thumbnail">
+                                    <img 
+                                    src= 
+                                        <?php
+                                            if($disp == true){
+                                                $zi = new dispatcher("./data",$path,'r');
+                                                $h_code = $zi->get_h_code();
+                                            }
+                                            else{
+                                                $h_code = $cours['h_code'];
+                                            }
+                                            $link = "http://localhost:81/data/attachement/".$h_code."/thumbnail.png";
+                                            $file_headers = @get_headers($link);
+                                            if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                                $link = "http://localhost:81/data/attachement/".$h_code."/thumbnail.jpg";
+                                                $file_headers = @get_headers($link);
+                                                if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {                                                    
+                                                    $link = "../assets/icons/thumbnail.png";
+                                                }
+                                                else{
+                                                    $link = "../data/attachement/".$h_code."/thumbnail.jpg";
+                                                }
+                                            }
+                                            else{
+                                                $link = "../data/attachement/".$h_code."/thumbnail.png";
+                                            }
+                                            echo $link;
+                                        ?>
+                                    alt="<?php echo $h_code;echo $path; ?>" width="100" height="100"
+                                    >
+                                    <br>
+                                </div>
                             </a>
                         </div>
-            <?php   } 
+            <?php   }
                 } 
             ?>
         </div>

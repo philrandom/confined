@@ -36,10 +36,8 @@
             </div>
         </form>
 
-        <h1>Related Tags</h1>
-
         <div id="bloc-des-tags">
-            <?php
+            <?php $disp = true;
                 foreach($res as $r)
                 {
                     $z = new dispatcher("./data",$r['h_code'],'r');
@@ -50,20 +48,58 @@
                             $path = $path.$next;
                             $path = $path.'/';
                         } 
+                        $path = explode("/",$path);
+                        unset($path[0]);
+                        unset($path[1]);
+                        array_pop($path);
+                        $title = end($path);
+                        $path = join("/",$path);
+                        $path = $path."/";
             ?>
                     <div class="bloc-tag">
-                        <a class="lien-tag" href="<?php echo $path ?>">
-                            <?php                                
-                                echo '<br>';   
-                                echo var_dump($path);                                                                      
-                            ?>
+                        <a class="lien-tag" href="<?php echo "/lecture/".$path ?>">
+                            <div class="course-title"><?php echo $title;?></div>
+                            <div class="course_thumbnail">
+                                <img 
+                                src= 
+                                    <?php
+                                        if($disp == true){
+                                            $zi = new dispatcher("./data",$path,'r');
+                                            $h_code = $zi->get_h_code();
+                                        }
+                                        else{
+                                            $h_code = $cours['h_code'];
+                                        }
+                                        $link = "http://localhost:81/data/attachement/".$h_code."/thumbnail.png";
+                                        $file_headers = @get_headers($link);
+                                        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+                                            $link = "http://localhost:81/data/attachement/".$h_code."/thumbnail.jpg";
+                                            $file_headers = @get_headers($link);
+                                            if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {                                                    
+                                                $link = "/assets/icons/thumbnail.png";
+                                            }
+                                            else{
+                                                $link = "/data/attachement/".$h_code."/thumbnail.jpg";
+                                            }
+                                        }
+                                        else{
+                                            $link = "/data/attachement/".$h_code."/thumbnail.png";
+                                        }
+                                        echo $link;
+                                    ?>
+                                alt="<?php echo $h_code;echo $path; ?>" 
+                                width="100" 
+                                height="100"
+                                >
+                                <br>
+                            </div>
                         </a>
                     </div>
             <?php
                 }
             ?>
         </div>
-        
+
     </body>
 
 </html>
