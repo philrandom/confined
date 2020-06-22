@@ -1,21 +1,5 @@
-# confined
-School Project
-
-## Enoncé
-
-cours :
-  - liste
-  - lecture
-  - creation
-  
-QCM :
-  - relié à chaque parties
-  - AJAX
-  - scores
-  
-Dashboard :
-  - user progression
-  - modification
+# Confined
+An online course web platform developped for a school project
   
 ## installation
 
@@ -50,7 +34,7 @@ see configuration in
 
 ### SQL env
 
-run in this order :
+run scripts in this order :
 ```
 user.sql
 file_ref.sql
