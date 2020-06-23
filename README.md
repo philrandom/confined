@@ -11,19 +11,19 @@ This website is an online-courses web hosting platform (LAMP stack).
 There are two types of users : regular users and administrators.
 
 Users can:
-    * Upload courses or new chapters of existing courses (The uploads are reviewed by admins before going live), with questionnaires to validate the courses.
-    * Search for courses, and validate them by completing their questionnaires (a questionnaire is validated if all your answers are right).
-    * Request commits to existing courses or chapters, which will be reviewed by admins.
-    * Attach files (images, documents) to a course to illustrate better (adding a thumbnail for the frontpage display is highly recommended).
-    * Track their progress on courses with the quizz validations.
+* Upload courses or new chapters of existing courses (The uploads are reviewed by admins before going live), with questionnaires to validate the courses.
+* Search for courses, and validate them by completing their questionnaires (a questionnaire is validated if all your answers are right).
+* Request commits to existing courses or chapters, which will be reviewed by admins.
+* Attach files (images, documents) to a course to illustrate better (adding a thumbnail for the frontpage display is highly recommended).
+* Track their progress on courses with the quizz validations.
 
 Admins can:
-    * Read courses,
-    * Review requests from users and accept them,
-    * Have an access to the versions of every course/chapter uploaded with the course versionning system,
-    * Instantly publish and modify any course or chapter on the website,
-    * Add questionnaires, files, etc...
-    * Delete any course or chapter.
+* Read courses,
+* Review requests from users and accept them,
+* Have an access to the versions of every course/chapter uploaded with the course versionning system,
+* Instantly publish and modify any course or chapter on the website,
+* Add questionnaires, files, etc...
+* Delete any course or chapter.
 
 Non-users cannot upload or modify courses. Anyone can register as a user on the website and start uploading and modifying courses.
 
@@ -35,8 +35,8 @@ Non-users cannot upload or modify courses. Anyone can register as a user on the 
 The connexion to the website is done with the "index.php" file (default root). It is best to deny any http request to the php files of the website and redirect them to the root (the .htaccess file redirects every request to the root). The URLs are cleaned up. Navigating the website is done with the accessibility features : buttons, links, search bar...
 
 The website is organized in an module/views style: 
-    * The module directory contains the backend code : courses files management, user connection/registeration, questionnaires checking, search engine.
-    * The views directory contains the visual web pages of the website : frontpage, courses viewing/editing views, user informations view (dashboard), course adding, connection/registeration.
+* The module directory contains the backend code : courses files management, user connection/registeration, questionnaires checking, search engine.
+* The views directory contains the visual web pages of the website : frontpage, courses viewing/editing views, user informations view (dashboard), course adding, connection/registeration.
 The etc folder is used for server configuration.
 
 The courses are stored in the data directory. They are identified by a unique MD5 hash code. each hash code is a course/chapter identifier (two chapters of different courses can have the same name, but they will have a different hash code) keeping the information of the last author. For instance, the "OS/linux/file/1" (for the author which has the id "1") chapter has the corresponding hash code : "65988e4dff155fc2422f67dc957f8ee4", whereas the "java/memory/file/1" has the corresponding hash code : "44ea542321a6489aebd9418208f4ce1f".
