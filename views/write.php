@@ -51,7 +51,7 @@
 			//titre
 			echo "<h1 id=\"titre-write\">".$url[$size]."</h1>";
 		
-			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html in the following textarea. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/<span id='hash_code'>$hash</span>/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br>Include a thumbnail image by uploading an image named \"thumbnail.png\" or \"thumbnail.jpg\".<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use the questionnaire utility below the textarea</p>";
+			echo "<p id=\"indications\">Course edition :<br><br>Your course must be written in correct html in the following textarea. You can include all the content that you wish, including customized styles.<br><br>To include a ressource in your course, please use the url \"/data/attachement/<span id='hash_code'>$hash</span>/<your_ressource.format>\"<br>For instance, to include an uploaded image named \"analyse.png\", use the img markup with the source attribute : src=\"/data/attachement/$hash/analyse.png\"<br>(the hash code will be marked as \"NOT_FOUND\" if you are creating the course/chapter, create the lesson first, then edit to add attachments)<br>Include a thumbnail image by uploading an image named \"thumbnail.png\" or \"thumbnail.jpg\".<br><br>To include an evaluation to your course adding a multiple-choice questionnaire to it, you can use the questionnaire utility below the textarea.</p>";
 		
 			//if the user is an admin 
 			if($_SESSION['stype'] == 'admin'){
@@ -130,6 +130,12 @@
 				<textarea rows="40" cols="80" name="article" form="uform"><?php if($z->get_h_code()!='NOT_FOUND') print_r($z->read_from_file());?></textarea>
 
 				<!-- <textarea rows="40" cols="80" name="article" form="uform"><?php //if($z->get_h_code()!='NOT_FOUND') print_r($z->get_qcm_responses());?></textarea> -->
+
+				<?php 
+					$hard_link = $z->get_hard_path_attchment();
+					foreach($z->ls_attach() as $attachment_pieces)
+						echo "<a href='/".$hard_link.'/'.$attachment_pieces. "' ><span style='background-color:grey; width:auto'>/".$hard_link.'/'.$attachment_pieces.'</span></a><br>';
+				?>
 				
 				<form enctype="multipart/form-data" action='/stage_commit.php' method="post" id="uform">
 					<input type="submit" class='button-lecture' value='Submit'>

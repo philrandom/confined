@@ -1,4 +1,16 @@
 
+/* course adding button */
+
+#add-course
+{
+    position: absolute;
+    top: 19.5%;
+    right: 21%;
+    margin: 0px;
+    border: none;
+    background-color: #ffffff;
+}
+
 /* formulaire dans le quel on place la barre de recherche*/
 
 #form-search
@@ -23,10 +35,9 @@
 /*bouton dans lequel on a la div contenant la loupe */
 #btn-loupe
 {
-    background: #2aa3b7;
     border: 1px solid grey;
     cursor: pointer;
-    width:8%;
+    width:5%;
     border:none;
     border-radius: 20px;
     margin-right: 0.5%;

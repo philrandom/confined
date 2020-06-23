@@ -3,9 +3,13 @@
     //display errors
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
-    	error_reporting(E_ALL);
+    error_reporting(E_ALL);
 
     $tag = '%'.explode("/",$_SERVER['REQUEST_URI'])[2].'%';
+    if($tag=='%%')
+    {
+        header('location:/frontpage/');
+    }
 
     $cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
     $sql = "SELECT * FROM tag WHERE tag LIKE :tag";
@@ -32,7 +36,7 @@
         <form id="form-search" action="/modules/search_engine/search.php" method="GET">
             <div id="search-bar">
                 <input id="input" type="text" name="query" placeholder="Search for a topic">
-                <button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"><img src="/assets/icons/loupe2.png"></i></button>
+                <button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"></i></button>
             </div>
         </form>
 

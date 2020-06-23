@@ -17,6 +17,11 @@
 
 <body>
 
+	<?php if(isset($_SESSION['stype']) && $hash != 'NOT_FOUND'){ ?>
+        <a href="/add_course/<?php echo join("/", $z->get_tree())."/" ?>" id="add-chapter"><i class="fa fa-plus-circle fa-2x"></i></a>
+		
+    <?php } ?>
+
 	<?php if(isset($_SESSION['user'])){?>
 		<a href="<?php echo str_replace("/lecture/","/write/",$_SERVER['REQUEST_URI']) ?>" class="modif fa fa-pencil"></a>
 	<?php } ?>

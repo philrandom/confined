@@ -17,6 +17,21 @@ a {
 	color: black;
 }
 
+/* chapter adding button */
+
+#add-chapter
+{
+  position: fixed;
+  top: 13.5%;
+  right: 21%;
+  margin: 0px;
+  border: none;
+  color: #337ab7;
+  background-color: #ffffff;
+}
+
+
+
 #head-title {
 	text-align : center;
 	border-bottom-style: ridge;

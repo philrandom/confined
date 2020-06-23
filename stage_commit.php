@@ -16,11 +16,23 @@ require('./modules/file_dispatcher/main.php');?>
 
 	}
 	else {	//CREATE
-		echo "<script>alert('vous n avez pas les droits');<script>";	
+		$cnnx = new db_dispatcher();
+		$z = new dispatcher("./data",$_SESSION["path"],'c',$cnnx->get_userid($_SESSION['user']));
+
+		echo $_SESSION["path"]." - 'c',1";
+		echo $z->getError();
 	}
 	$a = $z->get_version();
 	$z->new_version();
 	$z->save_in_file($_POST['article']);
 	$z->set_version($a);
+	
+	echo "<br><br>FILES : ";	
+	print_r($_FILES);
+	echo "<br>finfiles<br>";
+	$z->create_attach($_FILES['fileToUpload']);
+
+	echo '<br>H8CODE'.$z->get_h_code()." saved in:";
+	print_r($z->get_tree());
 	header("Location: "."/lecture/".$_SESSION["path"]);
 ?>

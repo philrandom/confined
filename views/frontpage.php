@@ -50,7 +50,7 @@
             if(!isset($_SESSION['user']))
             {
         ?>
-                <style>#btn-loupe{background-color: #444444;}</style>
+                <style>#btn-loupe{background-color: #ffffff;}</style>
         <?php
             }
             else if( $_SESSION["stype"] == "admin" )
@@ -69,11 +69,15 @@
     </head>
 
     <body>
-    
+
+        <?php if(isset($_SESSION['stype'])){ ?>
+            <a href="/add_course/" id="add-course"><i class="fa fa-plus-circle fa-4x"></i></div></a>
+        <?php }?>
+
         <form id="form-search" action="/modules/search_engine/search.php" method="GET">
             <div id="search-bar">
                 <input id="input" type="text" name="query" placeholder="Search for a topic">
-                <button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"><img src="/assets/icons/loupe2.png"></i></button>
+                <button id="btn-loupe" type="submit"><i id="loupe-container" class="fa fa-search"></i></button>
             </div>
         </form>
 
@@ -129,14 +133,14 @@
                                                 $link = "http://localhost:81/data/attachement/".$h_code."/thumbnail.jpg";
                                                 $file_headers = @get_headers($link);
                                                 if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {                                                    
-                                                    $link = "../assets/icons/thumbnail.png";
+                                                    $link = "/assets/icons/thumbnail.jpg";
                                                 }
                                                 else{
-                                                    $link = "../data/attachement/".$h_code."/thumbnail.jpg";
+                                                    $link = "/data/attachement/".$h_code."/thumbnail.jpg";
                                                 }
                                             }
                                             else{
-                                                $link = "../data/attachement/".$h_code."/thumbnail.png";
+                                                $link = "/data/attachement/".$h_code."/thumbnail.png";
                                             }
                                             echo $link;
                                         ?>
