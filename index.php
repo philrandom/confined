@@ -24,7 +24,7 @@
 
 	<?php
 
-		//on récupère les infos de l'utilisateur actuel
+		//user info gathering
 		session_start();
 		
 		//header 
@@ -46,14 +46,19 @@
 		}
 		echo $top;
 
+		//url parsing
 		$url = explode("/",$_SERVER['REQUEST_URI']);
 		unset($url[sizeof($url)-1]);
 
+		//web page redirection
 		if( $url[1] == ''){
 			include('./modules/search_engine/search.php');
 		}else
 		if( $url[1] == 'frontpage' ) {
 			include('./views/frontpage.php');
+		}else 
+		if( $url[1] == 'add_course' ) {
+			include('./views/add_course.php');
 		}else
 		if( $url[1] == 'lecture' ) {
 			include('./views/tag-tree.php');
@@ -62,7 +67,8 @@
 		if( $url[1] == 'write' & $_SESSION['user']!='' ) {
 			include('./views/tag-tree.php');
 			include('./views/write.php');
-		}else	if( $url[1] == 'remove' ) {
+		}else 
+		if( $url[1] == 'remove' ) {
 			include('./views/remove.php');
 		}else
 		if( $url[1] == 'tag' ) {
@@ -92,9 +98,11 @@
 		if( $url[1] == 'activate' & $_SESSION['stype']=="admin" ) {
 			include('./views/activate.php');
 		}else
-
+		//404 Error
 		if( $url[1] != '' ) {
-			echo "<div style='margin:20%; margin-left:35%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";		}
+			echo "<div style='margin:20%; margin-left:35%; width: 100%; height:100%; font-family:arial;'><h1>404: Maybe you are lost ?</h1></div>";
+		}
+
 	?>
 
 </html>
