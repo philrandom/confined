@@ -2,11 +2,13 @@
 
 
 
+This website is currently hosted at the following address : http://ec2-3-19-167-59.us-east-2.compute.amazonaws.com/
+
 <p align="center">
     <img width="100%" src="/assets/frontpage.PNG" style="max-width:100%;"></a>
 </p>
 
-This website is an online-courses web hosting platform (LAMP stack). 
+This website is an online-courses web hosting platform (LAMP stack).
 
 There are two types of users : regular users and administrators.
 
