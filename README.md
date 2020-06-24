@@ -2,7 +2,7 @@
 
 
 
-This website is currently hosted at the following address : http://confined.site
+This website is currently hosted at the following address : https://confined.site/
 
 <p align="center">
     <img width="100%" src="/assets/frontpage.PNG" style="max-width:100%;"></a>
