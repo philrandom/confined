@@ -2,7 +2,7 @@
 
 
 
-This website is currently hosted at the following address : http://ec2-3-19-167-59.us-east-2.compute.amazonaws.com/
+This website is currently hosted at the following address : http://confined.site
 
 <p align="center">
     <img width="100%" src="/assets/frontpage.PNG" style="max-width:100%;"></a>
