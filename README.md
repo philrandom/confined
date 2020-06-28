@@ -4,9 +4,7 @@
 
 This website is currently hosted at the following address : https://confined.site/
 
-<p align="center">
-    <img width="100%" src="/assets/frontpage.PNG" style="max-width:100%;"></a>
-</p>
+![frontpage](/assets/frontpage.PNG)
 
 This website is an online-courses web hosting platform (LAMP stack).
 
@@ -29,7 +27,9 @@ Admins can:
 
 Non-users cannot upload or modify courses. Anyone can register as a user on the website and start uploading and modifying courses.
 
+## Licensing
 
+This project is under Apache 2.0. Feel free to contribute, use it, and share it. We encourage you to contribute or host confined on your own server for educational purpose. Obviously due to the licence you could use it for free for any purpose. Keep in mind this product is delivered under AS-IS specification, wich means that we are not respondible for any disfunctionnement.
 
 ## Website architecture
 
