@@ -27,9 +27,6 @@ Admins can:
 
 Non-users cannot upload or modify courses. Anyone can register as a user on the website and start uploading and modifying courses.
 
-## Licensing
-
-This project is under Apache 2.0. Feel free to contribute, use it, and share it. We encourage you to contribute or host confined on your own server for educational purpose. Obviously due to the licence you could use it for free for any purpose. Keep in mind this product is delivered under AS-IS specification, wich means that we are not respondible for any disfunctionnement.
 
 ## Website architecture
 
@@ -100,3 +97,6 @@ Tweak the environnement variables with the following files:
 ```
 
 
+## Licensing
+
+This project is under Apache 2.0. Feel free to contribute, use it, and share it. We encourage you to contribute or host confined on your own server for educational purpose. Obviously due to the licence you could use it for free for any purpose. Keep in mind this product is delivered under AS-IS specification, wich means that we are not respondible for any disfunctionnement.
