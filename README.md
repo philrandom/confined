@@ -38,7 +38,7 @@ The website is organized in an module/views style:
 * The views directory contains the visual web pages of the website : frontpage, courses viewing/editing views, user informations view (dashboard), course adding, connection/registeration.
 The etc folder is used for server configuration.
 
-The courses are stored in the data directory. They are identified by a unique MD5 hash code. each hash code is a course/chapter identifier (two chapters of different courses can have the same name, but they will have a different hash code) keeping the information of the last author. For instance, the "OS/linux/file/1" (for the author which has the id "1") chapter has the corresponding hash code : "65988e4dff155fc2422f67dc957f8ee4", whereas the "java/memory/file/1" has the corresponding hash code : "44ea542321a6489aebd9418208f4ce1f".
+The courses are stored in the data directory. They are identified by a unique MD5 hash code. Each hash code is a course/chapter identifier (two chapters of different courses can have the same name, but they will have a different hash code) keeping the information of the last author. For instance, the "OS/linux/file/1" (for the author which has the id "1") chapter has the corresponding hash code : "65988e4dff155fc2422f67dc957f8ee4", whereas the "java/memory/file/1" page has the corresponding hash code : "44ea542321a6489aebd9418208f4ce1f".
 Depending on the etc configuration, the attachments are stored in an "attachement" folder or in each hash code directory.
 
 The questionnaires are stored in the database in the "qcm" (multiple choice questionnaire) table. Each questionnaire is associated to an unique course hash code.
