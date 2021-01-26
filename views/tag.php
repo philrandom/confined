@@ -74,10 +74,10 @@
                                         else{
                                             $h_code = $cours['h_code'];
                                         }
-                                        $link = "http://localhost:81/data/attachement/".$h_code."/thumbnail.png";
+                                        $link = "http://localhost/data/attachement/".$h_code."/thumbnail.png";
                                         $file_headers = @get_headers($link);
                                         if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-                                            $link = "http://localhost:81/data/attachement/".$h_code."/thumbnail.jpg";
+                                            $link = "http://localhost/data/attachement/".$h_code."/thumbnail.jpg";
                                             $file_headers = @get_headers($link);
                                             if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {                                                    
                                                 $link = "/assets/icons/thumbnail.png";

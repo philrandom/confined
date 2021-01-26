@@ -1,5 +1,4 @@
 <?php
-
     //display errors
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -43,10 +42,9 @@
                 $_SESSION['iduser'] = $iduser;
                 $_SESSION['user'] = $user;
                 $_SESSION['stype'] = $stype;
-            }
-            header('location:/frontpage/');
+	        }
+            header('location:/frontpage/');            
         }
-
     }
     //if this page isn't accessed the right way
     else

@@ -1,8 +1,8 @@
 <?php
-	//display errors
-	// ini_set('display_errors', 1);
-	// ini_set('display_startup_errors', 1);
-	// error_reporting(E_ALL);
+	// display errors
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 
 	require("./etc/file_dispatcher/config.php");
 	require("./etc/sql.php");
@@ -34,15 +34,17 @@
 			$top = str_replace("#004d5a","#444444",$top);
 			$top = str_replace("#2aa3b7","#444444",$top);
 		}
-		if( $_SESSION["stype"] == "admin" )
-		{
-			$top = str_replace("#004d5a","#2aa3b7",$top);
-			$top = str_replace("#444444","#2aa3b7",$top);
-		}
-		if( $_SESSION["stype"] == "user" )
-		{
-			$top = str_replace("#444444","#004d5a",$top);
-			$top = str_replace("#2aa3b7","#004d5a",$top);
+		else { 
+			if( $_SESSION["stype"] == "admin" )
+			{
+				$top = str_replace("#004d5a","#2aa3b7",$top);
+				$top = str_replace("#444444","#2aa3b7",$top);
+			}
+			if( $_SESSION["stype"] == "user" )
+			{
+				$top = str_replace("#444444","#004d5a",$top);
+				$top = str_replace("#2aa3b7","#004d5a",$top);
+			}
 		}
 		echo $top;
 

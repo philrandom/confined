@@ -43,22 +43,13 @@
                 <div class="form-group">
                     <label for="pass">New Password</label>
                     <input class="form-control" type="password" name="pass" required>
-                </div>
+		</div>
 
-                <div id="choose" class="form-group">
-                    <div class="center-radio">
-                        <label for="eleve">Student</label>
-                        <input type="radio" id="eleve" value="eleve" name="type" checked>
-                    </div>
-                    <div class="center-radio">
-                        <label for="prof">Teacher</label>
-                        <input type="radio" id="prof" value="prof" name="type">
-                    </div>
-                </div>
-                
                 <div class="title">
                     <button type="submit" class="btn btn-default sbmit">Register</button>
-                </div>
+		</div>
+
+		<input type="hidden" name="type" value="user">
 
             </form>
 
