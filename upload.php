@@ -6,7 +6,8 @@ require('./modules/file_dispatcher/main.php');?>
 
 <?php
 	session_start();
-	echo 'POST'.$_POST["article"].$_SESSION["path"];
+	if(isset($_POST['article']))
+		echo 'POST'.$_POST["article"].$_SESSION["path"];
 	$z = new dispatcher("./data",$_SESSION["path"],'r',1);
 	echo '<br>lecture mode get this code:'.$z->get_h_code().'<br>';
 	if( $z->get_h_code() != "NOT_FOUND" ){	//UPDATE
@@ -17,7 +18,7 @@ require('./modules/file_dispatcher/main.php');?>
 	}
 	else {	//CREATE
 		$cnnx = new db_dispatcher();
-		$z = new dispatcher("./data",$_SESSION["path"],'c',$cnnx->get_userid($_SESSION['user']));
+		$z = new dispatcher("./data", ltrim($_SESSION["path"], '/'),'c',$cnnx->get_userid($_SESSION['user']));
 
 		echo $_SESSION["path"]." - 'c',1";
 		echo $z->getError();
@@ -25,12 +26,14 @@ require('./modules/file_dispatcher/main.php');?>
 	$z->new_version();
 	$z->save_in_file($_POST['article']);
 
-	echo "<br><br>FILES : ";	
-	print_r($_FILES);
-	echo "<br>finfiles<br>";
-	$z->create_attach($_FILES['fileToUpload']);
+	if(isset($_FILES)) {
+		echo "<br><br>FILES : ";	
+		print_r($_FILES);
+		echo "<br>finfiles<br>";
+		$z->create_attach($_FILES['fileToUpload']);
+	}
 
 	echo '<br>H8CODE'.$z->get_h_code()." saved in:";
 	print_r($z->get_tree());
-	header("Location: "."/lecture/".$_SESSION["path"]);
+	header("location: "."/lecture/".ltrim($_SESSION["path"], '/'));
 ?>

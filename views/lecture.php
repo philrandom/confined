@@ -47,7 +47,7 @@
 			//QCM
 
 			//vérification de l'existence du qcm
-			$cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
+			$cnnx = new PDO(constant('type_sql').':dbname='.constant('dbname').';host='.constant('server'), constant('user_sql'), constant('pass_sql'));
 			$sql = "SELECT * FROM qcm WHERE h_code='".$hash."'";
 			$res = $cnnx->prepare($sql);
 			$res->execute();
@@ -110,7 +110,7 @@
 			//récupération de l'auteur de l'article
 			$z = new dispatcher("./data",str_replace("/lecture/","",$_SERVER['REQUEST_URI']),'r',1);
 			$hash = $z->get_h_code();
-			$cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
+			$cnnx = new PDO(constant('type_sql').':dbname='.constant('dbname').';host='.constant('server'), constant('user_sql'), constant('pass_sql'));
 			$sql = "SELECT user.user FROM `file_ref` INNER JOIN user ON user.iduser= file_ref.author WHERE h_code = '$hash' GROUP BY h_code";
 			$res = $cnnx->prepare($sql);
 			$res->execute();

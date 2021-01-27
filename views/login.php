@@ -22,7 +22,7 @@
         <div class="wrapper">
 
             <!-- If the user had used wrong connection info, error message -->
-            <?php  echo $_GET['error']; if($_GET['error'] == 'true') echo "<p class=\"alert alert-danger\">Error, you misstyped your username or your password</p>"?>
+            <?php  if(isset($_GET['error'])) {echo $_GET['error']; if($_GET['error'] == 'true') { echo "<p class=\"alert alert-danger\">Error, you misstyped your username or your password</p>";}}?>
             
             <div class="title">
                 <h1>Log in</h1>

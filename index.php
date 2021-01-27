@@ -1,8 +1,8 @@
 <?php
 	// display errors
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
+	// ini_set('display_errors', 1);
+	// ini_set('display_startup_errors', 1);
+	// error_reporting(E_ALL);
 
 	require("./etc/file_dispatcher/config.php");
 	require("./etc/sql.php");
@@ -66,7 +66,7 @@
 			include('./views/tag-tree.php');
 			include('./views/lecture.php');
 		}else
-		if( $url[1] == 'write' & $_SESSION['user']!='' ) {
+		if( $url[1] == 'write' && $_SESSION['user']!='' ) {
 			include('./views/tag-tree.php');
 			include('./views/write.php');
 		}else 
@@ -77,7 +77,7 @@
 			include('./views/tag.php');
 		}else	
 		if( $url[1] == 'login' ) {
-			if($url[-1] == '?error=true')
+			if(isset($url[-1]) && $url[-1] == '?error=true')
 				include('./views/login.php?error=true');
 			else
 				include('./views/login.php');
@@ -88,16 +88,16 @@
 			else
 				include('./views/register.php');
 		}else
-		if( $url[1] == 'dashboard' & $_SESSION['user']!='' ) {
+		if( $url[1] == 'dashboard' && $_SESSION['user']!='' ) {
 			include('./views/dashboard.php');
 		}else
 		if( $url[1] == 'disconnect' ) {
 			include('./modules/login/disconnection.php');
 		}else
-		if( $url[1] == 'v' & $_SESSION['stype']=="admin" ) {
+		if( $url[1] == 'v' && $_SESSION['stype']=="admin" ) {
 			include('./views/version.php');
 		}else 
-		if( $url[1] == 'activate' & $_SESSION['stype']=="admin" ) {
+		if( $url[1] == 'activate' && $_SESSION['stype']=="admin" ) {
 			include('./views/activate.php');
 		}else
 		//404 Error

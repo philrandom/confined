@@ -17,7 +17,7 @@
         {
             //quand on accède à la frontpage par le bouton 
             $query = '%%';
-            $cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
+            $cnnx = new PDO(constant('type_sql').':dbname='.constant('dbname').';host='.constant('server'), constant('user_sql'), constant('pass_sql'));
             $sql = "SELECT * FROM tag WHERE tag LIKE :query GROUP BY tag ORDER BY weight DESC";
             $res = $cnnx->prepare($sql);
             $res->bindParam(':query',$query);

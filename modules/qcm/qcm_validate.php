@@ -35,12 +35,13 @@
 		//on récupère l'user puis on valide son qcm 
 		session_start();
 		$iduser = $_SESSION['iduser'];
-
-		$cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
-		$sql = "INSERT INTO score VALUES ($iduser,'$hash')";
-		$res = $cnnx->prepare($sql);
-		$res->execute();
-		echo var_dump($res->errorInfo());
+		$cnnx = new PDO(constant('type_sql').':dbname='.constant('dbname').';host='.constant('server'), constant('user_sql'), constant('pass_sql'));
+		$sql = "INSERT INTO score VALUES (:iduser, :hash)";
+		$stmnt = $cnnx->prepare($sql);		
+		$stmnt->bindParam(':iduser', $iduser);
+		$stmnt->bindParam(':hash', $hash, PDO::PARAM_STR, 32);
+		$stmnt->execute();
+		echo var_dump($stmnt->errorInfo());
 	}
 	//retour à la page du cours
 	header('location:'."/lecture/".implode('/',$z->get_tree())."/");

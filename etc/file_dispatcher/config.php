@@ -1,30 +1,24 @@
 <?php
-class const_dispatcher
-{
-	/*---		SQL 	---*/
-	const tag_table = 'tag';
-	const file_ref_table = 'file_ref';
 
 	/*---		BACKUP		---*/
-	const hash = 'md5';		//please use hash function with one argument for security avoiding CSRF exec. pleas use old hash algorithm
+	define('hash', apache_getenv('hash'));		//please use hash function with one argument for security avoiding CSRF exec. pleas use old hash algorithm
 	/*---		Attachement	---*/
-	const authorized_ext = 	['pdf','jpg','png','avi'];
-	const separate_location = 'yes';
+	define('authorized_ext', apache_getenv('authorized_ext'));
+	define('separate_location', apache_getenv('separate_location'));
 		//yes 	write in /data/attachement/
 		//no 	write in /data/h_code/attachement/
-	const name_dir_attachement = 'attachement';
+	define('name_dir_attachement', apache_getenv('name_dir_attachement'));
 	/*---		versionning section 	---*/
-	const max_version = 5;				//max of last version available immediatly
-	const rm_old_versions =	'no';			//delete old versions (rm as remove)
+	define('max_version', apache_getenv('max_version'));				//max of last version available immediatly
+	define('rm_old_versions', apache_getenv('rm_old_versions'));			//delete old versions (rm as remove)
 
 	/*---		qcm			---*/
-	const qcm = 'qcm';		//table qcm in db
+	define('qcm', apache_getenv('qcm'));		//table qcm in db
 
 	/*---		compression		---
 	Phar::GZ 		// .tar.gz
 	Phar::BZ2 	// .tar.bz2  - note : you must enable it https://www.php.net/manual/en/bzip2.installation.php
 	Phar::NONE 	// do not compress
 	*/
-	const compression_type = Phar::NONE;		//to compress old versions
-}
+	define('compression_type', apache_getenv('compression_type'));		//to compress old versions
  ?>

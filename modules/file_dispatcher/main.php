@@ -95,7 +95,7 @@ class dispatcher
 						//create file
 						$this->v = 0;
 						$cnnx = new db_dispatcher();
-						$hash = const_dispatcher::hash;
+						$hash = constant('hash');
 						$this->h_code = $hash($link.$author);
 						$cnnx->create_file($this->h_code,$author);			//SQL TABLE file_ref
 						$cnnx->create_path($this->h_code,$this->tree);		//SQL TABLE tag
@@ -119,7 +119,7 @@ SECTION is_
 		}
 
 		function is_hash($possible_hash){
-			$hash = const_dispatcher::hash;
+			$hash = constant('hash');
 			return ( strlen($hash("test"))==preg_match_all('/[a-f0-9]/', $possible_hash) ) & ( strlen($hash("test"))==strlen($possible_hash) );
 		}
 
@@ -168,7 +168,7 @@ SECTION attachement
 
 		function create_attach($file) {
 
-			if(! in_array(strtolower(pathinfo($file['name'],PATHINFO_EXTENSION)),const_dispatcher::authorized_ext)) {
+			if(! in_array(strtolower(pathinfo($file['name'],PATHINFO_EXTENSION)),constant('authorized_ext'))) {
 				$this->error[] = "[file_dispatcher:create_attachement] extension is not valid";
 				return -1;
 			}
@@ -196,15 +196,15 @@ SECTION attachement
 
 		function get_hard_path_attchment() {
 			//define path of location 
-			if( const_dispatcher::separate_location == 'yes' ) {
-				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement;
+			if( constant('separate_location') == 'yes' ) {
+				$final_place = $this->backup. '/' . constant('name_dir_attachement');
 				if (!file_exists($final_place))
 					mkdir( $final_place, 0777);
-				$final_place = $this->backup. '/' . const_dispatcher::name_dir_attachement . '/' . $this->h_code;
+				$final_place = $this->backup. '/' . constant('name_dir_attachement') . '/' . $this->h_code;
 
 			}
 			else {
-				$final_place = $this->backup. '/' . $this->h_code . '/'  . const_dispatcher::name_dir_attachement;
+				$final_place = $this->backup. '/' . $this->h_code . '/'  . constant('name_dir_attachement');
 			}
 
 			return $final_place;
@@ -242,19 +242,19 @@ SECTION versionning
 			$cnnx = new db_dispatcher();
 			$cnnx->update_current_version($this->h_code,$this->v);
 			$cnnx->kill();
-			if(const_dispatcher::rm_old_versions == 'no' & const_dispatcher::compression_type!=Phar::NONE){
-				if($this->v - const_dispatcher::max_version == 1 ){
+			if(constant('rm_old_versions') == 'no' & constant('compression_type')!=Phar::NONE){
+				if($this->v - constant('max_version') == 1 ){
 					echo '=1  run compres';
 					$this->archive_compress();
 				}
-				if($this->v - const_dispatcher::max_version > 1) {
+				if($this->v - constant('max_version') > 1) {
 					echo '>1  run uncompress -> compres';
 					$this->archive_uncompress();
 					echo '<script>alert(\'...\')</script>';
 					$this->archive_compress();
 				}
-			} else if(const_dispatcher::rm_old_versions == 'yes'){
-				for ($i = 0; $i <= $this->v - const_dispatcher::max_version ; $i++) {
+			} else if(constant('rm_old_versions') == 'yes'){
+				for ($i = 0; $i <= $this->v - constant('max_version') ; $i++) {
 					unlink($this->backup . '/' . $this->h_code . '/' . $i);
 				}
 			}
@@ -284,13 +284,13 @@ SECTION archive
 				$a = new PharData($this->backup . '/' . $this->h_code . '/archive.tar');
 				echo '<br>construct';
 				// ADD FILES TO archive.tar FILE
-				for ($i = 0; $i <= $this->v - const_dispatcher::max_version ; $i++){
+				for ($i = 0; $i <= $this->v - constant('max_version') ; $i++){
 					$a->addFile($this->backup . '/' . $this->h_code . '/' . $i,$i);
 					unlink($this->backup . '/' . $this->h_code . '/' . $i);
 					echo '<br>addfile'.$i;
 				}
 				// COMPRESS archive.tar FILE. COMPRESSED FILE WILL BE archive.tar.gz
-				$a->compress(const_dispatcher::compression_type);
+				$a->compress(constant('compression_type'));
 				echo '<br>compressing';
 				// NOTE THAT BOTH FILES WILL EXISTS. SO IF YOU WANT YOU CAN UNLINK archive.tar
 				unlink($this->backup . '/' . $this->h_code . '/archive.tar');
@@ -379,7 +379,7 @@ SECTION QCM
 				$this->error[] = "[file_dispacther:add_row_question] You don't have rights to edit a qcm";
 				return false;
 			}
-			if(!(preg_match_all('/[A-D]/',$V)==1 & strlen($V)==1  )) {
+			if(!(preg_match_all('/[A-D]/',$V)==1 && strlen($V)==1  )) {
 				$this->error[] = "[file_dispacther:add_row_question] The V parameters isn't correct";
 				return false;
 			}

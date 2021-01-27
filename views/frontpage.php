@@ -36,6 +36,8 @@
             }
             $parcours ++;
         }
+    } else {
+        header('location:/');
     }
 ?>
 

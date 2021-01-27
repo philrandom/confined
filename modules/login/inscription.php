@@ -15,7 +15,7 @@
 
         //oppening the database
         require("../../etc/sql.php");
-        $cnnx = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
+        $cnnx = new PDO(constant('type_sql').':dbname='.constant('dbname').';host='.constant('server'), constant('user_sql'), constant('pass_sql'));
 
         //searching for the user
         $sql = "INSERT INTO user VALUES (NULL, :user, :mail, :pass, NULL, :type)";

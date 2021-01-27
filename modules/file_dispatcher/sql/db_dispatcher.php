@@ -7,7 +7,7 @@ class db_dispatcher
 
 
 		function __construct(){
-			$this->cnnx  = new PDO(const_sql::type_sql.':dbname='.const_sql::dbname.';host='.const_sql::server, const_sql::user_sql, const_sql::pass_sql);
+			$this->cnnx  = new PDO(constant('type_sql').':dbname='.constant('dbname').';host='.constant('server'), constant('user_sql'), constant('pass_sql'));
 		}
 
 		function kill(){
@@ -20,8 +20,9 @@ class db_dispatcher
 SECTION search for dispatcher:__construct
 --------------------------*/
 		function search_by_hash($h_code){
-			$sql = $this->cnnx->prepare("SELECT tag FROM ".const_dispatcher::tag_table." WHERE  h_code like :h_code order by weight asc");
-			$sql->execute([':h_code' => $h_code]);
+			$sql = $this->cnnx->prepare("SELECT tag FROM tag WHERE h_code like :h_code order by weight asc");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
 			$tab = $sql->fetchAll();
 			$final = array();
 			foreach ($tab as $elem) {
@@ -59,7 +60,7 @@ SECTION search for dispatcher:__construct
 			//[OK] /OS/linux/
 			//[OK] /OS/bsd/macOS/
 			//[FAIL] /OS/bsd/
-			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
+			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM tag where ";
 			for($i=0 ; $i < sizeof($tree); $i++) {
 				$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
 				if($i != sizeof($tree)-1)		$str = $str . ' or ';
@@ -70,7 +71,7 @@ SECTION search for dispatcher:__construct
 			$sql->execute();
 			$r1 = $sql->fetchAll();
 
-			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
+			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM tag where ";
 			for($i=0 ; $i < sizeof($tree); $i++) {
 				$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
 				if($i != sizeof($tree)-1)		$str = $str . ' or ';
@@ -99,7 +100,7 @@ SECTION search for dispatcher:__construct
 		}
 		
 		function summary($tree){
-			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM `" . const_dispatcher::tag_table . "` where ";
+			$str = "SELECT h_code FROM ( SELECT count(h_code) C, h_code, tag, weight FROM tag where ";
 			for($i=0 ; $i < sizeof($tree); $i++) {
 				$str = $str . "(tag = '". $tree[$i] ."'  and weight = ".$i.")";
 				if($i != sizeof($tree)-1)		$str = $str . ' or ';
@@ -116,43 +117,55 @@ SECTION search for dispatcher:__construct
 SECTION versionnig for dispatcher:*_version
 --------------------------*/
 		function get_author($h_code){
-			$sql = $this->cnnx->prepare("SELECT author  FROM `" . const_dispatcher::file_ref_table . "` where h_code=:h_code ");
-			$sql->execute([':h_code'=>$h_code]);
+			$sql = $this->cnnx->prepare("SELECT author  FROM file_ref where h_code=:h_code ");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
 			return $sql->fetchAll()[0]['author'];
 		}
 
 		function get_version($h_code){
-			$sql = $this->cnnx->prepare("SELECT v FROM `" . const_dispatcher::file_ref_table . "` where active=1 and h_code=:h_code");
-			$sql->execute([':h_code'=>$h_code]);
+			$sql = $this->cnnx->prepare("SELECT v FROM file_ref where h_code=:h_code and active=1");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute() or die(print_r($sql->errorInfo(), true));
 			return $sql->fetchAll()[0]['v'];
 		}
 		
 		function get_last_version($h_code){
-			$sql = $this->cnnx->prepare("SELECT v FROM `" . const_dispatcher::file_ref_table . "` where h_code=:h_code order by v desc limit 1");
-			$sql->execute([':h_code'=>$h_code]);
+			$sql = $this->cnnx->prepare("SELECT v FROM file_ref where h_code=:h_code order by v desc limit 1");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
 			return $sql->fetchAll()[0]['v'];
 		}
 		
 		function update_current_version($h_code,$v,$last_colab=1){
 			//echo "sql update_current_version<br>";
-			$sql = $this->cnnx->prepare("UPDATE `" . const_dispatcher::file_ref_table . "` SET active=0 where h_code=:h_code");
-			$sql->execute([':h_code'=>$h_code]);
-			
-			
-			$sql = $this->cnnx->prepare("SELECT * from `" . const_dispatcher::file_ref_table . "` where v=:v and h_code=:h_code");
-			$sql->execute([':h_code'=>$h_code,':v'=>$v]);
+			$sql = $this->cnnx->prepare("UPDATE file_ref SET active=0 where h_code=:h_code");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
+
+			$sql = $this->cnnx->prepare("SELECT * from file_ref where v=:v and h_code=:h_code");			
+			$sql->bindParam(':v', $v);
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
 			//print_r($sql->errorInfo());
 			//print_r('for v='.$v.':'.$sql->fetchAll());
 			if( sizeof($sql->fetchAll())==1 ){
-				$sql = $this->cnnx->prepare("UPDATE `" . const_dispatcher::file_ref_table . "` SET active=1 where v=:v and h_code=:h_code");
-				$sql->execute([':h_code'=>$h_code,':v'=>$v]);
+				$sql = $this->cnnx->prepare("UPDATE file_ref SET active=1 where v=:v and h_code=:h_code");
+				$sql->bindParam(':v', $v);
+				$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+				$sql->execute();
 				//print_r($sql->errorInfo());
 			}
 			else {
 				//echo 'author#'.$this->get_author($h_code).'#';
 				$author = $this->get_author($h_code);
-				$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::file_ref_table . "` (`h_code`, `author`, `last_colab`,`v`,`date`,`active`) VALUES (:h_code, :author, :last_colab, :v , :date , 1)"); // where v = :v and h_code = :h_code");
-				$sql->execute([':h_code'=>$h_code, ':author' => $author, ':last_colab'=>$last_colab, ':v' => $v ,':date'=>time()]);
+				$sql = $this->cnnx->prepare("INSERT INTO file_ref (`h_code`, `author`, `last_colab`,`v`,`date`,`active`) VALUES (:h_code, :author, :last_colab, :v , :date , 1)"); // where v = :v and h_code = :h_code");
+				$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+				$sql->bindParam(':author', $author);
+				$sql->bindParam(':last_colab', $last_colab);
+				$sql->bindParam(':v', $v);
+				$sql->bindParam(':date', time());
+				$sql->execute();
 				//print_r($sql->errorInfo());
 				//print_r($sql);
 			}
@@ -164,8 +177,11 @@ SECTION creation for dispatcher:__construct
 
 		function create_file($h_code,$author){
 			//echo 'create_file';
-			$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::file_ref_table . "` (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (:h_code, :author, :author, 0, :time, 1)");
-			$sql->execute([':h_code' => $h_code , ':author' => $author, ':time' => time()  ]);
+			$sql = $this->cnnx->prepare("INSERT INTO file_ref (`h_code`, `author`, `last_colab`, `v`, `date`, `active`) VALUES (:h_code, :author, :author, 0, :time, 1)");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->bindParam(':author', $author);
+			$sql->bindParam(':time', time());
+			$sql->execute();
 			//print_r($sql->errorInfo());
 		}
 
@@ -173,7 +189,10 @@ SECTION creation for dispatcher:__construct
 			//echo 'create_path';
 			for ($i=0; $i < sizeof($tree) ; $i++) {
 				$sql = $this->cnnx->prepare("INSERT INTO  `tag` (`h_code`, `tag`, `weight`) VALUES (:h_code, :tag, :w)");
-				$sql->execute([':h_code' => $h_code , ':tag' => $tree[$i], ':w' => $i  ]);
+				$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+				$sql->bindParam(':tag', $tree[$i]);
+				$sql->bindParam(':w', $i);
+				$sql->execute();
 				//print_r($sql->errorInfo());
 			}
 		}
@@ -182,10 +201,15 @@ SECTION creation for dispatcher:__construct
 SECTION others function linked to fs
 ----------------------------*/
 		function rm($h_code){
-			$sql = $this->cnnx->prepare("DELETE FROM `" . const_dispatcher::tag_table . "` where h_code = :h_code ");
-			$sql->execute([':h_code' => $h_code ]);
-			$sql = $this->cnnx->prepare("DELETE FROM `" . const_dispatcher::file_ref_table . "` where h_code = :h_code ");
-			$sql->execute([':h_code' => $h_code ]);
+			$sql = $this->cnnx->prepare("DELETE FROM tag where h_code = :h_code ");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
+			$sql = $this->cnnx->prepare("DELETE FROM file_ref where h_code = :h_code ");
+			
+			
+			
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
 		}
 
 /*----------------------------
@@ -193,14 +217,22 @@ SECTION qcm
 // ----------------------------*/
 
 		function add_row_qcm_sql($h_code,$qu,$A,$B,$C,$D,$V) {
-			$sql = $this->cnnx->prepare("INSERT INTO `" . const_dispatcher::qcm . "` (`h_code`, question, A, B, C, D, V ) VALUES (:h_code, :question, :A, :B, :C, :D, :V)");
-			return $sql->execute([':h_code'=>$h_code, ':question'=>$qu, ':A' => $A, ':B' => $B, ':C' => $C, ':D' => $D, ':V'=>$V]);
+			$sql = $this->cnnx->prepare("INSERT INTO qcm (`h_code`, question, A, B, C, D, V ) VALUES (:h_code, :question, :A, :B, :C, :D, :V)");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->bindParam(':question', $qu);
+			$sql->bindParam(':A', $A);			
+			$sql->bindParam(':B', $B);			
+			$sql->bindParam(':C', $C);			
+			$sql->bindParam(':D', $D);			
+			$sql->bindParam(':V', $V);			
+			return $sql->execute();
 		}
 
 
 		function get_all_row_qcm_sql($h_code) {
-			$sql = $this->cnnx->prepare("SELECT * from `" . const_dispatcher::qcm . "` where h_code=:h_code");
-			$sql->execute([':h_code'=>$h_code]);
+			$sql = $this->cnnx->prepare("SELECT * from qcm where h_code=:h_code");
+			$sql->bindParam(':h_code', $h_code, PDO::PARAM_STR, 32);
+			$sql->execute();
 			return $sql->fetchAll();
 		}
 /*--------------------------
@@ -211,21 +243,26 @@ SECTION dashboard - score QCM
 		function get_userid($user) {
 			$str = "SELECT iduser FROM user where user=:user";
 			$sql = $this->cnnx->prepare($str);
-			$sql->execute([':user'=>$user]);
+			$sql->bindParam(':user', $user);
+			$sql->execute();
 			return $sql->fetchAll()[0]['iduser'];
 		}
 
 		function score_global_qcm($user) {
 			$str = "SELECT count(h_code) c FROM score where iduser=:iduser";
 			$sql = $this->cnnx->prepare($str);
-			$sql->execute([':iduser'=>$this->get_userid($user)]);
+			$id_user = $this->get_userid($user);
+			$sql->bindParam(':iduser', $id_user);
+			$sql->execute();
 			return $sql->fetchAll()[0]['c'];
 		}
 
 		function get_all_correct_grid_qcm($user) {
 			$str = "SELECT h_code FROM score where iduser=:iduser";
 			$sql = $this->cnnx->prepare($str);
-			$sql->execute([':iduser'=>$this->get_userid($user)]);
+			$id_user = $this->get_userid($user);
+			$sql->bindParam(':iduser', $id_user);
+			$sql->execute();
 			return $sql->fetchAll();
 		}
 
